@@ -1,16 +1,17 @@
 <head>
-  <title>Mrb.in</title>
+	<title>Mrb.in</title>
 </head>
 
 <body>
-  <h1>Welcome to Meteor!</h1>
+	<h1>Welcome to Meteor!</h1>
 
-  {{> hello}}
+	{{> hello}}
 
 </body>
 
 <template name="hello">
-  <form class="new-paste">
-    <input type="text" name="paste" placeholder="Enter some text to create a new paste..." />
-  </form>
+	<form class="new-paste">
+		<input type="text" name="title" placeholder="Enter title..." />
+		<textarea type="text" name="paste" placeholder="Enter some text to create a new paste..." ></textarea>
+	</form>
 </template>

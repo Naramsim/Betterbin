@@ -1,7 +1,8 @@
 var fs = Npm.require('fs');
-var path = Npm.require( 'path' ) ;
-var __ROOT_APP_PATH__ = fs.realpathSync('.');
-var pastesPath = path.join(__ROOT_APP_PATH__,"pastes");
+var path = Npm.require( 'path' );
+var __ROOT_APP_PATH__ = fs.realpathSync('../../../../..'); //current path
+var pastesPath = path.join(__ROOT_APP_PATH__,"private/pastes");
+var s = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789£$%&^"; //allowed char for paste's name
 
 if(!fs.existsSync(pastesPath)){
 	fs.mkdirSync(pastesPath, 0766, function(err){
@@ -19,20 +20,25 @@ Meteor.publish("pasteLinkss", function () { //share db to the client
 */
 
 Meteor.methods({ //called by Clients
-	addPaste: function (name) {
-		var filePath = path.join(pastesPath, name + ".txt" );
-		var buffer = new Buffer( name );
+	addPaste: function (blob, title) {
+		
+		var pasteName = Array(7).join().split(',').map(function() { return s.charAt(Math.floor(Math.random() * s.length)); }).join('');
+		var filePath = path.join(pastesPath, pasteName + ".txt");
+		var buffer = new Buffer( blob );
 		fs.writeFileSync( filePath, buffer );
 		PastesLinks.insert({
 			link: filePath,
+			title: title,
 			createdAt: new Date(),
-			owner : Meteor.uuid(),
-			ip : this.connection.clientAddress
+			owner: Meteor.uuid(),
+			ip: this.connection.clientAddress
 		});
+	},
+	getPaste: function (pasteName) {
+		var paste = Assets.getText("pastes/" + pasteName + ".txt"); //Assets read from /private/
+		return paste;
 	}
 });
-
-
 
 Meteor.startup(function () {
 	// code to run on server at startup

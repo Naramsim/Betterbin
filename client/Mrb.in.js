@@ -6,12 +6,13 @@ Template.body.events({
   "submit .new-paste": function (event) {
     // Grab paste's text from text field
     var newPaste = event.target.paste.value;
+    var titlePaste = event.target.title.value;
     // Check that text field is not blank before adding paste
-    if (newPaste !== '') {
-        Meteor.call("addPaste", newPaste); //call server-side method addPaste
+    if (newPaste !== '' && titlePaste !== '') {
+        Meteor.call("addPaste", newPaste, titlePaste); //call server-side method addPaste
     }
     // Clear the text field for next entry
-    event.target.paste.value = "";
+    // event.target.paste.value = "";
     // Prevent default form submit
     return false;
   }
