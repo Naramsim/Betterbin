@@ -2,7 +2,7 @@ var fs = Npm.require('fs');
 var path = Npm.require( 'path' );
 var __ROOT_APP_PATH__ = fs.realpathSync('../../../../..'); //current path
 var pastesPath = path.join(__ROOT_APP_PATH__,"private/pastes");
-var s = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789£$%&^"; //allowed char for paste's name
+var s = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789£$&^"; //allowed char for paste's name
 
 if(!fs.existsSync(pastesPath)){
 	fs.mkdirSync(pastesPath, 0766, function(err){
@@ -10,18 +10,12 @@ if(!fs.existsSync(pastesPath)){
 			console.log(err);
 			response.send("ERROR! Can't make the directory! \n");    // echo the result back
 		}
-	});   
+	});
 }	
 var PastesLinks = new Mongo.Collection("pastesLinks"); //connection to Group Collection //var=> not sharable
-/* 
-Meteor.publish("pasteLinkss", function () { //share db to the client 
-	return PastesLinks.find(); // everything
-});
-*/
 
 Meteor.methods({ //called by Clients
 	addPaste: function (blob, title) {
-		
 		var pasteName = Array(7).join().split(',').map(function() { return s.charAt(Math.floor(Math.random() * s.length)); }).join('');
 		var filePath = path.join(pastesPath, pasteName + ".txt");
 		var buffer = new Buffer( blob );
@@ -38,8 +32,4 @@ Meteor.methods({ //called by Clients
 		var paste = Assets.getText("pastes/" + pasteName + ".txt"); //Assets read from /private/
 		return paste;
 	}
-});
-
-Meteor.startup(function () {
-	// code to run on server at startup
 });
