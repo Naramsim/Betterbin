@@ -13,7 +13,22 @@ Template.body.events({
 	// event.target.paste.value = "";
 	// Prevent default form submit
 	return false;
-  }
+	}
 });
 
-Template.paste.predic = function() {return Session.get("pasteText");};
+Template.paste.helpers({
+	predic : function() {return Session.get("pasteText");},
+	title : function() {return Session.get("pasteTitle");}
+});
+
+Template.body.helpers({
+	homePage : function() {return Session.get("isHome");}
+});
+
+Meteor.startup(function() {
+	$('pre code').each(function(i, block) {
+		setTimeout(function(){
+			hljs.highlightBlock(block);
+		},500);
+	});
+});

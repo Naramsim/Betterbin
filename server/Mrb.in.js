@@ -29,15 +29,23 @@ Meteor.methods({ //called by Clients
 		PastesLinks.insert({
 			link: filePath,
 			title: title,
+			name: pasteName,
 			createdAt: new Date(),
 			owner: Meteor.uuid(),
 			ip: this.connection.clientAddress
 		});
 	},
 	getPaste: function (pasteName) {
-		pasteName = pasteName.replace(/\.\./g,"").replace(/\//g,"").replace(/ /g,"").replace(/\n/g,"").replace(/\v/g,"").replace(/\f/g,"");
-		pasteName = pasteName.trunc(pastesNameLenght);
-		var paste = Assets.getText("pastes/" + pasteName + ".txt"); //Assets read from /private/
-		return paste;
+		var pasteInfo = [];
+		pasteName = pasteName.replace(/\.\./g,"").replace(/\//g,"").replace(/ /g,"").replace(/\n/g,"").replace(/\v/g,"").replace(/\f/g,""); //sanitize
+		pasteName = pasteName.trunc(pastesNameLenght); //truncation
+		try{
+			pasteInfo.push(Assets.getText("pastes/" + pasteName + ".txt")); //Assets read from /private/
+			pasteInfo.push(PastesLinks.findOne({name: ""+pasteName})["title"]);
+		}catch(e){
+			console.log(e);
+			return 1;
+		}
+		return pasteInfo;
 	}
 });

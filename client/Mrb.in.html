@@ -1,24 +1,29 @@
 <head>
 	<title>Mrb.in</title>
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.8.0/styles/hybrid.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.8.0/highlight.min.js"></script>
 </head>
 
 <body>
 	<h1>Welcome to Meteor!</h1>
 
-	{{> hello}}
-
-	{{> paste}}
-
+	{{#if homePage}}
+		{{> hello}}
+	{{else}}
+		{{> paste}}
+	{{/if}}
+	
 </body>
 
 <template name="hello">
 	<form class="new-paste">
 		<input type="text" name="title" placeholder="Enter title..." />
 		<textarea id="paste" type="text" name="paste" placeholder="Enter some text to create a new paste..." ></textarea>
+		<input type="submit" value="Submit">
 	</form>
 </template>
 
 <template name = "paste">
-	<textarea id="paste" type="text" name="paste" placeholder="predic..." >{{predic}}</textarea>
+	<h1>{{title}}</h1>
+	<pre><code>{{predic}}</code></pre>
 </template>
-
