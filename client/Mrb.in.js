@@ -16,4 +16,4 @@ Template.body.events({
   }
 });
 
-Template.paste.predic = function() {return Session.get("pasteText");}
+Template.paste.predic = function() {return Session.get("pasteText");};
