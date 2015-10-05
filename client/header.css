@@ -1,0 +1,27 @@
+header {
+	height: 3em;
+	position: relative;
+}
+
+#pasteName {
+	margin-left: 6em;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	font-family: monospace;
+	font-size: 2em;
+	color: rgb(213, 213, 213);
+}
+
+#home {
+	position: absolute;
+	transform: translateY(73%);
+	margin-left: 5em;
+}
+
+#controls {
+	margin-right: 3em;
+	right: 0;
+	position: absolute;
+	transform: translateY(73%);
+}

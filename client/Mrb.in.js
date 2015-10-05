@@ -17,12 +17,22 @@ Template.body.events({
 });
 
 Template.paste.helpers({
-	predic : function() {return Session.get("pasteText");},
-	title : function() {return Session.get("pasteTitle");}
+	predic : function() {return Session.get("pasteText");}
+});
+
+Template.header.helpers({
+	title : function() {return Session.get("pasteTitle");},
+	pasteName : function() {return Session.get("pasteName");}
 });
 
 Template.body.helpers({
-	homePage : function() {return Session.get("isHome");}
+	homePage : function() {return Session.get("isHome");},
+	homePaste : function() {return Session.get("isPaste");},
+	homeRaw : function() {return Session.get("isRaw");}
+});
+
+Template.raw.helpers({
+	rawText : function() {return Session.get("pasteText")}
 });
 
 Meteor.startup(function() {

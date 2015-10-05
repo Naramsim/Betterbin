@@ -1,0 +1,47 @@
+<body>
+	{{#if homeRaw}}
+		{{> raw}}
+	{{else}}
+		<div id="bodyContainer">
+			{{#if homePage}}
+				{{> hello}}
+			{{/if}}
+
+			{{#if homePaste}}
+				{{> paste}}
+			{{/if}}
+		</div>
+	{{/if}}
+	
+</body>
+
+<template name="hello">
+	<form class="new-paste">
+		<input type="text" name="title" placeholder="Enter title..." />
+		<textarea id="paste" type="text" name="paste" placeholder="Enter some text to create a new paste..." ></textarea>
+		<input type="submit" value="Submit">
+	</form>
+</template>
+
+<template name = "paste">
+	{{> header}}
+	<pre><code>{{predic}}</code></pre>
+</template>
+
+<template name = "raw">
+	<pre style="background:white;">{{rawText}}</pre>
+</template>
+
+<template name = "header">
+	<header>
+		<button id="home" onclick="location.href='//misterb.in';">/</button>
+		<div id="pasteName">
+			{{title}}
+		</div>
+		<div id="controls">
+			<button>Download</button>
+			<button>Copy Address</button>
+			<button onclick="window.open('//localhost:3000/pastes/{{pasteName}}/raw','blank');">Get Raw</button>
+		</div>
+	</header>
+</template>		
