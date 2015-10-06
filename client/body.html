@@ -39,8 +39,10 @@
 			{{title}}
 		</div>
 		<div id="controls">
-			<button>Download</button>
-			<button>Copy Address</button>
+			<button class="new-download">Download</button>
+			<button class="copyPasteUrl" data-clipboard-text="{{pasteUrl}}">
+			    Copy Address
+			</button>
 			<button onclick="window.open('//localhost:3000/pastes/{{pasteName}}/raw','blank');">Get Raw</button>
 		</div>
 	</header>

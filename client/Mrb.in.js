@@ -16,13 +16,20 @@ Template.body.events({
 	}
 });
 
+Template.header.events({
+	"click .new-download": function (event) {	
+    	downloadBlob(Session.get("pasteTitle"), Session.get("pasteText"));
+	}
+});
+
 Template.paste.helpers({
 	predic : function() {return Session.get("pasteText");}
 });
 
 Template.header.helpers({
 	title : function() {return Session.get("pasteTitle");},
-	pasteName : function() {return Session.get("pasteName");}
+	pasteName : function() {return Session.get("pasteName");},
+	pasteUrl : function() {return window.location.href;}
 });
 
 Template.body.helpers({
@@ -41,4 +48,5 @@ Meteor.startup(function() {
 			hljs.highlightBlock(block);
 		},500);
 	});
+	new Clipboard('.copyPasteUrl');
 });
