@@ -16,16 +16,19 @@
 </body>
 
 <template name="hello">
-	<form class="new-paste">
-		<input type="text" name="title" placeholder="Enter title..." />
-		<textarea id="paste" type="text" name="paste" placeholder="Enter some text to create a new paste..." ></textarea>
-		<input type="submit" value="Submit">
-	</form>
+	{{> header}}
+	<div id="editor"></div>
+	<script>
+		var editor = ace.edit("editor");
+		editor.setShowPrintMargin(false);
+		editor.setTheme("ace/theme/monokai");
+		editor.getSession().setMode("ace/mode/javascript");
+	</script>
 </template>
 
 <template name = "paste">
 	{{> header}}
-	<pre><code>{{predic}}</code></pre>
+	<pre><code class="lineNumbers">{{predic}}</code></pre>
 </template>
 
 <template name = "raw">
@@ -34,16 +37,31 @@
 
 <template name = "header">
 	<header>
-		<button id="home" onclick="location.href='//misterb.in';">/</button>
-		<div id="pasteName">
-			{{title}}
-		</div>
-		<div id="controls">
-			<button class="new-download">Download</button>
-			<button class="copyPasteUrl" data-clipboard-text="{{pasteUrl}}">
-			    Copy Address
+		{{#if homePage}}
+			<input id="pasteName" type="text" name="title" placeholder="Enter title..." />
+			<button id="submitPaste" class="button pure-button pure-button-primary">
+				<i class="fa fa-plus"></i>
 			</button>
-			<button onclick="window.open('//localhost:3000/pastes/{{pasteName}}/raw','blank');">Get Raw</button>
-		</div>
+		{{/if}}
+
+		{{#if homePaste}}
+			<button class="button pure-button pure-button-primary" id="home" onclick="location.href='//misterb.in';">
+				<i class="fa fa-plane"></i>
+			</button>
+			<div id="pasteName">
+				{{title}}
+			</div>
+			<div id="controls">
+				<button class="button new-download pure-button pure-button-primary">
+					<i class="fa fa-cloud-download"></i>
+				</button>
+				<button class="button copyPasteUrl pure-button pure-button-primary" data-clipboard-text="{{pasteUrl}}">
+				    <i class="fa fa-clipboard"></i>
+				</button>
+				<button class="button pure-button pure-button-primary" onclick="window.open('//localhost:3000/pastes/{{pasteName}}/raw','blank');">
+					<i class="fa fa-file-code-o"></i>
+				</button>
+			</div>
+		{{/if}}
 	</header>
 </template>		

@@ -1,13 +1,17 @@
+//Collections
+
 PastesLinks = new Mongo.Collection("pastesLinks"); //connection to Group Collection //Do NOT declare as var, it will override the server one
 
-Template.body.events({
-	"submit .new-paste": function (event) {
+//Events
+
+Template.header.events({
+	"click #submitPaste": function (event) {
 	// Grab paste's text from text field
-	var newPaste = event.target.paste.value;
-	var titlePaste = event.target.title.value;
+	var blob = editor.getValue(); 
+	var titlePaste = document.getElementById('pasteName').value; //TODO use Meteor method
 	// Check that text field is not blank before adding paste
-	if (newPaste !== '' && titlePaste !== '') {
-		Meteor.call("addPaste", newPaste, titlePaste); //call server-side method addPaste
+	if (blob !== '' && titlePaste !== '') {
+		Meteor.call("addPaste", blob, titlePaste); //call server-side method addPaste
 	}
 	// Clear the text field for next entry
 	// event.target.paste.value = "";
@@ -22,6 +26,12 @@ Template.header.events({
 	}
 });
 
+//Helpers
+
+Template.registerHelper("homePage", function() {return Session.get("isHome");});
+
+Template.registerHelper("homePaste", function() {return Session.get("isPaste");});
+
 Template.paste.helpers({
 	predic : function() {return Session.get("pasteText");}
 });
@@ -33,14 +43,14 @@ Template.header.helpers({
 });
 
 Template.body.helpers({
-	homePage : function() {return Session.get("isHome");},
-	homePaste : function() {return Session.get("isPaste");},
 	homeRaw : function() {return Session.get("isRaw");}
 });
 
 Template.raw.helpers({
-	rawText : function() {return Session.get("pasteText")}
+	rawText : function() {return Session.get("pasteText");}
 });
+
+//Startup
 
 Meteor.startup(function() {
 	$('pre code').each(function(i, block) {

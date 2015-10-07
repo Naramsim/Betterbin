@@ -1,6 +1,11 @@
 header {
 	height: 3em;
 	position: relative;
+	background-color: rgb(19, 19, 19);
+}
+
+.button {
+	transform: translateY(21%);
 }
 
 #pasteName {
@@ -13,15 +18,17 @@ header {
 	color: rgb(213, 213, 213);
 }
 
-#home {
-	position: absolute;
-	transform: translateY(73%);
+#home, #submitPaste {
 	margin-left: 5em;
 }
 
 #controls {
+	position: absolute;
 	margin-right: 3em;
 	right: 0;
-	position: absolute;
-	transform: translateY(73%);
+	top:0;
+}
+
+#editor {
+	height: calc(100vh - 4em);
 }

@@ -41,7 +41,7 @@ Meteor.methods({ //called by Clients
 		pasteName = pasteName.trunc(pastesNameLenght); //truncation
 		try{
 			pasteInfo.push(Assets.getText("pastes/" + pasteName + ".txt")); //Assets read from /private/
-			pasteInfo.push(PastesLinks.findOne({name: ""+pasteName})["title"]);
+			pasteInfo.push(PastesLinks.findOne({name: ""+pasteName}).title);
 		}catch(e){
 			console.log(e);
 			return 1;
