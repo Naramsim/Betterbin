@@ -8,6 +8,11 @@ header {
 	transform: translateY(21%);
 }
 
+.ready {
+	transition: 2s linear;
+	background-color: rgb(5, 255, 5);
+}
+
 #pasteName {
 	margin-left: 6em;
 	position: absolute;

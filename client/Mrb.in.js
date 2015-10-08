@@ -8,10 +8,20 @@ Template.header.events({
 	"click #submitPaste": function (event) {
 	// Grab paste's text from text field
 	var blob = editor.getValue(); 
-	var titlePaste = document.getElementById('pasteName').value; //TODO use Meteor method
+	var titlePaste = document.getElementById('pasteName').value;
 	// Check that text field is not blank before adding paste
 	if (blob !== '' && titlePaste !== '') {
-		Meteor.call("addPaste", blob, titlePaste); //call server-side method addPaste
+		Meteor.call("addPaste", blob, titlePaste, function (err, response) {
+			if (err) {console.log(err);}
+			//document.getElementById('submitPaste').classList.add("ready");
+			NProgress.configure({ easing: 'ease', speed: 500 });
+			NProgress.start();
+			NProgress.inc();
+			setTimeout(function(){
+				NProgress.done();
+				takeMeToPaste(response[0]); //redirect user
+			},2000);
+		}); //call server-side method addPaste
 	}
 	// Clear the text field for next entry
 	// event.target.paste.value = "";

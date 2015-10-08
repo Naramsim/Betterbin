@@ -22,10 +22,11 @@ String.prototype.trunc = String.prototype.trunc ||
 
 Meteor.methods({ //called by Clients
 	addPaste: function (blob, title) {
+		var pasteInfo = [];
 		var pasteName = Array(pastesNameLenght).join().split(',').map(function() { return s.charAt(Math.floor(Math.random() * s.length)); }).join('');
 		var filePath = path.join(pastesPath, pasteName + ".txt");
 		var buffer = new Buffer( blob );
-		fs.writeFileSync( filePath, buffer );
+		fs.writeFileSync( filePath, buffer);
 		PastesLinks.insert({
 			link: filePath,
 			title: title,
@@ -34,6 +35,8 @@ Meteor.methods({ //called by Clients
 			owner: Meteor.uuid(),
 			ip: this.connection.clientAddress
 		});
+		pasteInfo.push(pasteName);
+		return pasteInfo;
 	},
 	getPaste: function (pasteName) {
 		var pasteInfo = [];
