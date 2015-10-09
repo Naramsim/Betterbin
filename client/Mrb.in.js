@@ -32,7 +32,12 @@ Template.header.events({
 
 Template.header.events({
 	"click .new-download": function (event) {	
-    	downloadBlob(Session.get("pasteTitle"), Session.get("pasteText"));
+		downloadBlob(Session.get("pasteTitle"), Session.get("pasteText"));
+	},
+	"click .new-fork": function (event) {	
+		Session.set("isHome",true);
+		Session.set("isPaste",false);
+		document.getElementsByClassName("tooltip")[0].classList.remove("show");
 	}
 });
 
