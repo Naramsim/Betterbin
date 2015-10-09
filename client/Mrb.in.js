@@ -38,6 +38,9 @@ Template.header.events({
 		Session.set("isHome",true);
 		Session.set("isPaste",false);
 		document.getElementsByClassName("tooltip")[0].classList.remove("show");
+	},
+	"click .copyPasteUrl": function (event) {
+		startToast(2000, "Go and paste", "Adress has been copied to the clipboard");
 	}
 });
 
