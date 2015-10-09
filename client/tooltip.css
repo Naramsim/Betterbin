@@ -1,0 +1,62 @@
+.tooltip-element {
+	display: none;
+}
+
+.tooltip {
+	z-index: 1001;
+	pointer-events: none;
+	opacity: 0;
+	font-weight: 500;
+	max-width: 200px;
+	text-align: center;
+	font-size: 13px;
+	transition: opacity .3s ease-out;
+}
+.tooltip .inner {
+	background-color: rgba(0, 0, 0, 0.8);
+	border-radius: 4px;
+	padding: 3px 10px;
+	color: #fff;
+	height: 21px;
+	vertical-align: middle;
+	line-height: 21px;
+}
+.tooltip.hide {
+	opacity: 0;
+}
+.tooltip.show {
+	opacity: 1;
+}
+.tooltip .inner::after {
+	content: "";
+	display: block;
+	bottom: -10px;
+	left: calc(50% - 5px);
+	width: 0;
+	height: 0;
+	border: 5px solid;
+	border-color: rgba(0, 0, 0, 0.8) transparent transparent;
+	position: absolute;
+}
+.tooltip.tooltip--left .inner {
+	box-shadow: rgba(0, 0, 0, 0.1) -1px 1px 1px;
+}
+.tooltip.tooltip--left .inner::after {
+	right: -10px;
+	left: auto;
+	bottom: calc(50% - 5px);
+	border-color: transparent transparent transparent rgba(0, 0, 0, 0.8);
+}
+.tooltip.tooltip--right .inner {
+	box-shadow: rgba(0, 0, 0, 0.1) 1px 1px 1px;
+}
+.tooltip.tooltip--right .inner::after {
+	left: -10px;
+	bottom: calc(50% - 5px);
+	border-color: transparent rgba(0, 0, 0, 0.8) transparent transparent;
+}
+.tooltip.tooltip--bottom .inner::after {
+	top: -10px;
+	bottom: auto;
+	border-color: transparent transparent rgba(0, 0, 0, 0.8) transparent;
+}

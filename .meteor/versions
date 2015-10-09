@@ -43,6 +43,7 @@ lai:collection-extensions@0.1.4
 launch-screen@1.0.4
 livedata@1.0.15
 logging@1.0.8
+lookback:tooltips@0.5.2
 meteor@1.1.9
 meteor-base@1.0.1
 meteortoys:toykit@0.8.7

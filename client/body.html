@@ -12,7 +12,7 @@
 			{{/if}}
 		</div>
 	{{/if}}
-	
+	{{> tooltips }}
 </body>
 
 <template name="hello">
@@ -52,15 +52,16 @@
 				{{title}}
 			</div>
 			<div id="controls">
-				<button class="button new-download pure-button pure-button-primary">
+				<button class="button new-download pure-button pure-button-primary" data-tooltip="Save to PC" data-tooltip-direction="s">
 					<i class="fa fa-cloud-download"></i>
 				</button>
-				<button class="button copyPasteUrl pure-button pure-button-primary" data-clipboard-text="{{pasteUrl}}">
+				<button class="button copyPasteUrl pure-button pure-button-primary" data-clipboard-text="{{pasteUrl}}" data-tooltip="Copy link to clipboard" data-tooltip-direction="s">
 				    <i class="fa fa-clipboard"></i>
 				</button>
-				<button class="button pure-button pure-button-primary" onclick="window.open('//localhost:3000/pastes/{{pasteName}}/raw','blank');">
+				<button class="button pure-button pure-button-primary" onclick="window.open('//localhost:3000/pastes/{{pasteName}}/raw','blank');" data-tooltip="View Raw" data-tooltip-direction="s">
 					<i class="fa fa-file-code-o"></i>
 				</button>
+
 			</div>
 		{{/if}}
 	</header>
