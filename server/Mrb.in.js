@@ -21,7 +21,7 @@ String.prototype.trunc = String.prototype.trunc ||
 	};
 
 Meteor.methods({ //called by Clients
-	addPaste: function (blob, title) {
+	addPaste: function (blob, title, lang, author) {
 		var pasteInfo = [];
 		var pasteName = Array(pastesNameLenght).join().split(',').map(function() { return s.charAt(Math.floor(Math.random() * s.length)); }).join('');
 		var filePath = path.join(pastesPath, pasteName + ".txt");
@@ -32,7 +32,8 @@ Meteor.methods({ //called by Clients
 			title: title,
 			name: pasteName,
 			createdAt: new Date(),
-			owner: Meteor.uuid(),
+			owner: author,
+			language: lang,
 			ip: this.connection.clientAddress
 		});
 		pasteInfo.push(pasteName);

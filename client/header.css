@@ -13,14 +13,27 @@ header {
 	background-color: rgb(5, 255, 5);
 }
 
-#pasteName {
+input#pasteName {
 	margin-left: 6em;
 	position: absolute;
 	top: 50%;
 	transform: translateY(-50%);
 	font-family: monospace;
 	font-size: 2em;
-	color: rgb(213, 213, 213);
+	color: rgb(39, 40, 34);
+	padding: .5em .6em;
+	border: 1px solid #ccc;
+}
+
+
+div#pasteName {
+	margin-left: 6em;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	font-family: monospace;
+	font-size: 2em;
+	color: rgb(213, 255, 0);
 }
 
 #home, #submitPaste {
@@ -36,4 +49,20 @@ header {
 
 #editor {
 	height: calc(100vh - 4em);
+}
+
+select {
+	position: absolute;
+	color: rgb(39, 40, 34);
+	right: 8em;
+	top: 50%;
+	font-family: monospace !important; 
+	transform: translateY(-50%);
+	padding: 0.3em 1.6em;
+	border: 1px solid #ccc;
+	font-size: 26px !important;
+}
+
+.hljs {
+	background-color: rgb(29, 31, 33) !important;
 }

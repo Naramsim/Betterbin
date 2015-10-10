@@ -9,9 +9,11 @@ Template.header.events({
 	// Grab paste's text from text field
 	var blob = editor.getValue(); 
 	var titlePaste = document.getElementById('pasteName').value;
+	var langPaste = document.getElementById('selectLanguage');
+	langPaste = langPaste.options[langPaste.selectedIndex].value;
 	// Check that text field is not blank before adding paste
 	if (blob !== '' && titlePaste !== '') {
-		Meteor.call("addPaste", blob, titlePaste, function (err, response) {
+		Meteor.call("addPaste", blob, titlePaste, langPaste, getCookie("auth"), function (err, response) {
 			if (err) {console.log(err);}
 			//document.getElementById('submitPaste').classList.add("ready");
 			NProgress.configure({ easing: 'ease', speed: 500 });
@@ -41,6 +43,9 @@ Template.header.events({
 	},
 	"click .copyPasteUrl": function (event) {
 		startToast(2000, "Go and paste", "Adress has been copied to the clipboard");
+	},
+	"change #selectLanguage": function (event) {
+		editor.getSession().setMode("ace/mode/" + event.target.value);
 	}
 });
 
@@ -77,4 +82,11 @@ Meteor.startup(function() {
 		},500);
 	});
 	new Clipboard('.copyPasteUrl');
+	//$('select').select2();
+	if(getCookie("auth") !== undefined){
+		console.log("Logged - Do not clear cookies");
+	}else{
+		console.log("Logging in ..");
+		setCookie();
+	}
 });
