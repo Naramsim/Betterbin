@@ -46,6 +46,10 @@ Template.header.events({
 	},
 	"change #selectLanguage": function (event) {
 		editor.getSession().setMode("ace/mode/" + event.target.value);
+	},
+	"click #tools": function (event) {
+		slideout.toggle();
+		document.getElementsByClassName("tooltip")[0].classList.remove("show");
 	}
 });
 

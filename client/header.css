@@ -42,7 +42,7 @@ div#pasteName {
 
 #controls {
 	position: absolute;
-	margin-right: 3em;
+	margin-right: 7em;
 	right: 0;
 	top:0;
 }
@@ -65,4 +65,10 @@ select {
 
 .hljs {
 	background-color: rgb(29, 31, 33) !important;
+}
+
+.tool-button {
+	position: absolute;
+	margin-right: 1em;
+	right: 0;
 }

@@ -3,6 +3,7 @@
 }
 
 .tooltip {
+	font-family: monospace;
 	z-index: 1001;
 	pointer-events: none;
 	opacity: 0;

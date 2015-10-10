@@ -11,6 +11,7 @@
 				{{> paste}}
 			{{/if}}
 		</div>
+		{{> slideout}}
 	{{/if}}
 	{{> tooltips }}
 </body>
@@ -172,6 +173,10 @@
 			</select>
 		{{/if}}
 
+		<button class="button pure-button pure-button-primary tool-button" id="tools" data-tooltip="Manage" data-tooltip-direction="s">
+			<i class="fa fa-briefcase"></i>
+		</button>
+
 		{{#if homePaste}}
 			<button class="button pure-button pure-button-primary" id="home" onclick="location.href='//localhost:3000';">
 				<i class="fa fa-plane"></i>
@@ -195,4 +200,21 @@
 			</div>
 		{{/if}}
 	</header>
-</template>		
+</template>	
+
+<template name="slideout">
+	<nav id="menu">
+		<header>
+			<h2>Menu</h2>
+		</header>
+	</nav>
+	<script>
+		slideout = new Slideout({
+			'panel': document.getElementById('bodyContainer'),
+			'menu': document.getElementById('menu'),
+			'padding': 256,
+			'tolerance': 70,
+			'side': 'right'
+		});
+	</script>
+</template>	
