@@ -86,11 +86,20 @@ Meteor.startup(function() {
 		},500);
 	});
 	new Clipboard('.copyPasteUrl');
-	//$('select').select2();
+
 	if(getCookie("auth") !== undefined){
 		console.log("Logged - Do not clear cookies");
 	}else{
 		console.log("Logging in ..");
 		setCookie();
 	}
+	Session.set("auth", getCookie("auth"));
+	Meteor.call("getUserPastes", Session.get("auth"), function (err, response){
+		if(err) {console.log(err);}
+		if(response === 1) {
+			console.log("A server error has occurred");
+		}else{
+			console.log(response);
+		}
+	});
 });

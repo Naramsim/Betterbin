@@ -3,6 +3,10 @@ body {
 	height: 100%;
 }
 
+nav {
+	background-color: #272822;
+}
+
 .slideout-menu {
 	position: fixed;
 	left: auto;
@@ -29,4 +33,12 @@ body {
 
 .slideout-open .slideout-menu {
 	display: block;
+}
+
+.custom-restricted {
+	height: calc(100% - 4em);
+	width: auto;
+	font-family: monospace;
+	overflow-y: auto !important;
+	text-align: center;
 }
