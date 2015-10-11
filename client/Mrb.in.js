@@ -59,6 +59,8 @@ Template.registerHelper("homePage", function() {return Session.get("isHome");});
 
 Template.registerHelper("homePaste", function() {return Session.get("isPaste");});
 
+Template.registerHelper("siteName", function() {return Session.get("siteName");});
+
 Template.paste.helpers({
 	predic : function() {return Session.get("pasteText");}
 });
@@ -77,9 +79,17 @@ Template.raw.helpers({
 	rawText : function() {return Session.get("pasteText");}
 });
 
+Template.slideout.helpers({
+	userPastesLoaded : function () {return Session.get("userPastesLoaded");},
+	userPastes : function () {return Session.get("userPastes")["userPastes"];},
+	name : function () {return this.name;}
+});
+
 //Startup
 
 Meteor.startup(function() {
+	Session.set("userPastesLoaded", false);
+	Session.set("siteName", siteName);
 	$('pre code').each(function(i, block) {
 		setTimeout(function(){
 			hljs.highlightBlock(block);
@@ -99,7 +109,8 @@ Meteor.startup(function() {
 		if(response === 1) {
 			console.log("A server error has occurred");
 		}else{
-			console.log(response);
+			Session.set("userPastesLoaded", true);
+			Session.set("userPastes", response);
 		}
 	});
 });
