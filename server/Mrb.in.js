@@ -44,8 +44,8 @@ Meteor.methods({ //called by Clients
 			var pasteInfo = {}; //EJSON to return to the client
 			pasteName = pasteName.replace(/\.\./g,"").replace(/\//g,"").replace(/ /g,"").replace(/\n/g,"").replace(/\v/g,"").replace(/\f/g,""); //sanitize
 			pasteName = pasteName.trunc(pastesNameLenght); //truncation
-			pasteInfo["text"] = Assets.getText("pastes/" + pasteName + ".txt"); //Assets read from /private/
-			pasteInfo["title"] = PastesLinks.findOne({name: ""+pasteName}).title;
+			pasteInfo.text = Assets.getText("pastes/" + pasteName + ".txt"); //Assets read from /private/
+			pasteInfo.title = PastesLinks.findOne({name: ""+pasteName}).title;
 			return pasteInfo;
 		}catch(e){
 			console.log(e);
@@ -55,7 +55,7 @@ Meteor.methods({ //called by Clients
 	getUserPastes: function (userName) {
 		try{
 			var userPastes = {};
-			userPastes["userPastes"] = PastesLinks.find({owner: userName}).fetch();
+			userPastes.userPastes = PastesLinks.find({owner: userName}).fetch();
 			return userPastes;
 		}catch(e){
 			console.log(e);

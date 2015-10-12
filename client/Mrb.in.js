@@ -81,7 +81,7 @@ Template.raw.helpers({
 
 Template.slideout.helpers({
 	userPastesLoaded : function () {return Session.get("userPastesLoaded");},
-	userPastes : function () {return Session.get("userPastes")["userPastes"];},
+	userPastes : function () {return Session.get("userPastes").userPastes;},
 	name : function () {return this.name;}
 });
 
