@@ -61,10 +61,6 @@ Template.registerHelper("homePaste", function() {return Session.get("isPaste");}
 
 Template.registerHelper("siteName", function() {return Session.get("siteName");});
 
-Template.paste.helpers({
-	predic : function() {return Session.get("pasteText");}
-});
-
 Template.header.helpers({
 	title : function() {return Session.get("pasteTitle");},
 	pasteName : function() {return Session.get("pasteName");},
@@ -82,12 +78,15 @@ Template.raw.helpers({
 Template.slideout.helpers({
 	userPastesLoaded : function () {return Session.get("userPastesLoaded");},
 	userPastes : function () {return Session.get("userPastes").userPastes;},
-	name : function () {return this.name;}
+	name : function () {return this.name;},
+	title : function () {return this.title;},
+	lang : function () {return this.lang;}
 });
 
 //Startup
 
 Meteor.startup(function() {
+	siteName = "//" + window.location.host;
 	Session.set("userPastesLoaded", false);
 	Session.set("siteName", siteName);
 	$('pre code').each(function(i, block) {
@@ -113,4 +112,11 @@ Meteor.startup(function() {
 			Session.set("userPastes", response);
 		}
 	});
+	/*Tracker.autorun(function() {
+		FlowRouter.watchPathChange();
+		var currentContext = FlowRouter.current();
+		console.log(currentContext);
+		//if(currentContext.route.name == "pastes") {Session.set("isHome", false);}
+		//if(currentContext.route.name == "home") {Session.set("isPaste", false);}
+	});*/
 });

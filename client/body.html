@@ -3,34 +3,18 @@
 		{{> raw}}
 	{{else}}
 		<div id="bodyContainer">
-			{{#if homePage}}
-				{{> hello}}
-			{{/if}}
-
-			{{#if homePaste}}
-				{{> paste}}
-			{{/if}}
+			{{> header}}
+			<div id="editor"></div>
+			<script>
+				var editor = ace.edit("editor");
+				editor.setShowPrintMargin(false);
+				editor.setTheme("ace/theme/monokai");
+			</script>
 		</div>
 		{{> slideout}}
 	{{/if}}
 	{{> tooltips }}
 </body>
-
-<template name="hello">
-	{{> header}}
-	<div id="editor"></div>
-	<script>
-		var editor = ace.edit("editor");
-		editor.setShowPrintMargin(false);
-		editor.setTheme("ace/theme/monokai");
-		//editor.getSession().setMode("ace/mode/javascript");
-	</script>
-</template>
-
-<template name = "paste">
-	{{> header}}
-	<pre><code class="lineNumbers">{{predic}}</code></pre>
-</template>
 
 <template name = "raw">
 	<pre style="background:white;">{{rawText}}</pre>
@@ -210,7 +194,7 @@
 			<ul class="pure-menu-list">
 				{{#if userPastesLoaded}}
 					{{#each userPastes}}
-						<li class="pure-menu-item"><a href="{{siteName}}/pastes/{{name}}" class="pure-menu-link">{{name}}</a></li>
+						<li class="pure-menu-item"><a href="{{siteName}}/pastes/{{name}}" class="pure-menu-link">{{title}}</a></li>
 					{{/each}}
 				{{/if}}
 			</ul>
