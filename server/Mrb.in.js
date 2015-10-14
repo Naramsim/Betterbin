@@ -1,7 +1,8 @@
 var fs = Npm.require('fs');
 var path = Npm.require( 'path' );
 var __ROOT_APP_PATH__ = fs.realpathSync('../../../../..'); //current path
-var pastesPath = path.join(__ROOT_APP_PATH__,"private/pastes");
+var pastesPath = path.join(__ROOT_APP_PATH__, Meteor.settings.private.pastesPath);
+console.log(pastesPath);
 var s = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789£$&^"; //allowed char for paste's name
 var pastesNameLenght = 7;
 
