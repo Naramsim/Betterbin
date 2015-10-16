@@ -1,14 +1,18 @@
 var fs = Npm.require('fs');
 var path = Npm.require( 'path' );
-var pathAdjustment = Assets.getText("path.json");
-console.log(pathAdjustment);
-var __ROOT_APP_PATH__ = fs.realpathSync(pathAdjustment); //current path
-var pastesPath = path.join(__ROOT_APP_PATH__, "/private/pastes/");
+var config = JSON.parse(Assets.getText("path.json"));
 
-console.log(pastesPath);
+if (config["which"] == "server") {
+	var __ROOT_APP_PATH__ = fs.realpathSync(config["pathAdjustment"]);
+}else if (config["which"] == "local") {
+	var __ROOT_APP_PATH__ = fs.realpathSync(config["pathAdjustmentTest"]);
+}
+
+var pastesPath = path.join(__ROOT_APP_PATH__, "/pastes/");
+console.log("pastes are saved in: " + pastesPath);
 var s = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789£$&^"; //allowed char for paste's name
 var pastesNameLenght = 7;
-
+var PastesLinks = new Mongo.Collection("pastesLinks"); //connection to Group Collection //var=> not sharable
 
 
 if(!fs.existsSync(pastesPath)){
@@ -19,7 +23,6 @@ if(!fs.existsSync(pastesPath)){
 		}
 	});
 }	
-var PastesLinks = new Mongo.Collection("pastesLinks"); //connection to Group Collection //var=> not sharable
 
 String.prototype.trunc = String.prototype.trunc ||
 	function(n){
@@ -50,7 +53,8 @@ Meteor.methods({ //called by Clients
 			var pasteInfo = {}; //EJSON to return to the client
 			pasteName = pasteName.replace(/\.\./g,"").replace(/\//g,"").replace(/ /g,"").replace(/\n/g,"").replace(/\v/g,"").replace(/\f/g,""); //sanitize
 			pasteName = pasteName.trunc(pastesNameLenght); //truncation
-			pasteInfo.text = Assets.getText("pastes/" + pasteName + ".txt"); //Assets read from /private/
+			pastePath = path.join(pastesPath, pasteName + ".txt")
+			pasteInfo.text = fs.readFileSync(pastePath , 'utf8'); //Assets read from /private/
 			pasteInfoFromDb = PastesLinks.findOne({name: ""+pasteName});
 			pasteInfo.title = pasteInfoFromDb.title;
 			pasteInfo.lang = pasteInfoFromDb.language;

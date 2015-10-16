@@ -15,6 +15,7 @@ Template.header.events({
 	if (blob !== '' && titlePaste !== '') {
 		Meteor.call("addPaste", blob, titlePaste, langPaste, getCookie("auth"), function (err, response) {
 			if (err) {console.log(err);}
+			document.getElementById("tools").classList.add("hideSlow");
 			//document.getElementById('submitPaste').classList.add("ready");
 			NProgress.configure({ easing: 'ease', speed: 500 });
 			NProgress.start();
@@ -64,7 +65,8 @@ Template.registerHelper("siteName", function() {return Session.get("siteName");}
 Template.header.helpers({
 	title : function() {return Session.get("pasteTitle");},
 	pasteName : function() {return Session.get("pasteName");},
-	pasteUrl : function() {return window.location.href;}
+	pasteUrl : function() {return window.location.href;},
+	lang : function () {return Session.get("pasteLang");}
 });
 
 Template.body.helpers({
@@ -83,17 +85,18 @@ Template.slideout.helpers({
 	lang : function () {return this.lang;}
 });
 
+Template.slideout.events ({
+	"click .pure-menu-link": function (event) {
+		slideout.close();
+	}
+});
+
 //Startup
 
 Meteor.startup(function() {
 	siteName = "//" + window.location.host;
 	Session.set("userPastesLoaded", false);
 	Session.set("siteName", siteName);
-	$('pre code').each(function(i, block) {
-		setTimeout(function(){
-			hljs.highlightBlock(block);
-		},500);
-	});
 	new Clipboard('.copyPasteUrl');
 
 	if(getCookie("auth") !== undefined){
@@ -103,6 +106,10 @@ Meteor.startup(function() {
 		setCookie();
 	}
 	Session.set("auth", getCookie("auth"));
+	document.onkeydown = KeyPress;
+	$("textarea").keydown(function(e){
+		KeyPress(e);
+	});
 	Meteor.call("getUserPastes", Session.get("auth"), function (err, response){
 		if(err) {console.log(err);}
 		if(response === 1) {
@@ -112,6 +119,8 @@ Meteor.startup(function() {
 			Session.set("userPastes", response);
 		}
 	});
+
+
 	/*Tracker.autorun(function() {
 		FlowRouter.watchPathChange();
 		var currentContext = FlowRouter.current();

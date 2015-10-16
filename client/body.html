@@ -166,7 +166,8 @@
 				<i class="fa fa-plane"></i>
 			</button>
 			<div id="pasteName">
-				{{title}}
+				{{title}}	
+				<div class="pasteLang">({{lang}})</div>
 			</div>
 			<div id="controls">
 				<button class="button new-download pure-button pure-button-primary" data-tooltip="Save to PC" data-tooltip-direction="s">
@@ -194,7 +195,10 @@
 			<ul class="pure-menu-list">
 				{{#if userPastesLoaded}}
 					{{#each userPastes}}
-						<li class="pure-menu-item"><a href="{{siteName}}/pastes/{{name}}" class="pure-menu-link">{{title}}</a></li>
+						<li class="pure-menu-item"><a href="{{siteName}}/pastes/{{name}}" class="pure-menu-link">
+						{{title}}
+						<div class="pasteLang">({{language}})</div>
+						</a></li>
 					{{/each}}
 				{{/if}}
 			</ul>

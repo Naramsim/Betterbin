@@ -1,1 +1,5 @@
-../../../../..
+{
+	"pathAdjustment":"../../..",
+	"which":"local",
+	"pathAdjustmentTest":"../../../../.."
+}

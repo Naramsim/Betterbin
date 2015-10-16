@@ -36,6 +36,11 @@ div#pasteName {
 	color: rgb(213, 255, 0);
 }
 
+.pasteLang {
+	display: inline-block;
+	font-size: 90%;
+}
+
 #home, #submitPaste {
 	margin-left: 5em;
 }
@@ -71,4 +76,9 @@ select {
 	position: absolute;
 	margin-right: 1em;
 	right: 0;
+	transition: .2s linear;
+}
+
+.hideSlow{
+	opacity: 0;
 }
