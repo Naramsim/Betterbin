@@ -51,7 +51,7 @@ Meteor.methods({ //called by Clients
 			pasteName = pasteName.replace(/\.\./g,"").replace(/\//g,"").replace(/ /g,"").replace(/\n/g,"").replace(/\v/g,"").replace(/\f/g,""); //sanitize
 			pasteName = pasteName.trunc(pastesNameLenght); //truncation
 			pasteInfo.text = Assets.getText("pastes/" + pasteName + ".txt"); //Assets read from /private/
-			pasteInfoFromDb = PastesLinks.findOne({name: ""+pasteName})
+			pasteInfoFromDb = PastesLinks.findOne({name: ""+pasteName});
 			pasteInfo.title = pasteInfoFromDb.title;
 			pasteInfo.lang = pasteInfoFromDb.language;
 			return pasteInfo;
