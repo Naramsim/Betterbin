@@ -25,6 +25,9 @@ input#pasteName {
 	border: 1px solid #ccc;
 }
 
+#encryptPaste {
+	margin-left: 24.5em;
+}
 
 div#pasteName {
 	margin-left: 6em;

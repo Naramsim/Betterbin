@@ -10,10 +10,16 @@ Template.header.events({
 	var blob = editor.getValue(); 
 	var titlePaste = document.getElementById('pasteName').value;
 	var langPaste = document.getElementById('selectLanguage');
+	var key = "";
 	langPaste = langPaste.options[langPaste.selectedIndex].value;
 	// Check that text field is not blank before adding paste
 	if (blob !== '' && titlePaste !== '') {
-		Meteor.call("addPaste", blob, titlePaste, langPaste, getCookie("auth"), function (err, response) {
+		if(Session.get("isPasteEncrypted") === true){
+			var s = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+			key = Array(6).join().split(',').map(function() { return s.charAt(Math.floor(Math.random() * s.length)); }).join('');
+			blob = sjcl.encrypt(key, blob);
+		}
+		Meteor.call("addPaste", blob, titlePaste, langPaste, getCookie("auth"), Session.get("isPasteEncrypted"), function (err, response) {
 			if (err) {console.log(err);}
 			document.getElementById("tools").classList.add("hideSlow");
 			//document.getElementById('submitPaste').classList.add("ready");
@@ -22,7 +28,7 @@ Template.header.events({
 			NProgress.inc();
 			setTimeout(function(){
 				NProgress.done();
-				takeMeToPaste(response[0]); //redirect user
+				takeMeToPaste(response[0], key); //redirect user
 			},2000);
 		}); //call server-side method addPaste
 	}
@@ -43,7 +49,7 @@ Template.header.events({
 		document.getElementsByClassName("tooltip")[0].classList.remove("show");
 	},
 	"click .copyPasteUrl": function (event) {
-		startToast(2000, "Go and paste", "Adress has been copied to the clipboard");
+		startToast(2000, "Adress has been copied to the clipboard", "Go and paste");
 	},
 	"change #selectLanguage": function (event) {
 		editor.getSession().setMode("ace/mode/" + event.target.value);
@@ -51,6 +57,15 @@ Template.header.events({
 	"click #tools": function (event) {
 		slideout.toggle();
 		document.getElementsByClassName("tooltip")[0].classList.remove("show");
+	},
+	"click #encryptPaste": function (event) {
+		if(Session.get("isPasteEncrypted") === false){
+			Session.set("isPasteEncrypted", true);
+			document.getElementById("encryptPaste").classList.add("button-success");
+		}else {
+			Session.set("isPasteEncrypted", false);
+			document.getElementById("encryptPaste").classList.remove("button-success");
+		}
 	}
 });
 
@@ -96,6 +111,7 @@ Template.slideout.events ({
 Meteor.startup(function() {
 	siteName = "//" + window.location.host;
 	Session.set("userPastesLoaded", false);
+	Session.set("isPasteEncrypted", false);
 	Session.set("siteName", siteName);
 	new Clipboard('.copyPasteUrl');
 

@@ -30,7 +30,7 @@ String.prototype.trunc = String.prototype.trunc ||
 	};
 
 Meteor.methods({ //called by Clients
-	addPaste: function (blob, title, lang, author) {
+	addPaste: function (blob, title, lang, author, isEncrypted) {
 		var pasteInfo = [];
 		var pasteName = Array(pastesNameLenght).join().split(',').map(function() { return s.charAt(Math.floor(Math.random() * s.length)); }).join('');
 		var filePath = path.join(pastesPath, pasteName + ".txt");
@@ -43,7 +43,8 @@ Meteor.methods({ //called by Clients
 			createdAt: new Date(),
 			owner: author,
 			language: lang,
-			ip: this.connection.clientAddress
+			ip: this.connection.clientAddress,
+			isEncry: isEncrypted
 		});
 		pasteInfo.push(pasteName);
 		return pasteInfo;
@@ -58,6 +59,7 @@ Meteor.methods({ //called by Clients
 			pasteInfoFromDb = PastesLinks.findOne({name: ""+pasteName});
 			pasteInfo.title = pasteInfoFromDb.title;
 			pasteInfo.lang = pasteInfoFromDb.language;
+			pasteInfo.isEncry = pasteInfoFromDb.isEncry;
 			return pasteInfo;
 		}catch(e){
 			console.log(e);
