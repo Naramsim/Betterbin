@@ -27,7 +27,7 @@
 			<button id="submitPaste" class="button pure-button pure-button-primary">
 				<i class="fa fa-plus"></i>
 			</button>
-			<button id="encryptPaste" class="button pure-button pure-button-primary">
+			<button id="encryptPaste" data-tooltip="Encrypt" data-tooltip-direction="s" class="button pure-button pure-button-primary">
 				<i class="fa fa-key"></i>
 			</button>
 			<select id="selectLanguage">
@@ -35,7 +35,7 @@
 				<option value="abc">Abc</option>
 				<option value="actionscript">Actionscript</option>
 				<option value="ada">Ada</option>
-				<option value="apache_conf">Apache_conf</option>
+				<option value="apache_conf">Apache conf</option>
 				<option value="applescript">Applescript</option>
 				<option value="asciidoc">Asciidoc</option>
 				<option value="assembly_x86">Assembly_x86</option>
@@ -43,7 +43,7 @@
 				<option value="batchfile">Batchfile</option>
 				<option value="behaviour">Behaviour</option>
 				<option value="c9search">C9search</option>
-				<option value="c_cpp">C_cpp</option>
+				<option value="c_cpp">C C++</option>
 				<option value="cirru">Cirru</option>
 				<option value="clojure">Clojure</option>
 				<option value="cobol">Cobol</option>
@@ -76,7 +76,7 @@
 				<option value="haskell">Haskell</option>
 				<option value="haxe">Haxe</option>
 				<option value="html">Html</option>
-				<option value="html_ruby">Html_ruby</option>
+				<option value="html_ruby">Html ruby</option>
 				<option value="ini">Ini</option>
 				<option value="io">Io</option>
 				<option value="jack">Jack</option>
@@ -108,13 +108,13 @@
 				<option value="mushcode">Mushcode</option>
 				<option value="mysql">Mysql</option>
 				<option value="nix">Nix</option>
-				<option value="objectivec">Objectivec</option>
+				<option value="objectivec">Objective C</option>
 				<option value="ocaml">Ocaml</option>
 				<option value="pascal">Pascal</option>
 				<option value="perl">Perl</option>
 				<option value="pgsql">Pgsql</option>
 				<option value="php">Php</option>
-				<option value="plain_text">Plain_text</option>
+				<option value="plain_text" selected="selected">Plain text</option>
 				<option value="powershell">Powershell</option>
 				<option value="praat">Praat</option>
 				<option value="prolog">Prolog</option>
@@ -135,7 +135,7 @@
 				<option value="sjs">Sjs</option>
 				<option value="smarty">Smarty</option>
 				<option value="snippets">Snippets</option>
-				<option value="soy_template">Soy_template</option>
+				<option value="soy_template">Soy template</option>
 				<option value="space">Space</option>
 				<option value="sql">Sql</option>
 				<option value="sqlserver">Sqlserver</option>
@@ -170,7 +170,7 @@
 			</button>
 			<div id="pasteName">
 				{{title}}	
-				<div class="pasteLang">({{lang}})</div>
+				<div id="pasteLang" class="pasteLang">({{lang}})</div>
 			</div>
 			<div id="controls">
 				<button class="button new-download pure-button pure-button-primary" data-tooltip="Save to PC" data-tooltip-direction="s">
@@ -199,6 +199,12 @@
 				{{#if userPastesLoaded}}
 					{{#each userPastes}}
 						<li class="pure-menu-item"><a href="{{siteName}}/pastes/{{name}}" class="pure-menu-link">
+						{{#if isFork}}
+							<i class="fa fa-code-fork"></i>
+						{{/if}}
+						{{#if isEncry}}
+							<i class="fa fa-key"></i>
+						{{/if}}
 						{{title}}
 						<div class="pasteLang">({{language}})</div>
 						</a></li>

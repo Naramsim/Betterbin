@@ -30,7 +30,7 @@ String.prototype.trunc = String.prototype.trunc ||
 	};
 
 Meteor.methods({ //called by Clients
-	addPaste: function (blob, title, lang, author, isEncrypted) {
+	addPaste: function (blob, title, lang, author, isEncrypted, isForked) {
 		var pasteInfo = [];
 		var pasteName = Array(pastesNameLenght).join().split(',').map(function() { return s.charAt(Math.floor(Math.random() * s.length)); }).join('');
 		var filePath = path.join(pastesPath, pasteName + ".txt");
@@ -44,7 +44,9 @@ Meteor.methods({ //called by Clients
 			owner: author,
 			language: lang,
 			ip: this.connection.clientAddress,
-			isEncry: isEncrypted
+			isEncry: isEncrypted,
+			isFork: isForked,
+			timesViewed: 1
 		});
 		pasteInfo.push(pasteName);
 		return pasteInfo;
@@ -56,10 +58,13 @@ Meteor.methods({ //called by Clients
 			pasteName = pasteName.trunc(pastesNameLenght); //truncation
 			pastePath = path.join(pastesPath, pasteName + ".txt")
 			pasteInfo.text = fs.readFileSync(pastePath , 'utf8'); //Assets read from /private/
+			PastesLinks.update({name: ""+pasteName}, {$inc: {timesViewed: 1} });
 			pasteInfoFromDb = PastesLinks.findOne({name: ""+pasteName});
 			pasteInfo.title = pasteInfoFromDb.title;
 			pasteInfo.lang = pasteInfoFromDb.language;
 			pasteInfo.isEncry = pasteInfoFromDb.isEncry;
+			pasteInfo.isFork = pasteInfoFromDb.isFork;
+			pasteInfo.numbersOfViews = pasteInfoFromDb.timesViewed;
 			return pasteInfo;
 		}catch(e){
 			console.log(e);

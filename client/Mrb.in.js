@@ -19,7 +19,7 @@ Template.header.events({
 			key = Array(6).join().split(',').map(function() { return s.charAt(Math.floor(Math.random() * s.length)); }).join('');
 			blob = sjcl.encrypt(key, blob);
 		}
-		Meteor.call("addPaste", blob, titlePaste, langPaste, getCookie("auth"), Session.get("isPasteEncrypted"), function (err, response) {
+		Meteor.call("addPaste", blob, titlePaste, langPaste, getCookie("auth"), Session.get("isPasteEncrypted"), Session.get("isFork"), function (err, response) {
 			if (err) {console.log(err);}
 			document.getElementById("tools").classList.add("hideSlow");
 			//document.getElementById('submitPaste').classList.add("ready");
@@ -44,8 +44,9 @@ Template.header.events({
 		downloadBlob(Session.get("pasteTitle"), Session.get("pasteText"));
 	},
 	"click .new-fork": function (event) {	
-		Session.set("isHome",true);
-		Session.set("isPaste",false);
+		Session.set("isHome", true);
+		Session.set("isPaste", false);
+		Session.set("isFork", true);
 		document.getElementsByClassName("tooltip")[0].classList.remove("show");
 	},
 	"click .copyPasteUrl": function (event) {
@@ -97,7 +98,8 @@ Template.slideout.helpers({
 	userPastes : function () {return Session.get("userPastes").userPastes;},
 	name : function () {return this.name;},
 	title : function () {return this.title;},
-	lang : function () {return this.lang;}
+	lang : function () {return this.lang;},
+	isFork : function (){return this.isFork;}
 });
 
 Template.slideout.events ({
@@ -112,6 +114,7 @@ Meteor.startup(function() {
 	siteName = "//" + window.location.host;
 	Session.set("userPastesLoaded", false);
 	Session.set("isPasteEncrypted", false);
+	Session.set("isFork", false);
 	Session.set("siteName", siteName);
 	new Clipboard('.copyPasteUrl');
 

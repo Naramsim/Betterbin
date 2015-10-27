@@ -85,3 +85,22 @@ select {
 .hideSlow{
 	opacity: 0;
 }
+
+.errorEncryp {
+	color: tomato;
+}
+
+@media screen and (max-width:1100px) { 
+	#encryptPaste, #tools {
+		display: none;
+	}
+	#selectLanguage {
+		right: 1em;
+	}
+}
+
+@media screen and (max-width:760px) { 
+	#controls {
+		display: none;
+	}
+}
