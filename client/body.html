@@ -193,7 +193,7 @@
 <template name="slideout">
 	<nav id="menu">
 		<header></header>
-			<div class="pure-menu pure-menu-scrollable custom-restricted">
+		<div class="pure-menu pure-menu-scrollable custom-restricted">
 			<a href="#" class="pure-menu-link pure-menu-heading">Your pastes</a>
 			<ul class="pure-menu-list">
 				{{#if userPastesLoaded}}
@@ -211,7 +211,18 @@
 					{{/each}}
 				{{/if}}
 			</ul>
+		<div class="shortcuts">
+			<div>
+				Open settings:<kbd>Ctrl</kbd>+<kbd>←</kbd>
+			</div>
+			<div>
+				Close settings:<kbd>Ctrl</kbd>+<kbd>→</kbd>
+			</div>
+			<div>
+				Download paste:<kbd>Ctrl</kbd>+<kbd>↓</kbd>
+			</div>
 			
+		</div>
 		</div>
 	</nav>
 	<script>
