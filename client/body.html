@@ -23,13 +23,8 @@
 <template name = "header">
 	<header>
 		{{#if homePage}}
+		<div class="inputContainer">
 			<input id="pasteName" type="text" name="title" placeholder="Enter title..." />
-			<button id="submitPaste" class="button pure-button pure-button-primary">
-				<i class="fa fa-plus"></i>
-			</button>
-			<button id="encryptPaste" data-tooltip="Encrypt" data-tooltip-direction="s" class="button pure-button pure-button-primary">
-				<i class="fa fa-key"></i>
-			</button>
 			<select id="selectLanguage">
 				<option value="abap">Abap</option>
 				<option value="abc">Abc</option>
@@ -158,12 +153,21 @@
 				<option value="xquery">Xquery</option>
 				<option value="yaml">Yaml</option>
 			</select>
+		</div>
+		<div class="controlsContainer">
+			<button id="submitPaste" data-tooltip="Save" data-tooltip-direction="s" class="button pure-button pure-button-primary">
+				<i class="fa fa-plus"></i>
+			</button>
+			<button id="encryptPaste" data-tooltip="Encrypt" data-tooltip-direction="s" class="button pure-button pure-button-primary">
+				<i class="fa fa-key"></i>
+			</button>
+			{{> controls}}
+		</div>
 		{{/if}}
 
-		<button class="button pure-button pure-button-primary tool-button" id="tools" data-tooltip="Manage" data-tooltip-direction="s">
-			<i class="fa fa-briefcase"></i>
-		</button>
 
+
+		
 		{{#if homePaste}}
 			<button class="button pure-button pure-button-primary" id="home" onclick="location.href='{{siteName}}';">
 				<i class="fa fa-plane"></i>
@@ -185,6 +189,7 @@
 				<button class="button new-fork pure-button pure-button-primary" data-tooltip="Fork" data-tooltip-direction="s">
 					<i class="fa fa-code-fork"></i>
 				</button>
+				{{> controls}}
 			</div>
 		{{/if}}
 	</header>
@@ -192,7 +197,6 @@
 
 <template name="slideout">
 	<nav id="menu">
-		<header></header>
 		<div class="pure-menu pure-menu-scrollable custom-restricted">
 			<a href="#" class="pure-menu-link pure-menu-heading">Your pastes</a>
 			<ul class="pure-menu-list">
@@ -211,6 +215,7 @@
 					{{/each}}
 				{{/if}}
 			</ul>
+		</div>
 		<div class="shortcuts">
 			<div>
 				Open settings:<kbd>Ctrl</kbd>+<kbd>←</kbd>
@@ -223,7 +228,6 @@
 			</div>
 			
 		</div>
-		</div>
 	</nav>
 	<script>
 		slideout = new Slideout({
@@ -235,3 +239,9 @@
 		});
 	</script>
 </template>	
+
+<template name="controls">
+	<button class="button pure-button pure-button-primary tool-button" id="tools" data-tooltip="Manage" data-tooltip-direction="s">
+		<i class="fa fa-briefcase"></i>
+	</button>
+</template>

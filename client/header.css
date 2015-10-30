@@ -1,11 +1,20 @@
-header {
-	height: 3em;
-	position: relative;
-	background-color: rgb(19, 19, 19);
+#bodyContainer {
+	display: flex;
+	align-items: stretch;
+	flex-direction: column;
 }
 
-.button {
-	transform: translateY(21%);
+#bodyContainer > header{
+	background-color: rgb(19, 19, 19);
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center ;
+}
+
+#bodyContainer > header > * {
+    margin: 0 3em;
 }
 
 .ready {
@@ -14,26 +23,23 @@ header {
 }
 
 input#pasteName {
-	margin-left: 6em;
-	position: absolute;
-	top: 50%;
-	transform: translateY(-50%);
+	/*margin-left: 6em;*/
 	font-family: monospace;
 	font-size: 2em;
 	color: rgb(39, 40, 34);
-	padding: .5em .6em;
+	height: 2em;
 	border: 1px solid #ccc;
+	margin:0;
+	padding: 0;
+	width: 11em;
 }
 
 #encryptPaste {
-	margin-left: 24.5em;
+	/*margin-left: 24.5em;*/
 }
 
 div#pasteName {
-	margin-left: 6em;
-	position: absolute;
-	top: 50%;
-	transform: translateY(-50%);
+	/*margin-left: 6em;*/
 	font-family: monospace;
 	font-size: 2em;
 	color: rgb(213, 255, 0);
@@ -45,30 +51,21 @@ div#pasteName {
 }
 
 #home, #submitPaste {
-	margin-left: 5em;
-}
-
-#controls {
-	position: absolute;
-	margin-right: 7em;
-	right: 0;
-	top:0;
+	/*margin-left: 5em;*/
 }
 
 #editor {
-	height: calc(100vh - 4em);
+	flex-grow: 1;
 }
 
 select {
-	position: absolute;
 	color: rgb(39, 40, 34);
-	right: 8em;
-	top: 50%;
+	/*right: 8em;*/
 	font-family: monospace !important; 
-	transform: translateY(-50%);
-	padding: 0.3em 1.6em;
+	height: 2em;
+	box-sizing: initial;
 	border: 1px solid #ccc;
-	font-size: 26px !important;
+	font-size: 2em !important;
 }
 
 .hljs {
@@ -76,9 +73,7 @@ select {
 }
 
 .tool-button {
-	position: absolute;
-	margin-right: 1em;
-	right: 0;
+	/*margin-right: 1em;*/
 	transition: .2s linear;
 }
 
@@ -90,7 +85,7 @@ select {
 	color: tomato;
 }
 
-@media screen and (max-width:1100px) { 
+/*@media screen and (max-width:1100px) { 
 	#encryptPaste, #tools {
 		display: none;
 	}
@@ -103,4 +98,4 @@ select {
 	#controls {
 		display: none;
 	}
-}
+}*/
