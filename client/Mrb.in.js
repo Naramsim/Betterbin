@@ -7,31 +7,7 @@ PastesLinks = new Mongo.Collection("pastesLinks"); //connection to Group Collect
 Template.header.events({
 	"click #submitPaste": function (event) {
 	// Grab paste's text from text field
-	var blob = editor.getValue(); 
-	var titlePaste = document.getElementById('pasteName').value;
-	var langPaste = document.getElementById('selectLanguage');
-	var key = "";
-	langPaste = langPaste.options[langPaste.selectedIndex].value;
-	// Check that text field is not blank before adding paste
-	if (blob !== '' && titlePaste !== '') {
-		if(Session.get("isPasteEncrypted") === true){
-			var s = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-			key = Array(6).join().split(',').map(function() { return s.charAt(Math.floor(Math.random() * s.length)); }).join('');
-			blob = sjcl.encrypt(key, blob);
-		}
-		Meteor.call("addPaste", blob, titlePaste, langPaste, getCookie("auth"), Session.get("isPasteEncrypted"), Session.get("isFork"), function (err, response) {
-			if (err) {console.log(err);}
-			document.getElementById("tools").classList.add("hideSlow");
-			//document.getElementById('submitPaste').classList.add("ready");
-			NProgress.configure({ easing: 'ease', speed: 500 });
-			NProgress.start();
-			NProgress.inc();
-			setTimeout(function(){
-				NProgress.done();
-				takeMeToPaste(response[0], key); //redirect user
-			},2000);
-		}); //call server-side method addPaste
-	}
+	uploadBlob(0);
 	// Clear the text field for next entry
 	// event.target.paste.value = "";
 	// Prevent default form submit
@@ -48,6 +24,12 @@ Template.header.events({
 		Session.set("isPaste", false);
 		Session.set("isFork", true);
 		document.getElementsByClassName("tooltip")[0].classList.remove("show");
+	},
+	"click .new-save": function (event) {
+		if(!Session.get("isSaved")){
+			uploadBlob(1);
+			startToast(2000, "Click Manage to view the saved paste", "Saved");
+		}
 	},
 	"click .copyPasteUrl": function (event) {
 		startToast(2000, "Adress has been copied to the clipboard", "Go and paste");
@@ -99,7 +81,8 @@ Template.slideout.helpers({
 	name : function () {return this.name;},
 	title : function () {return this.title;},
 	lang : function () {return this.lang;},
-	isFork : function (){return this.isFork;}
+	isFork : function (){return this.isFork;},
+	isSave : function (){return this.isSave;}
 });
 
 Template.slideout.events ({
@@ -129,6 +112,7 @@ Meteor.startup(function() {
 	$("textarea").keydown(function(e){
 		KeyPress(e);
 	});
+
 	Meteor.call("getUserPastes", Session.get("auth"), function (err, response){
 		if(err) {console.log(err);}
 		if(response === 1) {
@@ -136,6 +120,11 @@ Meteor.startup(function() {
 		}else{
 			Session.set("userPastesLoaded", true);
 			Session.set("userPastes", response);
+			userPastesIds = [];
+			for (var i = response.userPastes.length - 1; i >= 0; i--) {
+				userPastesIds.push(response.userPastes[i]._id);
+			};
+			Session.set("userPastesIds", userPastesIds);
 		}
 	});
 
@@ -148,3 +137,5 @@ Meteor.startup(function() {
 		//if(currentContext.route.name == "home") {Session.set("isPaste", false);}
 	});*/
 });
+
+window.onbeforeunload = savePaste;

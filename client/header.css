@@ -4,7 +4,7 @@
 	flex-direction: column;
 }
 
-#bodyContainer > header{
+.headerFlex{
 	background-color: rgb(19, 19, 19);
 	display: flex;
 	flex-direction: row;
@@ -13,7 +13,7 @@
 	align-items: center ;
 }
 
-#bodyContainer > header > * {
+.headerFlex > * {
     margin: 0 3em;
 }
 
@@ -43,6 +43,7 @@ div#pasteName {
 	font-family: monospace;
 	font-size: 2em;
 	color: rgb(213, 255, 0);
+	margin: 0.4em 0;
 }
 
 .pasteLang {
@@ -85,17 +86,23 @@ select {
 	color: tomato;
 }
 
-/*@media screen and (max-width:1100px) { 
-	#encryptPaste, #tools {
-		display: none;
+@media screen and (max-width:800px) { 
+	.headerFlex{
+		justify-content: center;
 	}
-	#selectLanguage {
-		right: 1em;
+	.controlsContainer{
+		margin: 0.4em 3em;
 	}
 }
 
-@media screen and (max-width:760px) { 
-	#controls {
+@media screen and (max-width:600px) { 
+	#selectLanguage, #submitPaste + button {
 		display: none;
 	}
-}*/
+	.headerFlex > * {
+		margin: 0;
+	}
+	.headerFlex {
+		justify-content: space-around;
+	}
+}

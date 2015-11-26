@@ -21,7 +21,7 @@
 </template>
 
 <template name = "header">
-	<header>
+	<header class="headerFlex">
 		{{#if homePage}}
 		<div class="inputContainer">
 			<input id="pasteName" type="text" name="title" placeholder="Enter title..." />
@@ -189,6 +189,9 @@
 				<button class="button new-fork pure-button pure-button-primary" data-tooltip="Fork" data-tooltip-direction="s">
 					<i class="fa fa-code-fork"></i>
 				</button>
+				<button class="button new-save pure-button pure-button-primary" data-tooltip="Save Locally" data-tooltip-direction="s">
+					<i class="fa fa-hdd-o"></i>
+				</button>
 				{{> controls}}
 			</div>
 		{{/if}}
@@ -208,6 +211,9 @@
 						{{/if}}
 						{{#if isEncry}}
 							<i class="fa fa-key"></i>
+						{{/if}}
+						{{#if isSave}}
+							<i class="fa fa-hdd-o"></i>
 						{{/if}}
 						{{title}}
 						<div class="pasteLang">({{language}})</div>
