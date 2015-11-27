@@ -30,12 +30,13 @@ String.prototype.trunc = String.prototype.trunc ||
 	};
 
 Meteor.methods({ //called by Clients
-	addPaste: function (blob, title, lang, author, isEncrypted, isForked, isSaved) {
+	addPaste: function (blob, title, lang, author, isEncrypted, isForked, forkedForm, isSaved) {
 		var pasteInfo = [];
 		var pasteName = Array(pastesNameLenght).join().split(',').map(function() { return s.charAt(Math.floor(Math.random() * s.length)); }).join('');
 		var filePath = path.join(pastesPath, pasteName + ".txt");
 		var buffer = new Buffer( blob );
 		fs.writeFileSync( filePath, buffer);
+		if(forkedForm === undefined) {forkedForm = "none"} //Check...
 		PastesLinks.insert({
 			link: filePath,
 			title: title,
@@ -46,6 +47,7 @@ Meteor.methods({ //called by Clients
 			ip: this.connection.clientAddress,
 			isEncry: isEncrypted,
 			isFork: isForked,
+			originalPaste: forkedForm,
 			isSave: isSaved,
 			timesViewed: 1
 		});
