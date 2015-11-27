@@ -46,6 +46,10 @@ div#pasteName {
 	margin: 0.4em 0;
 }
 
+#pasteName > .fa-code-fork {
+	font-size: 65%;
+}
+
 .pasteLang {
 	display: inline-block;
 	font-size: 90%;

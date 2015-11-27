@@ -24,11 +24,17 @@ Template.header.events({
 		Session.set("isPaste", false);
 		Session.set("isFork", true);
 		document.getElementsByClassName("tooltip")[0].classList.remove("show");
+		setTimeout(function(){
+			document.getElementById("pasteName").focus();
+		document.getElementById("selectLanguage").value = Session.get("pasteLang");
+		},300);
 	},
 	"click .new-save": function (event) {
 		if(!Session.get("isSaved")){
 			uploadBlob(1);
 			startToast(2000, "Click Manage to view the saved paste", "Saved");
+		}else{
+			startToast(2000, "This paste is already in your files", "OPS..")
 		}
 	},
 	"click .copyPasteUrl": function (event) {
@@ -64,7 +70,8 @@ Template.header.helpers({
 	title : function() {return Session.get("pasteTitle");},
 	pasteName : function() {return Session.get("pasteName");},
 	pasteUrl : function() {return window.location.href;},
-	lang : function () {return Session.get("pasteLang");}
+	lang : function () {return Session.get("pasteLang");},
+	isFork : function () {return Session.get("isForked");}
 });
 
 Template.body.helpers({

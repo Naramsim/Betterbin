@@ -173,6 +173,9 @@
 				<i class="fa fa-plane"></i>
 			</button>
 			<div id="pasteName">
+				{{#if isFork}}
+					<i class="fa fa-code-fork"></i>
+				{{/if}}
 				{{title}}	
 				<div id="pasteLang" class="pasteLang">({{lang}})</div>
 			</div>
@@ -189,7 +192,7 @@
 				<button class="button new-fork pure-button pure-button-primary" data-tooltip="Fork" data-tooltip-direction="s">
 					<i class="fa fa-code-fork"></i>
 				</button>
-				<button class="button new-save pure-button pure-button-primary" data-tooltip="Save Locally" data-tooltip-direction="s">
+				<button class="button new-save pure-button pure-button-primary" data-tooltip="Save in your files" data-tooltip-direction="s">
 					<i class="fa fa-hdd-o"></i>
 				</button>
 				{{> controls}}
