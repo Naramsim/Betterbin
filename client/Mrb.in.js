@@ -1,6 +1,6 @@
 //Collections
 
-PastesLinks = new Mongo.Collection("pastesLinks"); //connection to Group Collection //Do NOT declare as var, it will override the server one
+//PastesLinks = new Mongo.Collection("pastesLinks"); //connection to Group Collection //Do NOT declare as var, it will override the server one
 
 //Events
 
@@ -29,9 +29,9 @@ Template.header.events({
 		document.getElementById("selectLanguage").value = Session.get("pasteLang");
 		},300);
 	},
-	"click .new-save": function (event) {
-		if(!Session.get("isSaved")){
-			uploadBlob(1);
+	"click .new-bookmark": function (event) {
+		if(Session.get("userBookmarksLinks").indexOf(Session.get("pasteName")) === -1){
+			bookmarkPaste();
 			startToast(2000, "Click Manage to view the saved paste", "Saved");
 		}else{
 			startToast(2000, "This paste is already in your files", "OPS..")
@@ -88,8 +88,12 @@ Template.slideout.helpers({
 	name : function () {return this.name;},
 	title : function () {return this.title;},
 	lang : function () {return this.lang;},
-	isFork : function (){return this.isFork;},
-	isSave : function (){return this.isSave;}
+	isFork : function () {return this.isFork;},
+	forkedFrom : function () {return this.originalPaste;},
+
+	userBookmarks : function () {return Session.get("userBookmarks").userBookmarks;},
+	bookmarkLink : function () {return this.bookmarkLink;},
+	bookmarkTitle : function () {return this.bookmarkTitle;}
 });
 
 Template.slideout.events ({
@@ -120,21 +124,9 @@ Meteor.startup(function() {
 		KeyPress(e);
 	});
 
-	Meteor.call("getUserPastes", Session.get("auth"), function (err, response){
-		if(err) {console.log(err);}
-		if(response === 1) {
-			console.log("A server error has occurred");
-		}else{
-			Session.set("userPastesLoaded", true);
-			Session.set("userPastes", response);
-			userPastesIds = [];
-			for (var i = response.userPastes.length - 1; i >= 0; i--) {
-				userPastesIds.push(response.userPastes[i]._id);
-			};
-			Session.set("userPastesIds", userPastesIds);
-		}
-	});
-
+	loadUserPastes();
+	loadUserBookmarks();
+	
 
 	/*Tracker.autorun(function() {
 		FlowRouter.watchPathChange();

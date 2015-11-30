@@ -192,8 +192,8 @@
 				<button class="button new-fork pure-button pure-button-primary" data-tooltip="Fork" data-tooltip-direction="s">
 					<i class="fa fa-code-fork"></i>
 				</button>
-				<button class="button new-save pure-button pure-button-primary" data-tooltip="Save in your files" data-tooltip-direction="s">
-					<i class="fa fa-hdd-o"></i>
+				<button class="button new-bookmark pure-button pure-button-primary" data-tooltip="Save in your files" data-tooltip-direction="s">
+					<i class="fa fa-bookmark"></i>
 				</button>
 				{{> controls}}
 			</div>
@@ -210,19 +210,28 @@
 					{{#each userPastes}}
 						<li class="pure-menu-item"><a href="{{siteName}}/pastes/{{name}}" class="pure-menu-link">
 						{{#if isFork}}
-							<i class="fa fa-code-fork"></i>
+							<i class="fa fa-code-fork" onclick="window.open('{{siteName}}/pastes/{{forkedFrom}}','blank');"></i>
 						{{/if}}
 						{{#if isEncry}}
 							<i class="fa fa-key"></i>
-						{{/if}}
-						{{#if isSave}}
-							<i class="fa fa-hdd-o"></i>
 						{{/if}}
 						{{title}}
 						<div class="pasteLang">({{language}})</div>
 						</a></li>
 					{{/each}}
 				{{/if}}
+			</ul>
+			<a href="#" class="pure-menu-link pure-menu-heading">Your bookmarks</a>
+			<ul class="pure-menu-list">
+			{{#each userBookmarks}}
+				<li class="pure-menu-item"><a href="{{siteName}}/pastes/{{bookmarkLink}}" class="pure-menu-link">
+				{{#if isEncry}} <!-- not impemented right now -->
+					<i class="fa fa-key"></i>
+				{{/if}}
+				<i class="fa fa-bookmark"></i>
+				{{bookmarkTitle}}
+				</a></li>
+			{{/each}}
 			</ul>
 		</div>
 		<div class="shortcuts">

@@ -81,3 +81,8 @@ nav {
 	padding:.1em .6em;
 	text-shadow:0 1px 0 #fff;
 }
+
+i.fa.fa-code-fork:hover {
+	transition: 0.2s;
+	color:#D5FF00;
+}

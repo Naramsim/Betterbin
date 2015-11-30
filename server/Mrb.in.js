@@ -13,7 +13,7 @@ console.log("pastes are saved in: " + pastesPath);
 var s = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789£$&^"; //allowed char for paste's name
 var pastesNameLenght = 7;
 var PastesLinks = new Mongo.Collection("pastesLinks"); //connection to Group Collection //var=> not sharable
-
+var BookMarks = new Mongo.Collection("bookamrks");
 
 if(!fs.existsSync(pastesPath)){
 	fs.mkdirSync(pastesPath, 0766, function(err){
@@ -22,7 +22,7 @@ if(!fs.existsSync(pastesPath)){
 			response.send("ERROR! Can't make the directory! \n");    // echo the result back
 		}
 	});
-}	
+}
 
 String.prototype.trunc = String.prototype.trunc ||
 	function(n){
@@ -30,8 +30,9 @@ String.prototype.trunc = String.prototype.trunc ||
 	};
 
 Meteor.methods({ //called by Clients
-	addPaste: function (blob, title, lang, author, isEncrypted, isForked, forkedForm, isSaved) {
+	addPaste: function (blob, title, lang, author, isEncrypted, isForked, forkedForm, isBookmarked) {
 		var pasteInfo = [];
+		if(isBookmarked != true) {isBookmarked = false;}
 		var pasteName = Array(pastesNameLenght).join().split(',').map(function() { return s.charAt(Math.floor(Math.random() * s.length)); }).join('');
 		var filePath = path.join(pastesPath, pasteName + ".txt");
 		var buffer = new Buffer( blob );
@@ -48,16 +49,26 @@ Meteor.methods({ //called by Clients
 			isEncry: isEncrypted,
 			isFork: isForked,
 			originalPaste: forkedForm,
-			isSave: isSaved,
+			isBookmark: isBookmarked,
 			timesViewed: 1
 		});
 		pasteInfo.push(pasteName);
 		return pasteInfo;
 	},
+	addBookmark : function (pasteUrl, pasteTitle, auth) {
+		BookMarks.insert({
+			bookmarkLink: pasteUrl,
+			bookmarkTitle: pasteTitle,
+			createdAt: new Date(),
+			owner: auth
+		});
+	},
 	updatePaste: function (blob, title, pasteId, author) {
-		pasteToUpdate = PastesLinks.findOne({title: title, _id: pasteId, owner:author}).link;
-		var buffer = new Buffer( blob );
-		fs.writeFileSync( pasteToUpdate, buffer);
+		var pasteToUpdate = PastesLinks.findOne({title: title, _id: pasteId, owner:author}).link;
+		if(pasteToUpdate){
+			var buffer = new Buffer( blob );
+			fs.writeFileSync( pasteToUpdate, buffer);
+		}
 	},
 	getPaste: function (pasteName) {
 		try{
@@ -72,7 +83,7 @@ Meteor.methods({ //called by Clients
 			pasteInfo.lang = pasteInfoFromDb.language;
 			pasteInfo.isEncry = pasteInfoFromDb.isEncry;
 			pasteInfo.isFork = pasteInfoFromDb.isFork;
-			pasteInfo.isSave = pasteInfoFromDb.isSave;
+			pasteInfo.isBookmark = pasteInfoFromDb.isBookmark;
 			pasteInfo._id = pasteInfoFromDb._id;
 			pasteInfo.numbersOfViews = pasteInfoFromDb.timesViewed;
 			return pasteInfo; //I send only public infos
@@ -86,6 +97,16 @@ Meteor.methods({ //called by Clients
 			var userPastes = {};
 			userPastes.userPastes = PastesLinks.find({owner: userName}).fetch();
 			return userPastes;
+		}catch(e){
+			console.log(e);
+			return 1;
+		}
+	},
+	getUserBookmarks: function (userName) {
+		try{
+			var userBookmarks = {};
+			userBookmarks.userBookmarks = BookMarks.find({owner: userName}).fetch();
+			return userBookmarks;
 		}catch(e){
 			console.log(e);
 			return 1;
