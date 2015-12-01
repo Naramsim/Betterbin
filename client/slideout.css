@@ -86,3 +86,21 @@ i.fa.fa-code-fork:hover {
 	transition: 0.2s;
 	color:#D5FF00;
 }
+
+.pure-menu-item:hover .micro-controls{
+	display: block;
+}
+
+.micro-controls {
+	display: none;
+	padding-top: 6px;
+}
+
+.delete:hover {
+	transition: 0.3s;
+	color: #E75959;
+}
+
+.fa.fa-external-link, .fa.fa-clipboard {
+	font-size: 14px;
+}

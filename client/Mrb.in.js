@@ -90,6 +90,7 @@ Template.slideout.helpers({
 	lang : function () {return this.lang;},
 	isFork : function () {return this.isFork;},
 	forkedFrom : function () {return this.originalPaste;},
+	pasteUrl : function () {return window.location.host + "/pastes/" + this.name},
 
 	userBookmarks : function () {return Session.get("userBookmarks").userBookmarks;},
 	bookmarkLink : function () {return this.bookmarkLink;},
@@ -99,6 +100,9 @@ Template.slideout.helpers({
 Template.slideout.events ({
 	"click .pure-menu-link": function (event) {
 		slideout.close();
+	},
+	"click .copyPasteUrl": function (event) {
+		startToast(2000, "Adress has been copied to the clipboard", "Go and paste");
 	}
 });
 

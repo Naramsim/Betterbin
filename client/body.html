@@ -112,6 +112,7 @@
 				<option value="plain_text" selected="selected">Plain text</option>
 				<option value="powershell">Powershell</option>
 				<option value="praat">Praat</option>
+				<option value="haml">Pokemon</option>
 				<option value="prolog">Prolog</option>
 				<option value="properties">Properties</option>
 				<option value="protobuf">Protobuf</option>
@@ -217,6 +218,11 @@
 						{{/if}}
 						{{title}}
 						<div class="pasteLang">({{language}})</div>
+						<div class="micro-controls">
+							<i class="fa fa-clipboard copyPasteUrl" data-clipboard-text="{{pasteUrl}}"></i>
+							<i class="fa fa-external-link" onclick="window.open('{{name}}/pastes/{{forkedFrom}}','blank');"></i>
+							<i class="delete fa fa-trash-o"></i>
+						</div>
 						</a></li>
 					{{/each}}
 				{{/if}}
