@@ -87,13 +87,22 @@ i.fa.fa-code-fork:hover {
 	color:#D5FF00;
 }
 
+.pure-menu-item:hover {
+	background-color: #eee;
+}
+
 .pure-menu-item:hover .micro-controls{
 	display: block;
 }
 
 .micro-controls {
 	display: none;
-	padding-top: 6px;
+	padding-bottom: 4px;
+	color: #777;
+}
+
+.micro-controls > * {
+	cursor: pointer;
 }
 
 .delete:hover {

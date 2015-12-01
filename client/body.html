@@ -209,21 +209,24 @@
 			<ul class="pure-menu-list">
 				{{#if userPastesLoaded}}
 					{{#each userPastes}}
-						<li class="pure-menu-item"><a href="{{siteName}}/pastes/{{name}}" class="pure-menu-link">
-						{{#if isFork}}
-							<i class="fa fa-code-fork" onclick="window.open('{{siteName}}/pastes/{{forkedFrom}}','blank');"></i>
-						{{/if}}
-						{{#if isEncry}}
-							<i class="fa fa-key"></i>
-						{{/if}}
-						{{title}}
-						<div class="pasteLang">({{language}})</div>
-						<div class="micro-controls">
-							<i class="fa fa-clipboard copyPasteUrl" data-clipboard-text="{{pasteUrl}}"></i>
-							<i class="fa fa-external-link" onclick="window.open('{{name}}/pastes/{{forkedFrom}}','blank');"></i>
-							<i class="delete fa fa-trash-o"></i>
-						</div>
-						</a></li>
+						<li class="pure-menu-item">
+							<a href="{{siteName}}/pastes/{{name}}" class="pure-menu-link">
+							{{#if isFork}}
+								<i class="fa fa-code-fork" onclick="window.open('{{siteName}}/pastes/{{forkedFrom}}','blank');"></i>
+							{{/if}}
+							{{#if isEncry}}
+								<i class="fa fa-key"></i>
+							{{/if}}
+							{{title}}
+							<div class="pasteLang">({{language}})</div>
+							</a>
+							<div class="micro-controls">
+								<i class="fa fa-clipboard copyPasteUrl" data-clipboard-text="{{pasteUrl}}"></i>
+								<i class="fa fa-external-link" onclick="window.open('{{siteName}}/pastes/{{name}}','blank');"></i>
+								<i class="delete fa fa-trash-o" data-attr="{{_id}}"></i>
+							</div>
+							
+						</li>
 					{{/each}}
 				{{/if}}
 			</ul>

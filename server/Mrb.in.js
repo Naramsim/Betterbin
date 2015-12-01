@@ -70,6 +70,15 @@ Meteor.methods({ //called by Clients
 			fs.writeFileSync( pasteToUpdate, buffer);
 		}
 	},
+	deletePaste: function (pasteId, author) {
+		var pasteToRename = PastesLinks.findOne({_id: pasteId, owner:author}).link; //i will rename it, not deleting
+		if(pasteToRename){
+			PastesLinks.remove({_id: pasteId, owner:author});
+			fs.rename(pasteToRename, pasteToRename + ".R", function(err){
+				if ( err ) console.log('ERROR: ' + err);
+			});
+		}
+	},
 	getPaste: function (pasteName) {
 		try{
 			var pasteInfo = {}; //EJSON to return to the client
