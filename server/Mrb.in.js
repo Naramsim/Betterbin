@@ -31,52 +31,75 @@ String.prototype.trunc = String.prototype.trunc ||
 
 Meteor.methods({ //called by Clients
 	addPaste: function (blob, title, lang, author, isEncrypted, isForked, forkedForm, isBookmarked) {
-		var pasteInfo = [];
-		if(isBookmarked != true) {isBookmarked = false;}
-		var pasteName = Array(pastesNameLenght).join().split(',').map(function() { return s.charAt(Math.floor(Math.random() * s.length)); }).join('');
-		var filePath = path.join(pastesPath, pasteName + ".txt");
-		var buffer = new Buffer( blob );
-		fs.writeFileSync( filePath, buffer);
-		if(forkedForm === undefined) {forkedForm = "none"} //Check...
-		PastesLinks.insert({
-			link: filePath,
-			title: title,
-			name: pasteName, //the name of the txt(random)
-			createdAt: new Date(),
-			owner: author,
-			language: lang,
-			ip: this.connection.clientAddress,
-			isEncry: isEncrypted,
-			isFork: isForked,
-			originalPaste: forkedForm,
-			isBookmark: isBookmarked,
-			timesViewed: 1
-		});
-		pasteInfo.push(pasteName);
-		return pasteInfo;
+		try{
+			var pasteInfo = [];
+			if(isBookmarked != true) {isBookmarked = false;}
+			var pasteName = Array(pastesNameLenght).join().split(',').map(function() { return s.charAt(Math.floor(Math.random() * s.length)); }).join('');
+			var filePath = path.join(pastesPath, pasteName + ".txt");
+			var buffer = new Buffer( blob );
+			fs.writeFileSync( filePath, buffer);
+			if(forkedForm === undefined) {forkedForm = "none"} //Check...
+			PastesLinks.insert({
+				link: filePath,
+				title: title,
+				name: pasteName, //the name of the txt(random)
+				createdAt: new Date(),
+				owner: author,
+				language: lang,
+				ip: this.connection.clientAddress,
+				isEncry: isEncrypted,
+				isFork: isForked,
+				originalPaste: forkedForm,
+				isBookmark: isBookmarked,
+				timesViewed: 1
+			});
+			pasteInfo.push(pasteName);
+			return pasteInfo;
+		}catch(e){
+			console.log(e);
+		}
 	},
 	addBookmark : function (pasteUrl, pasteTitle, auth) {
-		BookMarks.insert({
-			bookmarkLink: pasteUrl,
-			bookmarkTitle: pasteTitle,
-			createdAt: new Date(),
-			owner: auth
-		});
+		try{
+			BookMarks.insert({
+				bookmarkLink: pasteUrl,
+				bookmarkTitle: pasteTitle,
+				createdAt: new Date(),
+				owner: auth
+			});
+		}catch(e){
+			console.log(e);
+		}
 	},
 	updatePaste: function (blob, title, pasteId, author) {
-		var pasteToUpdate = PastesLinks.findOne({title: title, _id: pasteId, owner:author}).link;
-		if(pasteToUpdate){
-			var buffer = new Buffer( blob );
-			fs.writeFileSync( pasteToUpdate, buffer);
+		try{
+			var pasteToUpdate = PastesLinks.findOne({title: title, _id: pasteId, owner:author}).link;
+			if(pasteToUpdate){
+				var buffer = new Buffer( blob );
+				fs.writeFileSync( pasteToUpdate, buffer);
+			}
+		}catch(e){
+			console.log(e);
 		}
 	},
 	deletePaste: function (pasteId, author) {
-		var pasteToRename = PastesLinks.findOne({_id: pasteId, owner:author}).link; //i will rename it, not deleting
-		if(pasteToRename){
-			PastesLinks.remove({_id: pasteId, owner:author});
-			fs.rename(pasteToRename, pasteToRename + ".R", function(err){
-				if ( err ) console.log('ERROR: ' + err);
-			});
+		try{
+			var pasteToRename = PastesLinks.findOne({_id: pasteId, owner:author}).link; //i will rename it, not deleting
+			if(pasteToRename){
+				PastesLinks.remove({_id: pasteId, owner:author});
+				fs.rename(pasteToRename, pasteToRename + ".R", function(err){
+					if ( err ) console.log('ERROR: ' + err);
+				});
+			}
+		}catch(e){
+			console.log(e);
+		}
+	},
+	deleteBookmark: function (bookmarkId, author) {
+		try{
+			BookMarks.remove({_id: bookmarkId, owner:author});
+		}catch(e){
+			console.log(e);
 		}
 	},
 	getPaste: function (pasteName) {

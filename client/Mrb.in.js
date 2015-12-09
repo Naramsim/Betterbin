@@ -95,7 +95,8 @@ Template.slideout.helpers({
 
 	userBookmarks : function () {return Session.get("userBookmarks").userBookmarks;},
 	bookmarkLink : function () {return this.bookmarkLink;},
-	bookmarkTitle : function () {return this.bookmarkTitle;}
+	bookmarkTitle : function () {return this.bookmarkTitle;},
+	_id : function () {return this._id}
 });
 
 Template.slideout.events ({
@@ -105,8 +106,11 @@ Template.slideout.events ({
 	"click .copyPasteUrl": function (event) {
 		startToast(2000, "Adress has been copied to the clipboard", "Go and paste");
 	},
-	"click .delete": function (event) {
+	"click .delete-paste": function (event) {
 		deletePaste(event.toElement.attributes["data-attr"].nodeValue);
+	},
+	"click .delete-bookmark": function (event) {
+		deleteBookmark(event.toElement.attributes["data-attr"].nodeValue);
 	}
 });
 

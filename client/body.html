@@ -223,7 +223,7 @@
 							<div class="micro-controls">
 								<i class="fa fa-clipboard copyPasteUrl" data-clipboard-text="{{pasteUrl}}"></i>
 								<i class="fa fa-external-link" onclick="window.open('{{siteName}}/pastes/{{name}}','blank');"></i>
-								<i class="delete fa fa-trash-o" data-attr="{{_id}}"></i>
+								<i class="delete delete-paste fa fa-trash-o" data-attr="{{_id}}"></i>
 							</div>
 							
 						</li>
@@ -233,13 +233,15 @@
 			<a href="#" class="pure-menu-link pure-menu-heading">Your bookmarks</a>
 			<ul class="pure-menu-list">
 			{{#each userBookmarks}}
-				<li class="pure-menu-item"><a href="{{siteName}}/pastes/{{bookmarkLink}}" class="pure-menu-link">
-				{{#if isEncry}} <!-- not impemented right now -->
-					<i class="fa fa-key"></i>
-				{{/if}}
-				<i class="fa fa-bookmark"></i>
-				{{bookmarkTitle}}
-				</a></li>
+				<li class="pure-menu-item pure-menu-bookmarks"><a href="{{siteName}}/pastes/{{bookmarkLink}}" class="pure-menu-link">
+					{{#if isEncry}} <!-- not impemented right now -->
+						<i class="fa fa-key"></i>
+					{{/if}}
+					<i class="fa fa-bookmark-o"></i>
+					{{bookmarkTitle}}
+					</a>
+					<div class="delete-container"><i class="delete delete-bookmark fa fa-trash-o" data-attr="{{_id}}"></i></div>
+				</li>
 			{{/each}}
 			</ul>
 		</div>
