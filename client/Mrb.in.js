@@ -1,37 +1,13 @@
 //Collections
 
-PastesLinks = new Mongo.Collection("pastesLinks"); //connection to Group Collection //Do NOT declare as var, it will override the server one
+//PastesLinks = new Mongo.Collection("pastesLinks"); //connection to Group Collection //Do NOT declare as var, it will override the server one
 
 //Events
 
 Template.header.events({
 	"click #submitPaste": function (event) {
 	// Grab paste's text from text field
-	var blob = editor.getValue(); 
-	var titlePaste = document.getElementById('pasteName').value;
-	var langPaste = document.getElementById('selectLanguage');
-	var key = "";
-	langPaste = langPaste.options[langPaste.selectedIndex].value;
-	// Check that text field is not blank before adding paste
-	if (blob !== '' && titlePaste !== '') {
-		if(Session.get("isPasteEncrypted") === true){
-			var s = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-			key = Array(6).join().split(',').map(function() { return s.charAt(Math.floor(Math.random() * s.length)); }).join('');
-			blob = sjcl.encrypt(key, blob);
-		}
-		Meteor.call("addPaste", blob, titlePaste, langPaste, getCookie("auth"), Session.get("isPasteEncrypted"), Session.get("isFork"), function (err, response) {
-			if (err) {console.log(err);}
-			document.getElementById("tools").classList.add("hideSlow");
-			//document.getElementById('submitPaste').classList.add("ready");
-			NProgress.configure({ easing: 'ease', speed: 500 });
-			NProgress.start();
-			NProgress.inc();
-			setTimeout(function(){
-				NProgress.done();
-				takeMeToPaste(response[0], key); //redirect user
-			},2000);
-		}); //call server-side method addPaste
-	}
+	uploadBlob(0);
 	// Clear the text field for next entry
 	// event.target.paste.value = "";
 	// Prevent default form submit
@@ -48,6 +24,18 @@ Template.header.events({
 		Session.set("isPaste", false);
 		Session.set("isFork", true);
 		document.getElementsByClassName("tooltip")[0].classList.remove("show");
+		setTimeout(function(){
+			document.getElementById("pasteName").focus();
+		document.getElementById("selectLanguage").value = Session.get("pasteLang");
+		},300);
+	},
+	"click .new-bookmark": function (event) {
+		if(Session.get("userBookmarksLinks").indexOf(Session.get("pasteName")) === -1){
+			bookmarkPaste();
+			startToast(2000, "Click Manage to view the saved paste", "Saved");
+		}else{
+			startToast(2000, "This paste is already in your files", "OPS..")
+		}
 	},
 	"click .copyPasteUrl": function (event) {
 		startToast(2000, "Adress has been copied to the clipboard", "Go and paste");
@@ -82,7 +70,8 @@ Template.header.helpers({
 	title : function() {return Session.get("pasteTitle");},
 	pasteName : function() {return Session.get("pasteName");},
 	pasteUrl : function() {return window.location.href;},
-	lang : function () {return Session.get("pasteLang");}
+	lang : function () {return Session.get("pasteLang");},
+	isFork : function () {return Session.get("isForked");}
 });
 
 Template.body.helpers({
@@ -99,12 +88,29 @@ Template.slideout.helpers({
 	name : function () {return this.name;},
 	title : function () {return this.title;},
 	lang : function () {return this.lang;},
-	isFork : function (){return this.isFork;}
+	isFork : function () {return this.isFork;},
+	forkedFrom : function () {return this.originalPaste;},
+	pasteUrl : function () {return window.location.host + "/pastes/" + this.name},
+	_id : function () {return this._id},
+
+	userBookmarks : function () {return Session.get("userBookmarks").userBookmarks;},
+	bookmarkLink : function () {return this.bookmarkLink;},
+	bookmarkTitle : function () {return this.bookmarkTitle;},
+	_id : function () {return this._id}
 });
 
 Template.slideout.events ({
 	"click .pure-menu-link": function (event) {
 		slideout.close();
+	},
+	"click .copyPasteUrl": function (event) {
+		startToast(2000, "Adress has been copied to the clipboard", "Go and paste");
+	},
+	"click .delete-paste": function (event) {
+		deletePaste(event.toElement.attributes["data-attr"].nodeValue);
+	},
+	"click .delete-bookmark": function (event) {
+		deleteBookmark(event.toElement.attributes["data-attr"].nodeValue);
 	}
 });
 
@@ -129,16 +135,10 @@ Meteor.startup(function() {
 	$("textarea").keydown(function(e){
 		KeyPress(e);
 	});
-	Meteor.call("getUserPastes", Session.get("auth"), function (err, response){
-		if(err) {console.log(err);}
-		if(response === 1) {
-			console.log("A server error has occurred");
-		}else{
-			Session.set("userPastesLoaded", true);
-			Session.set("userPastes", response);
-		}
-	});
 
+	loadUserPastes();
+	loadUserBookmarks();
+	
 
 	/*Tracker.autorun(function() {
 		FlowRouter.watchPathChange();
@@ -148,3 +148,5 @@ Meteor.startup(function() {
 		//if(currentContext.route.name == "home") {Session.set("isPaste", false);}
 	});*/
 });
+
+window.onbeforeunload = savePaste;

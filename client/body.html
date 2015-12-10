@@ -21,15 +21,10 @@
 </template>
 
 <template name = "header">
-	<header>
+	<header class="headerFlex">
 		{{#if homePage}}
+		<div class="inputContainer">
 			<input id="pasteName" type="text" name="title" placeholder="Enter title..." />
-			<button id="submitPaste" class="button pure-button pure-button-primary">
-				<i class="fa fa-plus"></i>
-			</button>
-			<button id="encryptPaste" data-tooltip="Encrypt" data-tooltip-direction="s" class="button pure-button pure-button-primary">
-				<i class="fa fa-key"></i>
-			</button>
 			<select id="selectLanguage">
 				<option value="abap">Abap</option>
 				<option value="abc">Abc</option>
@@ -117,6 +112,7 @@
 				<option value="plain_text" selected="selected">Plain text</option>
 				<option value="powershell">Powershell</option>
 				<option value="praat">Praat</option>
+				<option value="haml">Pokemon</option>
 				<option value="prolog">Prolog</option>
 				<option value="properties">Properties</option>
 				<option value="protobuf">Protobuf</option>
@@ -158,17 +154,29 @@
 				<option value="xquery">Xquery</option>
 				<option value="yaml">Yaml</option>
 			</select>
+		</div>
+		<div class="controlsContainer">
+			<button id="submitPaste" data-tooltip="Save" data-tooltip-direction="s" class="button pure-button pure-button-primary">
+				<i class="fa fa-plus"></i>
+			</button>
+			<button id="encryptPaste" data-tooltip="Encrypt" data-tooltip-direction="s" class="button pure-button pure-button-primary">
+				<i class="fa fa-key"></i>
+			</button>
+			{{> controls}}
+		</div>
 		{{/if}}
 
-		<button class="button pure-button pure-button-primary tool-button" id="tools" data-tooltip="Manage" data-tooltip-direction="s">
-			<i class="fa fa-briefcase"></i>
-		</button>
 
+
+		
 		{{#if homePaste}}
 			<button class="button pure-button pure-button-primary" id="home" onclick="location.href='{{siteName}}';">
 				<i class="fa fa-plane"></i>
 			</button>
 			<div id="pasteName">
+				{{#if isFork}}
+					<i class="fa fa-code-fork"></i>
+				{{/if}}
 				{{title}}	
 				<div id="pasteLang" class="pasteLang">({{lang}})</div>
 			</div>
@@ -185,6 +193,10 @@
 				<button class="button new-fork pure-button pure-button-primary" data-tooltip="Fork" data-tooltip-direction="s">
 					<i class="fa fa-code-fork"></i>
 				</button>
+				<button class="button new-bookmark pure-button pure-button-primary" data-tooltip="Save in your files" data-tooltip-direction="s">
+					<i class="fa fa-bookmark"></i>
+				</button>
+				{{> controls}}
 			</div>
 		{{/if}}
 	</header>
@@ -192,25 +204,47 @@
 
 <template name="slideout">
 	<nav id="menu">
-		<header></header>
 		<div class="pure-menu pure-menu-scrollable custom-restricted">
 			<a href="#" class="pure-menu-link pure-menu-heading">Your pastes</a>
 			<ul class="pure-menu-list">
 				{{#if userPastesLoaded}}
 					{{#each userPastes}}
-						<li class="pure-menu-item"><a href="{{siteName}}/pastes/{{name}}" class="pure-menu-link">
-						{{#if isFork}}
-							<i class="fa fa-code-fork"></i>
-						{{/if}}
-						{{#if isEncry}}
-							<i class="fa fa-key"></i>
-						{{/if}}
-						{{title}}
-						<div class="pasteLang">({{language}})</div>
-						</a></li>
+						<li class="pure-menu-item">
+							<a href="{{siteName}}/pastes/{{name}}" class="pure-menu-link">
+							{{#if isFork}}
+								<i class="fa fa-code-fork" onclick="window.open('{{siteName}}/pastes/{{forkedFrom}}','blank');"></i>
+							{{/if}}
+							{{#if isEncry}}
+								<i class="fa fa-key"></i>
+							{{/if}}
+							{{title}}
+							<div class="pasteLang">({{language}})</div>
+							</a>
+							<div class="micro-controls">
+								<i class="fa fa-clipboard copyPasteUrl" data-clipboard-text="{{pasteUrl}}"></i>
+								<i class="fa fa-external-link" onclick="window.open('{{siteName}}/pastes/{{name}}','blank');"></i>
+								<i class="delete delete-paste fa fa-trash-o" data-attr="{{_id}}"></i>
+							</div>
+							
+						</li>
 					{{/each}}
 				{{/if}}
 			</ul>
+			<a href="#" class="pure-menu-link pure-menu-heading">Your bookmarks</a>
+			<ul class="pure-menu-list">
+			{{#each userBookmarks}}
+				<li class="pure-menu-item pure-menu-bookmarks"><a href="{{siteName}}/pastes/{{bookmarkLink}}" class="pure-menu-link">
+					{{#if isEncry}} <!-- not impemented right now -->
+						<i class="fa fa-key"></i>
+					{{/if}}
+					<i class="fa fa-bookmark-o"></i>
+					{{bookmarkTitle}}
+					</a>
+					<div class="delete-container"><i class="delete delete-bookmark fa fa-trash-o" data-attr="{{_id}}"></i></div>
+				</li>
+			{{/each}}
+			</ul>
+		</div>
 		<div class="shortcuts">
 			<div>
 				Open settings:<kbd>Ctrl</kbd>+<kbd>←</kbd>
@@ -223,7 +257,6 @@
 			</div>
 			
 		</div>
-		</div>
 	</nav>
 	<script>
 		slideout = new Slideout({
@@ -235,3 +268,9 @@
 		});
 	</script>
 </template>	
+
+<template name="controls">
+	<button class="button pure-button pure-button-primary tool-button" id="tools" data-tooltip="Manage" data-tooltip-direction="s">
+		<i class="fa fa-briefcase"></i>
+	</button>
+</template>
