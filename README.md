@@ -6,7 +6,7 @@ Meteor PasteBin
 [![Code Climate](https://codeclimate.com/github/Naramsim/Mrb.in/badges/gpa.svg)](https://codeclimate.com/github/Naramsim/Mrb.in)
 
 ##Build
-[![Codeship](https://codeship.com/projects/122052/status?branch=master)](https://codeship.com/projects/122052/)
+Volkswagen-CI [![volkswagen status](https://auchenberg.github.io/volkswagen/volkswargen_ci.svg?v=1)](https://github.com/auchenberg/volkswagen)
 
 ##LICENSE
 [GPL V2](https://github.com/Naramsim/Mrb.in/blob/master/LICENSE.txt)
