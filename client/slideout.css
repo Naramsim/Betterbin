@@ -87,14 +87,16 @@ i.fa.fa-code-fork:hover {
 	color:#D5FF00;
 }
 
-.pure-menu-bookmarks {
+.pure-menu-item {
 	display: flex;
-	align-items: center;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    flex-direction: row;
 }
 
-.pure-menu-bookmarks > .pure-menu-link {
+.pure-menu-link {
 	padding-left: 3em;
-	width: 100%;
 	text-align: left;
 }
 
@@ -108,7 +110,7 @@ i.fa.fa-code-fork:hover {
 
 .delete-container {
 	opacity: 0;
-	width:100%;
+	padding-right: 2em;
 }
 
 .pure-menu-item:hover .delete-container{
