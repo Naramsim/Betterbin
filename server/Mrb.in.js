@@ -145,3 +145,66 @@ Meteor.methods({ //called by Clients
 		}
 	}
 });
+
+//Restivus API
+// var Api = new Restivus({
+// 	version: "v1",
+//     useDefaultAuth: true,
+//     prettyJson: true,
+//     defaultHeaders: {
+//       'Content-Type': 'application/json'
+//     },
+//     apiPath: 'aoe2/'
+//   });	
+var Strategies = new Mongo.Collection("strategies");
+// Api.addCollection(my);
+// Api.addRoute('articles', {
+//     get: function () {
+//     	console.log("HH")
+//       return true
+//     }
+//   });
+// console.log("HI")
+
+//CollectionAPI
+// var Strategies = new Mongo.Collection("strategies");
+// Strategies.insert({"b":1});
+Meteor.startup(function(){
+	collectionApi = new CollectionAPI({
+      authToken: undefined,              // Require this string to be passed in on each request
+      apiPath: 'aoe2',          // API path prefix
+      standAlone: true,                 // Run as a stand-alone HTTP(S) server
+      allowCORS: true,                  // Allow CORS (Cross-Origin Resource Sharing)
+      sslEnabled: false,                 // Disable/Enable SSL (stand-alone only)
+      listenPort: 3005,                  // Port to listen to (stand-alone only)
+      listenHost: undefined,
+      timeOut: 120000
+    });
+
+    // Add the collection Players to the API "/players" path
+    collectionApi.addCollection(Strategies, 'strategies', {
+      // All values listed below are default
+      authToken: undefined,                   // Require this string to be passed in on each request.
+      authenticate: undefined, // function(token, method, requestMetadata) {return true/false}; More details can found in [Authenticate Function](#Authenticate-Function).
+      methods: ['POST','GET','PUT','DELETE'],  // Allow creating, reading, updating, and deleting
+      before: {  // This methods, if defined, will be called before the POST/GET/PUT/DELETE actions are performed on the collection.
+                 // If the function returns false the action will be canceled, if you return true the action will take place.
+        POST: function(obj, requestMetadata, returnObject) {console.log("SDSp");return true;},
+        GET: undefined,//function(objs, requestMetadata, returnObject) {console.log("SDSg")},
+        PUT: undefined,//function(obj, newValues, requestMetadata, returnObject) {console.log("SDSpu")},
+        DELETE: undefined//function(obj, requestMetadata, returnObject) {console.log("SDSd")}
+      },
+      after: {  // This methods, if defined, will be called after the POST/GET/PUT/DELETE actions are performed on the collection.
+                // Generally, you don't need this, unless you have global variable to reflect data inside collection.
+                // The function doesn't need return value.
+        POST: undefined,//function() {console.log("After POST");},
+        GET: undefined,//function() {console.log("After GET");},
+        PUT: undefined,     // function() {console.log("After PUT");},
+        DELETE: undefined   // function() {console.log("After DELETE");},
+      }
+    });
+
+    // Starts the API server
+    collectionApi.start(); //Call: curl -v -H "Content-Type: application/json" http://localhost:3005/api/pastesLinks -d "{\"title\": \"John Smith\"}"
+});
+
