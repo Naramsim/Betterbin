@@ -169,6 +169,7 @@ var Strategies = new Mongo.Collection("strategies");
 //CollectionAPI
 // var Strategies = new Mongo.Collection("strategies");
 // Strategies.insert({"b":1});
+var re = new RegExp("^Str@(.*)[\r\n]*^Civ:?\s?(.*)[\r\n]*^Map:?\s?(.*)[\r\n]*Name:?\s?(.*)[\r\n]*Author:?\s?(.*)[\r\n]*^Icon:\s?(.*)", "gm");
 Meteor.startup(function(){
 	collectionApi = new CollectionAPI({
       authToken: undefined,              // Require this string to be passed in on each request
@@ -186,11 +187,46 @@ Meteor.startup(function(){
       // All values listed below are default
       authToken: undefined,                   // Require this string to be passed in on each request.
       authenticate: undefined, // function(token, method, requestMetadata) {return true/false}; More details can found in [Authenticate Function](#Authenticate-Function).
-      methods: ['POST','GET','PUT','DELETE'],  // Allow creating, reading, updating, and deleting
+      methods: ['POST','GET'],  // Allow creating, reading, updating, and deleting
       before: {  // This methods, if defined, will be called before the POST/GET/PUT/DELETE actions are performed on the collection.
                  // If the function returns false the action will be canceled, if you return true the action will take place.
-        POST: function(obj, requestMetadata, returnObject) {console.log("SDSp");return true;},
-        GET: undefined,//function(objs, requestMetadata, returnObject) {console.log("SDSg")},
+        POST: function(obj, requestMetadata, returnObject) {
+        	if(obj.hasOwnProperty('content')){
+        		var match = [];
+        		match = re.exec(obj.content);
+        		if(match !== null ){
+					obj.civ = match[2];
+					obj.map = match[3];
+					obj.title_declared = match[4];
+					obj.author = match[5];
+					obj.version = match[1];
+					obj.icon = match[6];
+        			obj.created = new Date().valueOf();
+        			obj.stars = 0;
+        			obj.views = 0;
+        			obj.downloaded = 0;
+        			return true;
+        		}else{
+        			returnObject.statusCode = 406;
+        			returnObject.body = {error: 'Invalid Strategy pattern'};
+        			return false;
+        		}
+        	}else{
+        		returnObject.statusCode = 500;
+        		returnObject.body = {error: 'Generic error, haxor?'};
+        		return false;
+        	}
+        },
+        GET: function(objs, requestMetadata, returnObject) {
+        	if((requestMetadata.query).hasOwnProperty("last")){ //to get last N elements
+        		objs.sort(function(a, b) {return -a.created + b.created});
+        		objs.splice(+requestMetadata.query.last);
+        	}
+        	objs.forEach(function(elem){
+    			Strategies.update({_id:elem._id}, {$inc: {views: 1}});
+    		});
+        	return true;
+        },
         PUT: undefined,//function(obj, newValues, requestMetadata, returnObject) {console.log("SDSpu")},
         DELETE: undefined//function(obj, requestMetadata, returnObject) {console.log("SDSd")}
       },
