@@ -170,16 +170,17 @@ var Strategies = new Mongo.Collection("strategies");
 // var Strategies = new Mongo.Collection("strategies");
 // Strategies.insert({"b":1});
 var re = new RegExp("^Str@(.*)[\r\n]*^Civ:?\s?(.*)[\r\n]*^Map:?\s?(.*)[\r\n]*Name:?\s?(.*)[\r\n]*Author:?\s?(.*)[\r\n]*^Icon:\s?(.*)", "gm");
+
 Meteor.startup(function(){
 	collectionApi = new CollectionAPI({
       authToken: undefined,              // Require this string to be passed in on each request
       apiPath: 'aoe2',          // API path prefix
-      standAlone: true,                 // Run as a stand-alone HTTP(S) server
+      standAlone: false,                 // Run as a stand-alone HTTP(S) server
       allowCORS: true,                  // Allow CORS (Cross-Origin Resource Sharing)
       sslEnabled: false,                 // Disable/Enable SSL (stand-alone only)
-      listenPort: 3005,                  // Port to listen to (stand-alone only)
+      listenPort: 3000,                  // Port to listen to (stand-alone only)
       listenHost: undefined,
-      timeOut: 120000
+      timeOut: 12000
     });
 
     // Add the collection Players to the API "/players" path
