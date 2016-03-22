@@ -4,8 +4,8 @@ body {
 	font-family: monospace;
 }
 
-nav {
-	background-color: #272822;
+nav{
+	background-color: rgba(0,0,0,.2);
 }
 
 .slideout-menu {
@@ -42,27 +42,20 @@ nav {
 	width: auto;
 	font-family: monospace;
 	overflow-y: auto !important;
-	text-align: center;
 }
-
-.pure-menu-heading {
-	margin-top: 4em;
-}
-
 
 .shortcuts {
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	width:100%;
-	text-align: center;
+	padding: .5em 1em;
 	color: #777;
+	opacity: .7;
 }
 
 .shortcuts>div {
-	padding: 0.5em 0;
+	padding: .4em 0;
 }
 
+
+/*
 .shortcuts kbd {
 	-moz-border-radius:3px;
 	-moz-box-shadow:0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
@@ -81,6 +74,16 @@ nav {
 	padding:.1em .6em;
 	text-shadow:0 1px 0 #fff;
 }
+*/
+
+.shortcuts kbd{
+	color: black;
+	background-color: white;
+	padding: .2em .8em;
+	font-size: 11px;
+	border-radius: 3px;
+	margin: 0 .4em;
+}
 
 i.fa.fa-code-fork:hover {
 	transition: 0.2s;
@@ -98,10 +101,6 @@ i.fa.fa-code-fork:hover {
 	text-align: left;
 }
 
-.pure-menu-item:hover {
-	background-color: #eee;
-}
-
 .pure-menu-item:hover .micro-controls{
 	display: block;
 }
@@ -117,8 +116,8 @@ i.fa.fa-code-fork:hover {
 
 .micro-controls {
 	display: none;
-	padding-bottom: 4px;
 	color: #777;
+	padding: 		0 1em
 }
 
 .micro-controls > * {
