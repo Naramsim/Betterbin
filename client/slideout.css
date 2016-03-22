@@ -51,9 +51,6 @@ nav {
 
 
 .shortcuts {
-	position: absolute;
-	bottom: 0;
-	left: 0;
 	width:100%;
 	text-align: center;
 	color: #777;
@@ -84,7 +81,11 @@ nav {
 
 i.fa.fa-code-fork:hover {
 	transition: 0.2s;
-	color:#D5FF00;
+	color: #00FF7D;
+}
+
+.pure-menu-list .fa-key {
+	color: #A2A23F;
 }
 
 .pure-menu-item {
@@ -124,6 +125,10 @@ i.fa.fa-code-fork:hover {
 }
 
 .micro-controls > * {
+	cursor: pointer;
+}
+
+.delete-paste{
 	cursor: pointer;
 }
 
