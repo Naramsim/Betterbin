@@ -212,7 +212,11 @@
 						<li class="pure-menu-item">
 							<a href="{{siteName}}/pastes/{{name}}" class="pure-menu-link">
 							{{#if isFork}}
-								<i class="fa fa-code-fork" onclick="window.open('{{siteName}}/pastes/{{forkedFrom}}','blank');"></i>
+								{{#if forkedFrom}}
+									<i class="fa fa-code-fork" onclick="window.open('{{siteName}}/pastes/{{forkedFrom}}','blank');"></i>
+								{{else}}
+									<i class="fa fa-code-fork"></i>
+								{{/if}}
 							{{/if}}
 							{{#if isEncry}}
 								<i class="fa fa-key"></i>
