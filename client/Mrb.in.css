@@ -1,7 +1,11 @@
 /* CSS declarations go here */
+
+body{
+	background: #1d1f21;
+}
+
 #bodyContainer {
 	background: #1d1f21;
-	min-height: 100vh;
 }
 
 .NotifyToast {

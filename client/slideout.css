@@ -4,8 +4,8 @@ body {
 	font-family: monospace;
 }
 
-nav {
-	background-color: #272822;
+nav{
+	background-color: rgba(0,0,0,.2);
 }
 
 .slideout-menu {
@@ -17,7 +17,8 @@ nav {
 	bottom: 0;
 	right: 0;
 	z-index: 0;
-	width: 256px;
+	width: 95%;
+	max-width: 256px;
 	overflow-y: auto;
 	-webkit-overflow-scrolling: touch;
 	display: none;
@@ -42,24 +43,21 @@ nav {
 	width: auto;
 	font-family: monospace;
 	overflow-y: auto !important;
-	text-align: center;
 }
-
-.pure-menu-heading {
-	margin-top: 4em;
-}
-
 
 .shortcuts {
-	width:100%;
-	text-align: center;
+	border-top: 1px solid rgba(255,255,255,.1);
+	padding: .5em 1em;
 	color: #777;
+	opacity: .7;
 }
 
 .shortcuts>div {
-	padding: 0.5em 0;
+	padding: .4em 0;
 }
 
+
+/*
 .shortcuts kbd {
 	-moz-border-radius:3px;
 	-moz-box-shadow:0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
@@ -78,6 +76,16 @@ nav {
 	padding:.1em .6em;
 	text-shadow:0 1px 0 #fff;
 }
+*/
+
+.shortcuts kbd{
+	color: black;
+	background-color: white;
+	padding: .2em .8em;
+	font-size: 11px;
+	border-radius: 3px;
+	margin: 0 .4em;
+}
 
 i.fa.fa-code-fork:hover {
 	transition: 0.2s;
@@ -88,6 +96,10 @@ i.fa.fa-code-fork:hover {
 	color: #A2A23F;
 }
 
+.pure-menu-list .pure-menu-item{
+	padding-right: 	2em;
+}
+
 .pure-menu-item {
 	display: flex;
     align-items: center;
@@ -96,32 +108,26 @@ i.fa.fa-code-fork:hover {
     flex-direction: row;
 }
 
-.pure-menu-link {
-	padding-left: 3em;
-	text-align: left;
-}
-
-.pure-menu-item:hover {
-	background-color: #eee;
-}
-
 .pure-menu-item:hover .micro-controls{
 	display: block;
 }
 
 .delete-container {
-	opacity: 0;
-	padding-right: 2em;
+	position: 		absolute;
+	right: 			1em;
+	top: 			.5em;
+	opacity: 		0;
 }
 
 .pure-menu-item:hover .delete-container{
 	opacity: 1;
+	color: gray;
 }
 
 .micro-controls {
 	display: none;
-	padding-bottom: 4px;
 	color: #777;
+	padding: 		0 1em
 }
 
 .micro-controls > * {

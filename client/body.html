@@ -10,6 +10,7 @@
 				editor.setShowPrintMargin(false);
 				editor.setTheme("ace/theme/monokai");
 			</script>
+			{{> footer}}
 		</div>
 		{{> slideout}}
 	{{/if}}
@@ -156,10 +157,10 @@
 			</select>
 		</div>
 		<div class="controlsContainer">
-			<button id="submitPaste" data-tooltip="Save" data-tooltip-direction="s" class="button pure-button pure-button-primary">
+			<button id="submitPaste" data-tooltip="Save" data-tooltip-direction="s" class="btn-ghost">
 				<i class="fa fa-plus"></i>
 			</button>
-			<button id="encryptPaste" data-tooltip="Encrypt" data-tooltip-direction="s" class="button pure-button pure-button-primary">
+			<button id="encryptPaste" data-tooltip="Encrypt" data-tooltip-direction="s" class="btn-ghost">
 				<i class="fa fa-key"></i>
 			</button>
 			{{> controls}}
@@ -170,7 +171,7 @@
 
 		
 		{{#if homePaste}}
-			<button class="button pure-button pure-button-primary" id="home" onclick="location.href='{{siteName}}';">
+			<button class="btn-ghost" id="home" onclick="location.href='{{siteName}}';">
 				<i class="fa fa-plane"></i>
 			</button>
 			<div id="pasteName">
@@ -181,19 +182,19 @@
 				<div id="pasteLang" class="pasteLang">({{lang}})</div>
 			</div>
 			<div id="controls">
-				<button class="button new-download pure-button pure-button-primary" data-tooltip="Save to PC" data-tooltip-direction="s">
+				<button class="btn-ghost new-download" data-tooltip="Save to PC" data-tooltip-direction="s">
 					<i class="fa fa-cloud-download"></i>
 				</button>
-				<button class="button copyPasteUrl pure-button pure-button-primary" data-clipboard-text="{{pasteUrl}}" data-tooltip="Copy link to clipboard" data-tooltip-direction="s">
+				<button class="btn-ghost copyPasteUrl" data-clipboard-text="{{pasteUrl}}" data-tooltip="Copy link to clipboard" data-tooltip-direction="s">
 					<i class="fa fa-clipboard"></i>
 				</button>
-				<button class="button pure-button pure-button-primary" onclick="window.open('{{siteName}}/pastes/{{pasteName}}/raw','blank');" data-tooltip="View Raw" data-tooltip-direction="s">
+				<button class="btn-ghost" onclick="window.open('{{siteName}}/pastes/{{pasteName}}/raw','blank');" data-tooltip="View Raw" data-tooltip-direction="s">
 					<i class="fa fa-file-code-o"></i>
 				</button>
-				<button class="button new-fork pure-button pure-button-primary" data-tooltip="Fork" data-tooltip-direction="s">
+				<button class="btn-ghost new-fork" data-tooltip="Fork" data-tooltip-direction="s">
 					<i class="fa fa-code-fork"></i>
 				</button>
-				<button class="button new-bookmark pure-button pure-button-primary" data-tooltip="Save in your files" data-tooltip-direction="s">
+				<button class="btn-ghost new-bookmark" data-tooltip="Save in your files" data-tooltip-direction="s">
 					<i class="fa fa-bookmark"></i>
 				</button>
 				{{> controls}}
@@ -202,10 +203,21 @@
 	</header>
 </template>	
 
+<template name="footer">
+	<footer>
+		<div class="elem stats">
+			Rows: 402
+		</div>
+		<div class="elem file-type">
+			javascript
+		</div>
+	</footer>
+</template>
+
 <template name="slideout">
 	<nav id="menu">
 		<div class="pure-menu pure-menu-scrollable custom-restricted">
-			<a href="#" class="pure-menu-link pure-menu-heading">Your pastes</a>
+			<a href="#" class="pure-menu-heading">Your pastes</a>
 			<ul class="pure-menu-list">
 				{{#if userPastesLoaded}}
 					{{#each userPastes}}
@@ -232,7 +244,7 @@
 					{{/each}}
 				{{/if}}
 			</ul>
-			<a href="#" class="pure-menu-link pure-menu-heading">Your bookmarks</a>
+			<a href="#" class="pure-menu-heading">Your bookmarks</a>
 			<ul class="pure-menu-list">
 			{{#each userBookmarks}}
 				<li class="pure-menu-item pure-menu-bookmarks"><a href="{{siteName}}/pastes/{{bookmarkLink}}" class="pure-menu-link">
@@ -272,7 +284,7 @@
 </template>	
 
 <template name="controls">
-	<button class="button pure-button pure-button-primary tool-button" id="tools" data-tooltip="Manage" data-tooltip-direction="s">
+	<button class="btn-ghost" id="tools" data-tooltip="Manage" data-tooltip-direction="s">
 		<i class="fa fa-briefcase"></i>
 	</button>
 </template>
