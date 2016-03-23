@@ -32,13 +32,13 @@ Template.header.events({
 	"click .new-bookmark": function (event) {
 		if(Session.get("userBookmarksLinks").indexOf(Session.get("pasteName")) === -1){
 			bookmarkPaste();
-			startToast(2000, "Click Manage to view the saved paste", "Saved");
+			Notify.startToast(2000, "Click Manage to view the saved paste", "Saved");
 		}else{
-			startToast(2000, "This paste is already in your files", "OPS..")
+			Notify.startToast(2000, "This paste is already in your files", "OPS..")
 		}
 	},
 	"click .copyPasteUrl": function (event) {
-		startToast(2000, "Adress has been copied to the clipboard", "Go and paste");
+		Notify.startToast(2000, "Adress has been copied to the clipboard", "Go and paste");
 	},
 	"change #selectLanguage": function (event) {
 		editor.getSession().setMode("ace/mode/" + event.target.value);
@@ -104,7 +104,7 @@ Template.slideout.events ({
 		slideout.close();
 	},
 	"click .copyPasteUrl": function (event) {
-		startToast(2000, "Adress has been copied to the clipboard", "Go and paste");
+		Notify.startToast(2000, "Adress has been copied to the clipboard", "Go and paste");
 	},
 	"click .delete-paste": function (event) {
 		deletePaste(event.toElement.attributes["data-attr"].nodeValue);
