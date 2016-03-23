@@ -40,6 +40,7 @@ input, select{
 
 .headerFlex option{
 	color: 			black;
+	font-size: 		60%;
 }
 
 .headerFlex .btn-ghost{
@@ -84,6 +85,15 @@ div#pasteName {
 
 .errorEncryp {
 	color: tomato;
+}
+
+
+
+#nprogress .spinner{
+	top: 50% !important;
+	right: 50% !important;
+	margin-top: -9px;
+	margin-right: -9px;
 }
 
 @media screen and (max-width:800px) { 
