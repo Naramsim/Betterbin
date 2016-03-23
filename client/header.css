@@ -1,34 +1,33 @@
 #bodyContainer {
-	display: flex;
-	flex-flow: column;
-	height: 100vh;
+	display: 			flex;
+	flex-flow: 			column;
+	height: 			100vh;
 }
 
 .headerFlex{
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	justify-content: space-between;
-	align-items: center;
-	padding: 	24px 40px;
-	width: 		calc( 100% - 80px );
+	display: 			flex;
+	flex-direction: 	row;
+	flex-wrap: 			wrap;
+	justify-content: 	space-between;
+	align-items: 		center;
+	padding: 			24px 40px;
+	width: 				calc( 100% - 80px );
 }
 
 .headerFlex .inputContainer{
-	flex: 1;
-	display: flex;
+	flex: 				1;
+	display: 			flex;
 }
 
 .ready {
-	transition: 2s linear;
-	background-color: rgb(5, 255, 5);
+	transition: 		2s linear;
+	background-color: 	rgb(5, 255, 5);
 }
 
 input, select{
 	margin:			0;
 	padding: 		0;
 	height: 		auto;
-	border: 		0;
 	box-shadow:     none;
     outline:        none;
     border:         1px solid rgba(0,0,0,.1);
@@ -65,21 +64,21 @@ input, select{
 	color: 			white;
 }
 
-div#pasteName {
-	font-family: monospace;
-	font-size: 2em;
-	color: rgb(213, 255, 0);
+#pasteName {
+	font-family: 	monospace;
+	font-size: 		2em;
+	color: 			rgb(213, 255, 0);
 }
 
 #pasteName > .fa-code-fork {
-	font-size: 65%;
+	font-size: 		65%;
 }
 
 .pasteLang {
-	display: inline-block;
-	color: white;
-	font-size: 90%;
-	opacity: .5;
+	display: 		inline-block;
+	color: 			white;
+	font-size: 		90%;
+	opacity: 		.5;
 }
 
 #editor {
@@ -91,41 +90,61 @@ div#pasteName {
 }
 
 .tool-button {
-	transition: .2s linear;
+	transition: 	.2s linear;
 }
 
 .hideSlow{
-	opacity: 0;
+	opacity: 		0;
 }
 
 .errorEncryp {
-	color: tomato;
+	color: 			tomato;
 }
 
 #bodyContainer footer{
-	font-size: 1em;
-	line-height: 1.2em;
-	color: white;
-	padding: 1em;
-	display: flex;
-	flex-flow: row wrap;
-	justify-content: flex-end;
+	font-size: 			1em;
+	line-height: 		1.2em;
+	color: 				white;
+	padding: 			1em;
+	display: 			flex;
+	flex-flow: 			row wrap;
+	justify-content: 	flex-end;
 }
 
 footer .elem{
-	padding: 0 2em;
-	opacity: .6;
+	padding: 			0 2em;
+	opacity: 			.6;
 }
 
 footer .file-type{
-	text-transform: uppercase;
+	text-transform: 	uppercase;
 }
 
 #nprogress .spinner{
-	top: 50% !important;
-	right: 50% !important;
-	margin-top: -9px;
-	margin-right: -9px;
+	top: 				50% !important;
+	right: 				50% !important;
+	margin-top: 		-9px;
+	margin-right: 		-9px;
+}
+
+
+
+/* scrollbar costumization */
+.ace_scrollbar::-webkit-scrollbar-track
+{
+	background-color: 	transparent;
+}
+
+.ace_scrollbar::-webkit-scrollbar
+{
+	width: 8px;
+	background-color: 	transparent;
+}
+
+.ace_scrollbar::-webkit-scrollbar-thumb
+{
+	background-color: 	#555;
+	border-radius: 		4px;
 }
 
 @media screen and (max-width:800px) { 
@@ -133,9 +152,9 @@ footer .file-type{
 
 @media screen and (max-width:600px) { 
 	#selectLanguage, #submitPaste + button {
-		display: none;
+		display: 		none;
 	}
 	.headerFlex input{
-		width: 100%;
+		width: 			100%;
 	}
 }
