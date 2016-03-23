@@ -10,6 +10,7 @@
 				editor.setShowPrintMargin(false);
 				editor.setTheme("ace/theme/monokai");
 			</script>
+			{{> footer}}
 		</div>
 		{{> slideout}}
 	{{/if}}
@@ -201,6 +202,17 @@
 		{{/if}}
 	</header>
 </template>	
+
+<template name="footer">
+	<footer>
+		<div class="elem stats">
+			Rows: 402
+		</div>
+		<div class="elem file-type">
+			javascript
+		</div>
+	</footer>
+</template>
 
 <template name="slideout">
 	<nav id="menu">

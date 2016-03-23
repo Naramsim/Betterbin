@@ -1,7 +1,7 @@
 #bodyContainer {
 	display: flex;
-	align-items: stretch;
-	flex-direction: column;
+	flex-flow: column;
+	height: 100vh;
 }
 
 .headerFlex{
@@ -9,8 +9,14 @@
 	flex-direction: row;
 	flex-wrap: wrap;
 	justify-content: space-between;
-	align-items: center ;
+	align-items: center;
 	padding: 	24px 40px;
+	width: 		calc( 100% - 80px );
+}
+
+.headerFlex .inputContainer{
+	flex: 1;
+	display: flex;
 }
 
 .ready {
@@ -29,12 +35,21 @@ input, select{
 }
 
 .headerFlex input, .headerFlex select{
+	flex:			1;
 	font-family: 	monospace;
 	font-size: 		2em;
 	background: 	transparent;
 	color: 			white;
 	border:         0;
-	width:			30vw;
+}
+
+.headerFlex input{
+	width: 			60%;
+	max-width: 		15em;
+}
+
+.headerFlex select{
+	width: 			40%;
 	max-width: 		11em;
 }
 
@@ -68,7 +83,7 @@ div#pasteName {
 }
 
 #editor {
-	flex-grow: 1;
+	flex:	1;
 }
 
 .hljs {
@@ -87,7 +102,24 @@ div#pasteName {
 	color: tomato;
 }
 
+#bodyContainer footer{
+	font-size: 1em;
+	line-height: 1.2em;
+	color: white;
+	padding: 1em;
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: flex-end;
+}
 
+footer .elem{
+	padding: 0 2em;
+	opacity: .6;
+}
+
+footer .file-type{
+	text-transform: uppercase;
+}
 
 #nprogress .spinner{
 	top: 50% !important;
@@ -97,21 +129,13 @@ div#pasteName {
 }
 
 @media screen and (max-width:800px) { 
-	.headerFlex{
-		justify-content: center;
-		padding-right: 0;
-		padding-left: 0;
-	}
 }
 
 @media screen and (max-width:600px) { 
 	#selectLanguage, #submitPaste + button {
 		display: none;
 	}
-	.headerFlex {
-		justify-content: space-around;
-	}
 	.headerFlex input{
-		width: 	80vw;
+		width: 100%;
 	}
 }
