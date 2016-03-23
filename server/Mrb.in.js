@@ -234,18 +234,6 @@ Meteor.startup(function(){
 	    prettyJson: true,
 	    apiPath: 'aoe/'
 	  });	
-	Api.addRoute('stars/', { // http://localhost:3000/aoe/stars/55yM48hSF5ci7Qft6
-							 // curl -X POST -H "Content-Type: application/json; charset=UTF-8" http://localhost:3000/aoe/stars -d {"id":"55yM48hSF5ci7Qft6"} 
-	    post: function () {
-	    	var id = this.bodyParams.id;
-	    	console.log(id);
-			check(id, String);
-	    	console.log("starred");
-	    	Strategies.update(id, {$inc: {stars: 1}});
-	    	var b = !!Strategies.findOne(id);
-	      	return b;
-	    }
-	  });
 	Api.addRoute('last/:end/:start', { // http://localhost:3000/aoe/last/10/0
 		get: function () {
 			var start = this.urlParams.start;
@@ -291,9 +279,21 @@ Meteor.startup(function(){
 			}
 		}
 	});
-	Api.addRoute('download/:id', {
-		get: function () {
-			var id = this.urlParams.id;
+	Api.addRoute('stars/', { // http://localhost:3000/aoe/stars/55yM48hSF5ci7Qft6
+							 // curl -X POST -H "Content-Type: application/json; charset=UTF-8" http://localhost:3000/aoe/stars -d {"id":"55yM48hSF5ci7Qft6"} 
+	    post: function () {
+	    	var id = this.bodyParams.id;
+	    	console.log(id);
+			check(id, String);
+	    	console.log("starred");
+	    	Strategies.update(id, {$inc: {stars: 1}});
+	    	var b = !!Strategies.findOne(id);
+	      	return b;
+	    }
+	  });
+	Api.addRoute('download/', {
+		post: function () {
+			var id = this.bodyParams.id;
 			check(id, String);
 			console.log("downloaded");
 			Strategies.update(id, {$inc: {downloaded: 1}});
@@ -301,6 +301,18 @@ Meteor.startup(function(){
 	      	return b;
 		}
 	});
+	Api.addRoute('delete/', {
+		post: function () {
+			var id = this.bodyParams.id;
+			var author = this.bodyParams.xdab;
+			check(id, String);
+			check(author, String);
+			console.log("deleted");
+			Strategies.remove({_id: id, xdab: author});
+	    	var b = !Strategies.findOne(id);
+	      	return b;
+		}
+	})
 	Api.addCollection(Strategies, {
 		endpoints: { 
 			post: {  
@@ -326,7 +338,6 @@ Meteor.startup(function(){
 							check(obj.author, String);
 							check(obj.version, String);
 							check(obj.icon, String);
-
 							Strategies.insert(obj);
 							return {
 					          statusCode: 200,
@@ -348,7 +359,7 @@ Meteor.startup(function(){
 			},
 			put: {
 				action: function(){
-					return false;
+					return "PUT";
 				}
 			},
 			delete: {
