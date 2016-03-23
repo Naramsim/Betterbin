@@ -17,7 +17,8 @@ nav{
 	bottom: 0;
 	right: 0;
 	z-index: 0;
-	width: 256px;
+	width: 95%;
+	max-width: 256px;
 	overflow-y: auto;
 	-webkit-overflow-scrolling: touch;
 	display: none;
@@ -45,6 +46,7 @@ nav{
 }
 
 .shortcuts {
+	border-top: 1px solid rgba(255,255,255,.1);
 	padding: .5em 1em;
 	color: #777;
 	opacity: .7;
@@ -94,6 +96,10 @@ i.fa.fa-code-fork:hover {
 	color: #A2A23F;
 }
 
+.pure-menu-list .pure-menu-item{
+	padding-right: 	2em;
+}
+
 .pure-menu-item {
 	display: flex;
     align-items: center;
@@ -102,22 +108,20 @@ i.fa.fa-code-fork:hover {
     flex-direction: row;
 }
 
-.pure-menu-link {
-	padding-left: 3em;
-	text-align: left;
-}
-
 .pure-menu-item:hover .micro-controls{
 	display: block;
 }
 
 .delete-container {
-	opacity: 0;
-	padding-right: 2em;
+	position: 		absolute;
+	right: 			1em;
+	top: 			.5em;
+	opacity: 		0;
 }
 
 .pure-menu-item:hover .delete-container{
 	opacity: 1;
+	color: gray;
 }
 
 .micro-controls {

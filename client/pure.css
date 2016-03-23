@@ -11,6 +11,10 @@
 	color: white;
 }
 
+.pure-menu-link{
+	white-space: normal;
+}
+
 .pure-menu-link:hover{
 	background: transparent !important;
 }
