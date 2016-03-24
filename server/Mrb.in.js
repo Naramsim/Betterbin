@@ -155,6 +155,10 @@ var Strategies = new Mongo.Collection("strategies");
 // Strategies.insert({"b":1});
 var re = new RegExp("^Str@(.*)[\r\n]*^Civ:?\s?(.*)[\r\n]*^Map:?\s?(.*)[\r\n]*Name:?\s?(.*)[\r\n]*Author:?\s?(.*)[\r\n]*^Icon:\s?(.*)", "m");
 
+function escapeRegExp(str) {
+  return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+}
+
 Meteor.startup(function(){
 	// collectionApi = new CollectionAPI({
  //      authToken: undefined,              // Require this string to be passed in on each request
@@ -285,6 +289,7 @@ Meteor.startup(function(){
 	    	var id = this.bodyParams.id;
 	    	console.log(id);
 			check(id, String);
+			id = escapeRegExp(id);
 	    	console.log("starred");
 	    	Strategies.update(id, {$inc: {stars: 1}});
 	    	var b = !!Strategies.findOne(id);
@@ -295,6 +300,7 @@ Meteor.startup(function(){
 		post: function () {
 			var id = this.bodyParams.id;
 			check(id, String);
+			id = escapeRegExp(id);
 			console.log("downloaded");
 			Strategies.update(id, {$inc: {downloaded: 1}});
 	    	var b = !!Strategies.findOne(id);
@@ -307,12 +313,24 @@ Meteor.startup(function(){
 			var author = this.bodyParams.xdab;
 			check(id, String);
 			check(author, String);
+			id = escapeRegExp(id);
+			author = escapeRegExp(author);
 			console.log("deleted");
 			Strategies.remove({_id: id, xdab: author});
 	    	var b = !Strategies.findOne(id);
 	      	return b;
 		}
-	})
+	});
+	Api.addRoute('search/', {
+		post: function () {
+			var match = this.bodyParams.match;
+			check(match, String);
+			match = escapeRegExp(match);
+			var re = new RegExp('.*'+match+'.*','i');
+	    	var b = Strategies.find({'soup': re}).fetch();
+	      	return b;
+		}
+	});
 	Api.addCollection(Strategies, {
 		endpoints: { 
 			post: {  
@@ -332,6 +350,7 @@ Meteor.startup(function(){
 							obj.stars = 0;
 							obj.views = 0;
 							obj.downloaded = 0;
+							obj.soup = obj.civ + " " + obj.map + " " + obj.title_declared + " " + obj.author + " " + obj.version;
 							check(obj.civ, String);
 							check(obj.map, String);
 							check(obj.title_declared, String);
