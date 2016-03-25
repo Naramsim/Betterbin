@@ -70,7 +70,6 @@ Template.header.helpers({
 	title : function() {return Session.get("pasteTitle");},
 	pasteName : function() {return Session.get("pasteName");},
 	pasteUrl : function() {return window.location.href;},
-	lang : function () {return Session.get("pasteLang");},
 	isFork : function () {return Session.get("isForked");}
 });
 
@@ -112,6 +111,14 @@ Template.slideout.events ({
 	"click .delete-bookmark": function (event) {
 		deleteBookmark(event.toElement.attributes["data-attr"].nodeValue);
 	}
+});
+
+Template.footer.helpers({
+	lang: function() {return Session.get("pasteLang");},
+	cursor: function() {var b = Session.get("cursorPosition"); b.row++; return b;},
+	length: function() {return Session.get("length");},
+	rangeLength: function () {return Session.get("rangeLength");},
+	selectionRowRange: function () {return Session.get("selectionRowRange");}
 });
 
 //Startup

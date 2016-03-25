@@ -9,6 +9,7 @@
 				var editor = ace.edit("editor");
 				editor.setShowPrintMargin(false);
 				editor.setTheme("ace/theme/monokai");
+				initEditor();
 			</script>
 			{{> footer}}
 		</div>
@@ -178,8 +179,7 @@
 				{{#if isFork}}
 					<i class="fa fa-code-fork"></i>
 				{{/if}}
-				{{title}}	
-				<div id="pasteLang" class="pasteLang">({{lang}})</div>
+				{{title}}
 			</div>
 			<div id="controls">
 				<button class="btn-ghost new-download" data-tooltip="Save to PC" data-tooltip-direction="s">
@@ -206,10 +206,23 @@
 <template name="footer">
 	<footer>
 		<div class="elem stats">
-			Rows: 402
+			{{#if rangeLength}}
+				{{rangeLength}} chars selected
+			{{/if}}
+		</div>
+		<div class="elem stats">
+			{{#if selectionRowRange}}
+				{{selectionRowRange}} lines
+			{{/if}}
+		</div>
+		<div class="elem stats">
+			Line {{cursor.row}}, Column {{cursor.column}}
+		</div>
+		<div class="elem stats">
+			Rows: {{length}}
 		</div>
 		<div class="elem file-type">
-			javascript
+			{{lang}}
 		</div>
 	</footer>
 </template>
