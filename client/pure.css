@@ -2,6 +2,34 @@
 	background: rgb(28, 184, 65) !important; /* this is a green */
 }
 
+.pure-menu-heading {
+	margin-top: 2em;
+	color: white !important;
+}
+
+.pure-menu-item:hover a{
+	color: white;
+}
+
+.pure-menu-link{
+	white-space: normal;
+	line-height: 1.2em;
+}
+
+.pure-menu-link:hover{
+	background: transparent !important;
+}
+
 .pure-menu {
 	position: relative;
+}
+
+
+/* TODO: move it */
+#editor{
+	background-color: transparent;
+}
+
+#editor .ace_gutter{
+	background-color: transparent;
 }

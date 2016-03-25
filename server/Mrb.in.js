@@ -155,6 +155,10 @@ var Strategies = new Mongo.Collection("strategies");
 // Strategies.insert({"b":1});
 var re = new RegExp("^Str@(.*)[\r\n]*^Civ:?\s?(.*)[\r\n]*^Map:?\s?(.*)[\r\n]*Name:?\s?(.*)[\r\n]*Author:?\s?(.*)[\r\n]*^Icon:\s?(.*)", "m");
 
+function escapeRegExp(str) {
+  return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+}
+
 Meteor.startup(function(){
 	// collectionApi = new CollectionAPI({
  //      authToken: undefined,              // Require this string to be passed in on each request
@@ -234,32 +238,96 @@ Meteor.startup(function(){
 	    prettyJson: true,
 	    apiPath: 'aoe/'
 	  });	
-	Api.addRoute('stars/:id', { // http://localhost:3000/aoe/stars/55yM48hSF5ci7Qft6
-	    get: function () {
-			check(+this.urlParams.id, Match.Integer);
+	Api.addRoute('last/:end/:start', { // http://localhost:3000/aoe/last/10/0
+		get: function () {
+			var start = this.urlParams.start;
+			var end = this.urlParams.end;
+			if(start && end){
+				check(+end, Match.Integer);
+				check(+start, Match.Integer);
+				console.log("get last");
+				var data = Strategies.find().fetch();
+				data.sort(function(a, b) {return -a.created + b.created});
+	    		data = data.slice(+start,+end);
+	    		return data;
+	    	}
+		}
+	});
+	Api.addRoute('starred/:end/:start', { // http://localhost:3000/aoe/last/10/0
+		get: function () {
+			var start = this.urlParams.start;
+			var end = this.urlParams.end;
+			if(start && end){
+				check(+end, Match.Integer);
+				check(+start, Match.Integer);
+				console.log("get starred");
+				var data = Strategies.find().fetch();
+				data.sort(function(a, b) {return -a.stars + b.stars});
+	    		data = data.slice(+start,+end);
+	    		return data;
+			}
+		}
+	});
+	Api.addRoute('downloaded/:end/:start', { // http://localhost:3000/aoe/last/10/0
+		get: function () {
+			var start = this.urlParams.start;
+			var end = this.urlParams.end;
+			if(start && end){
+				check(+end, Match.Integer);
+				check(+start, Match.Integer);
+				console.log("get downloaded");
+				var data = Strategies.find().fetch();
+				data.sort(function(a, b) {return -a.downloaded + b.downloaded});
+	    		data = data.slice(+start,+end);
+	    		return data;
+			}
+		}
+	});
+	Api.addRoute('stars/', { // http://localhost:3000/aoe/stars/55yM48hSF5ci7Qft6
+							 // curl -X POST -H "Content-Type: application/json; charset=UTF-8" http://localhost:3000/aoe/stars -d {"id":"55yM48hSF5ci7Qft6"} 
+	    post: function () {
+	    	var id = this.bodyParams.id;
+	    	console.log(id);
+			check(id, String);
+			id = escapeRegExp(id);
 	    	console.log("starred");
-	    	Strategies.update(this.urlParams.id, {$inc: {stars: 1}});
-	    	var b = !!Strategies.findOne(this.urlParams.id);
+	    	Strategies.update(id, {$inc: {stars: 1}});
+	    	var b = !!Strategies.findOne(id);
 	      	return b;
 	    }
 	  });
-	Api.addRoute('last/:end/:start', { // http://localhost:3000/aoe/last/10/0
-		get: function () {
-			check(+this.urlParams.end, Match.Integer);
-			check(+this.urlParams.start, Match.Integer);
-			console.log("get last");
-			var data = Strategies.find().fetch();
-			data.sort(function(a, b) {return -a.created + b.created});
-    		data = data.slice(+this.urlParams.start,+this.urlParams.end);
-    		return data;
+	Api.addRoute('download/', {
+		post: function () {
+			var id = this.bodyParams.id;
+			check(id, String);
+			id = escapeRegExp(id);
+			console.log("downloaded");
+			Strategies.update(id, {$inc: {downloaded: 1}});
+	    	var b = !!Strategies.findOne(id);
+	      	return b;
 		}
 	});
-	Api.addRoute('downloaded/:id', {
-		get: function () {
-			check(+this.urlParams.id, Match.Integer);
-			console.log("downloaded");
-			Strategies.update(this.urlParams.id, {$inc: {downloaded: 1}});
-	    	var b = !!Strategies.findOne(this.urlParams.id);
+	Api.addRoute('delete/', {
+		post: function () {
+			var id = this.bodyParams.id;
+			var author = this.bodyParams.xdab;
+			check(id, String);
+			check(author, String);
+			id = escapeRegExp(id);
+			author = escapeRegExp(author);
+			console.log("deleted");
+			Strategies.remove({_id: id, xdab: author});
+	    	var b = !Strategies.findOne(id);
+	      	return b;
+		}
+	});
+	Api.addRoute('search/', {
+		post: function () {
+			var match = this.bodyParams.match;
+			check(match, String);
+			match = escapeRegExp(match);
+			var re = new RegExp('.*'+match+'.*','i');
+	    	var b = Strategies.find({'soup': re}).fetch();
 	      	return b;
 		}
 	});
@@ -282,13 +350,13 @@ Meteor.startup(function(){
 							obj.stars = 0;
 							obj.views = 0;
 							obj.downloaded = 0;
+							obj.soup = obj.civ + " " + obj.map + " " + obj.title_declared + " " + obj.author + " " + obj.version;
 							check(obj.civ, String);
 							check(obj.map, String);
 							check(obj.title_declared, String);
 							check(obj.author, String);
 							check(obj.version, String);
 							check(obj.icon, String);
-
 							Strategies.insert(obj);
 							return {
 					          statusCode: 200,
@@ -310,7 +378,7 @@ Meteor.startup(function(){
 			},
 			put: {
 				action: function(){
-					return false;
+					return "PUT";
 				}
 			},
 			delete: {

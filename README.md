@@ -15,11 +15,18 @@ It supports:
 * Automatic pastes update
 * Easy copy
 * Pastes fork
-* Pastes bookmarks
+* Pastes bookmarks/favourites
 * Pastes manager
+* Live char/selection/lines count
+* Ctrl + D for multiple selection
+* Live search and replace
+* Common languages error/syntax checking
 
 ## Live
 [Betterbin.co](http://betterbin.co/)
 
 ## LICENSE
 [GPL V2](https://github.com/Naramsim/Mrb.in/blob/master/LICENSE.txt)
+
+## Authors
+@Naramsim and @balde73
