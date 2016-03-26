@@ -101,25 +101,6 @@ input, select{
 	color: 			tomato;
 }
 
-#bodyContainer footer{
-	font-size: 			1em;
-	line-height: 		1.2em;
-	color: 				white;
-	padding: 			1em;
-	display: 			flex;
-	flex-flow: 			row wrap;
-	justify-content: 	flex-end;
-}
-
-footer .elem{
-	padding: 			0 2em;
-	opacity: 			.6;
-}
-
-footer .file-type{
-	text-transform: 	uppercase;
-}
-
 #nprogress .spinner{
 	top: 				50% !important;
 	right: 				50% !important;

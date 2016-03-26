@@ -23,13 +23,3 @@
 .pure-menu {
 	position: relative;
 }
-
-
-/* TODO: move it */
-#editor{
-	background-color: transparent;
-}
-
-#editor .ace_gutter{
-	background-color: transparent;
-}
