@@ -87,12 +87,20 @@ nav{
 	margin: 0 .4em;
 }
 
-i.fa.fa-code-fork:hover {
+#pasteName > .octicon-repo-forked{
+	vertical-align: middle;
+}
+
+.octicon-repo-forked {
+	color: white;
 	transition: 0.2s;
+}
+
+.octicon-repo-forked:hover {
 	color: #00FF7D;
 }
 
-.pure-menu-list .fa-key {
+.pure-menu-list .octicon-lock {
 	color: #A2A23F;
 }
 
