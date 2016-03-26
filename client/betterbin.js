@@ -1,21 +1,57 @@
 //Collections
 
-//PastesLinks = new Mongo.Collection("pastesLinks"); //connection to Group Collection //Do NOT declare as var, it will override the server one
+//Do NOT declare as var, it will override the server one
+PastesLinks = new Mongo.Collection("pastesLinks");
 
-//Events
+//Startup
+
+Meteor.startup(function() {
+	var siteName = "//" + window.location.host;
+	Session.set("userPastesLoaded", false);
+	Session.set("isPasteEncrypted", false);
+	Session.set("isFork", false);
+	Session.set("siteName", siteName);
+	new Clipboard('.copyPasteUrl');
+
+	if(getCookie("auth") !== undefined){
+		console.log("Logged - Do not clear cookies");
+	}else{
+		console.log("Logging in ..");
+		setCookie();
+	}
+	Session.set("auth", getCookie("auth"));
+	document.onkeydown = KeyPress;
+	$("textarea").keydown(function(e){
+		KeyPress(e);
+	});
+
+	loadUserPastes();
+	loadUserBookmarks();
+
+	Meteor.subscribe("pastesLinks");
+
+	/*Tracker.autorun(function() {
+		FlowRouter.watchPathChange();
+		var currentContext = FlowRouter.current();
+		console.log(currentContext);
+		//if(currentContext.route.name == "pastes") {Session.set("isHome", false);}
+		//if(currentContext.route.name == "home") {Session.set("isPaste", false);}
+	});*/
+});
+
+//Templates
+
+Template.registerHelper("homePage", function() {return Session.get("isHome");});
+
+Template.registerHelper("homePaste", function() {return Session.get("isPaste");});
+
+Template.registerHelper("siteName", function() {return Session.get("siteName");});
 
 Template.header.events({
 	"click #submitPaste": function (event) {
-	// Grab paste's text from text field
-	uploadBlob(0);
-	// Clear the text field for next entry
-	// event.target.paste.value = "";
-	// Prevent default form submit
-	return false;
-	}
-});
-
-Template.header.events({
+		uploadBlob(0);
+		return false;
+	},
 	"click .new-download": function (event) {	
 		downloadBlob(Session.get("pasteTitle"), Session.get("pasteText"));
 	},
@@ -57,14 +93,6 @@ Template.header.events({
 		}
 	}
 });
-
-//Helpers
-
-Template.registerHelper("homePage", function() {return Session.get("isHome");});
-
-Template.registerHelper("homePaste", function() {return Session.get("isPaste");});
-
-Template.registerHelper("siteName", function() {return Session.get("siteName");});
 
 Template.header.helpers({
 	title : function() {return Session.get("pasteTitle");},
@@ -114,46 +142,17 @@ Template.slideout.events ({
 });
 
 Template.footer.helpers({
-	lang: function() {return Session.get("pasteLang");},
-	cursor: function() {var b = Session.get("cursorPosition"); b.row++; return b;},
-	length: function() {return Session.get("length");},
+	lang: function () {return Session.get("pasteLang");},
+	cursor: function () {var b = Session.get("cursorPosition"); b.row++; return b;},
+	length: function () {return Session.get("length");},
 	rangeLength: function () {return Session.get("rangeLength");},
-	selectionRowRange: function () {return Session.get("selectionRowRange");}
-});
-
-//Startup
-
-Meteor.startup(function() {
-	siteName = "//" + window.location.host;
-	Session.set("userPastesLoaded", false);
-	Session.set("isPasteEncrypted", false);
-	Session.set("isFork", false);
-	Session.set("siteName", siteName);
-	new Clipboard('.copyPasteUrl');
-
-	if(getCookie("auth") !== undefined){
-		console.log("Logged - Do not clear cookies");
-	}else{
-		console.log("Logging in ..");
-		setCookie();
+	selectionRowRange: function () {var b = Session.get("selectionRowRange"); return ++b;},
+	selectionIsMoreThanOneLine: function () {return (Session.get("selectionRowRange")>0);},
+	latestPastes: function () {
+		return PastesLinks.find({}, {limit: 4, sort: {createdAt: -1}}).fetch();
 	}
-	Session.set("auth", getCookie("auth"));
-	document.onkeydown = KeyPress;
-	$("textarea").keydown(function(e){
-		KeyPress(e);
-	});
-
-	loadUserPastes();
-	loadUserBookmarks();
-	
-
-	/*Tracker.autorun(function() {
-		FlowRouter.watchPathChange();
-		var currentContext = FlowRouter.current();
-		console.log(currentContext);
-		//if(currentContext.route.name == "pastes") {Session.set("isHome", false);}
-		//if(currentContext.route.name == "home") {Session.set("isPaste", false);}
-	});*/
 });
+
+// UNLOAD
 
 window.onbeforeunload = savePaste;

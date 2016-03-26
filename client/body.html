@@ -205,24 +205,36 @@
 
 <template name="footer">
 	<footer>
-		<div class="elem stats">
+		<div class="left-footer">
+			<div class="elem stats pad0">
+				LATEST PASTES:
+			</div>
+			<div class="elem stats">
+				{{#each item in latestPastes}}
+					<a href="{{siteName}}/pastes/{{item.name}}">{{item.title}}</a><span class="latest-language">{{item.language}}</span> 
+				{{/each}}
+			</div>
+		</div>
+		<div class="right-footer">
+			{{#if selectionIsMoreThanOneLine}}
+				<div class="elem stats">
+					{{selectionRowRange}} lines
+				</div>
+			{{/if}}
 			{{#if rangeLength}}
-				{{rangeLength}} chars selected
+				<div class="elem stats">
+					{{rangeLength}} chars selected
+				</div>
 			{{/if}}
-		</div>
-		<div class="elem stats">
-			{{#if selectionRowRange}}
-				{{selectionRowRange}} lines
-			{{/if}}
-		</div>
-		<div class="elem stats">
-			Line {{cursor.row}}, Column {{cursor.column}}
-		</div>
-		<div class="elem stats">
-			Rows: {{length}}
-		</div>
-		<div class="elem file-type">
-			{{lang}}
+			<div class="elem stats">
+				Line {{cursor.row}}, Column {{cursor.column}}
+			</div>
+			<div class="elem stats">
+				Rows: {{length}}
+			</div>
+			<div class="elem file-type">
+				{{lang}}
+			</div>
 		</div>
 	</footer>
 </template>
@@ -274,15 +286,23 @@
 		</div>
 		<div class="shortcuts">
 			<div>
-				Open settings:<kbd>Ctrl</kbd>+<kbd>←</kbd>
+				Open settings:&nbsp;&nbsp;<kbd>Ctrl</kbd>+<kbd>←</kbd>
 			</div>
 			<div>
-				Close settings:<kbd>Ctrl</kbd>+<kbd>→</kbd>
+				Close settings: <kbd>Ctrl</kbd>+<kbd>→</kbd>
 			</div>
 			<div>
-				Download paste:<kbd>Ctrl</kbd>+<kbd>↓</kbd>
+				Upload paste:&nbsp;&nbsp;&nbsp;<kbd>Ctrl</kbd>+<kbd>↑</kbd>
 			</div>
-			
+			<div>
+				Download paste: <kbd>Ctrl</kbd>+<kbd>↓</kbd>
+			</div>
+			<div>
+				Search/replace: <kbd>Ctrl</kbd>+<kbd>F</kbd>
+			</div>
+			<div>
+				Next occurrence:<kbd>Ctrl</kbd>+<kbd>D</kbd>
+			</div>
 		</div>
 	</nav>
 	<script>
