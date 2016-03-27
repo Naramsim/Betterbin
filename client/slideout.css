@@ -87,12 +87,20 @@ nav{
 	margin: 0 .4em;
 }
 
-i.fa.fa-code-fork:hover {
+#pasteName > .octicon-repo-forked{
+	vertical-align: middle;
+}
+
+.octicon-repo-forked {
+	color: white;
 	transition: 0.2s;
+}
+
+.octicon-repo-forked:hover {
 	color: #00FF7D;
 }
 
-.pure-menu-list .fa-key {
+.pure-menu-list .octicon-lock {
 	color: #A2A23F;
 }
 
@@ -108,10 +116,6 @@ i.fa.fa-code-fork:hover {
     flex-direction: row;
 }
 
-.pure-menu-item:hover .micro-controls{
-	display: block;
-}
-
 .delete-container {
 	position: 		absolute;
 	right: 			1em;
@@ -122,16 +126,6 @@ i.fa.fa-code-fork:hover {
 .pure-menu-item:hover .delete-container{
 	opacity: 1;
 	color: gray;
-}
-
-.micro-controls {
-	display: none;
-	color: #777;
-	padding: 		0 1em
-}
-
-.micro-controls > * {
-	cursor: pointer;
 }
 
 .delete-paste{

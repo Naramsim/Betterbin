@@ -1,3 +1,11 @@
 .ace_search_field, .ace_searchbtn, .ace_replacebtn {
 	color: black;
 }
+
+#editor{
+	background-color: transparent;
+}
+
+#editor .ace_gutter{
+	background-color: transparent;
+}

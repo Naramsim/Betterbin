@@ -159,10 +159,10 @@
 		</div>
 		<div class="controlsContainer">
 			<button id="submitPaste" data-tooltip="Save" data-tooltip-direction="s" class="btn-ghost">
-				<i class="fa fa-plus"></i>
+				<span class="octicon octicon-cloud-upload"></span>
 			</button>
 			<button id="encryptPaste" data-tooltip="Encrypt" data-tooltip-direction="s" class="btn-ghost">
-				<i class="fa fa-key"></i>
+				<span class="octicon octicon-lock"></span>
 			</button>
 			{{> controls}}
 		</div>
@@ -173,29 +173,29 @@
 		
 		{{#if homePaste}}
 			<button class="btn-ghost" id="home" onclick="location.href='{{siteName}}';">
-				<i class="fa fa-plane"></i>
+				<span class="octicon octicon-diff-added"></span>
 			</button>
 			<div id="pasteName">
 				{{#if isFork}}
-					<i class="fa fa-code-fork"></i>
+					<span class="octicon octicon-repo-forked"></span>
 				{{/if}}
 				{{title}}
 			</div>
 			<div id="controls">
 				<button class="btn-ghost new-download" data-tooltip="Save to PC" data-tooltip-direction="s">
-					<i class="fa fa-cloud-download"></i>
+					<span class="octicon octicon-desktop-download"></span>
 				</button>
 				<button class="btn-ghost copyPasteUrl" data-clipboard-text="{{pasteUrl}}" data-tooltip="Copy link to clipboard" data-tooltip-direction="s">
-					<i class="fa fa-clipboard"></i>
+					<span class="octicon octicon-clippy"></span>
 				</button>
 				<button class="btn-ghost" onclick="window.open('{{siteName}}/pastes/{{pasteName}}/raw','blank');" data-tooltip="View Raw" data-tooltip-direction="s">
-					<i class="fa fa-file-code-o"></i>
+					<span class="octicon octicon-file-binary"></span>
 				</button>
 				<button class="btn-ghost new-fork" data-tooltip="Fork" data-tooltip-direction="s">
-					<i class="fa fa-code-fork"></i>
+					<span class="octicon octicon-repo-forked"></span>
 				</button>
 				<button class="btn-ghost new-bookmark" data-tooltip="Save in your files" data-tooltip-direction="s">
-					<i class="fa fa-bookmark"></i>
+					<span class="octicon octicon-bookmark"></span>
 				</button>
 				{{> controls}}
 			</div>
@@ -205,24 +205,36 @@
 
 <template name="footer">
 	<footer>
-		<div class="elem stats">
+		<div class="left-footer">
+			<div class="elem stats pad0">
+				LATEST PASTES:
+			</div>
+			<div class="elem stats">
+				{{#each item in latestPastes}}
+					<a href="{{siteName}}/pastes/{{item.name}}">{{item.title}}</a><span class="latest-language">{{item.language}}</span> 
+				{{/each}}
+			</div>
+		</div>
+		<div class="right-footer">
+			{{#if selectionIsMoreThanOneLine}}
+				<div class="elem stats">
+					{{selectionRowRange}} lines
+				</div>
+			{{/if}}
 			{{#if rangeLength}}
-				{{rangeLength}} chars selected
+				<div class="elem stats">
+					{{rangeLength}} chars selected
+				</div>
 			{{/if}}
-		</div>
-		<div class="elem stats">
-			{{#if selectionRowRange}}
-				{{selectionRowRange}} lines
-			{{/if}}
-		</div>
-		<div class="elem stats">
-			Line {{cursor.row}}, Column {{cursor.column}}
-		</div>
-		<div class="elem stats">
-			Rows: {{length}}
-		</div>
-		<div class="elem file-type">
-			{{lang}}
+			<div class="elem stats">
+				Line {{cursor.row}}, Column {{cursor.column}}
+			</div>
+			<div class="elem stats">
+				Rows: {{length}}
+			</div>
+			<div class="elem file-type">
+				{{lang}}
+			</div>
 		</div>
 	</footer>
 </template>
@@ -238,19 +250,19 @@
 							<a href="{{siteName}}/pastes/{{name}}" class="pure-menu-link">
 							{{#if isFork}}
 								{{#if forkedFrom}}
-									<i class="fa fa-code-fork" onclick="window.open('{{siteName}}/pastes/{{forkedFrom}}','blank');"></i>
+									<span class="octicon octicon-repo-forked" onclick="window.open('{{siteName}}/pastes/{{forkedFrom}}','blank');"></span>
 								{{else}}
-									<i class="fa fa-code-fork"></i>
+									<span class="octicon octicon-repo-forked"></span>
 								{{/if}}
 							{{/if}}
 							{{#if isEncry}}
-								<i class="fa fa-key"></i>
+								<span class="octicon octicon-lock"></span>
 							{{/if}}
 							{{title}}
 							<div class="pasteLang">({{language}})</div>
 							</a>
 							<div class="delete-container">
-								<i class="delete delete-paste fa fa-trash-o" data-attr="{{_id}}"></i>
+								<span class="delete delete-paste octicon octicon-trashcan" data-attr="{{_id}}"></span>
 							</div>
 							
 						</li>
@@ -262,27 +274,35 @@
 			{{#each userBookmarks}}
 				<li class="pure-menu-item pure-menu-bookmarks"><a href="{{siteName}}/pastes/{{bookmarkLink}}" class="pure-menu-link">
 					{{#if isEncry}} <!-- not impemented right now -->
-						<i class="fa fa-key"></i>
+						<span class="octicon octicon-lock"></span>
 					{{/if}}
-					<i class="fa fa-bookmark-o"></i>
+					<span class="octicon octicon-bookmark"></span>
 					{{bookmarkTitle}}
 					</a>
-					<div class="delete-container"><i class="delete delete-bookmark fa fa-trash-o" data-attr="{{_id}}"></i></div>
+					<div class="delete-container"><span class="delete delete-bookmark octicon octicon-trashcan" data-attr="{{_id}}"></span></div>
 				</li>
 			{{/each}}
 			</ul>
 		</div>
 		<div class="shortcuts">
 			<div>
-				Open settings:<kbd>Ctrl</kbd>+<kbd>←</kbd>
+				Open settings:&nbsp;&nbsp;<kbd>Ctrl</kbd>+<kbd>←</kbd>
 			</div>
 			<div>
-				Close settings:<kbd>Ctrl</kbd>+<kbd>→</kbd>
+				Close settings: <kbd>Ctrl</kbd>+<kbd>→</kbd>
 			</div>
 			<div>
-				Download paste:<kbd>Ctrl</kbd>+<kbd>↓</kbd>
+				Upload paste:&nbsp;&nbsp;&nbsp;<kbd>Ctrl</kbd>+<kbd>↑</kbd>
 			</div>
-			
+			<div>
+				Download paste: <kbd>Ctrl</kbd>+<kbd>↓</kbd>
+			</div>
+			<div>
+				Search/replace: <kbd>Ctrl</kbd>+<kbd>F</kbd>
+			</div>
+			<div>
+				Next occurrence:<kbd>Ctrl</kbd>+<kbd>D</kbd>
+			</div>
 		</div>
 	</nav>
 	<script>
@@ -298,6 +318,6 @@
 
 <template name="controls">
 	<button class="btn-ghost" id="tools" data-tooltip="Manage" data-tooltip-direction="s">
-		<i class="fa fa-briefcase"></i>
+		<span class="octicon octicon-three-bars"></span>
 	</button>
 </template>

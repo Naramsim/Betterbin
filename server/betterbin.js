@@ -1,11 +1,11 @@
 var fs = Npm.require('fs');
 var path = Npm.require( 'path' );
 var config = JSON.parse(Assets.getText("path.json"));
-
-if (config.which == "server") {
-	var __ROOT_APP_PATH__ = fs.realpathSync(config.pathAdjustment);
-}else if (config.which == "local") {
-	var __ROOT_APP_PATH__ = fs.realpathSync(config.pathAdjustmentTest);
+var __ROOT_APP_PATH__;
+if (config.which === "server") {
+	__ROOT_APP_PATH__ = fs.realpathSync(config.pathAdjustment);
+}else if (config.which === "local") {
+	__ROOT_APP_PATH__ = fs.realpathSync(config.pathAdjustmentTest);
 }
 
 var pastesPath = path.join(__ROOT_APP_PATH__, "/pastes/");
@@ -29,11 +29,15 @@ String.prototype.trunc = String.prototype.trunc ||
 		return this.length>n ? this.substr(0,n) : this;
 	};
 
+Meteor.publish("pastesLinks", function() {
+	return PastesLinks.find({}, {sort: {createdAt: -1}, limit: 6, fields: {title: 1, language: 1, name: 1, createdAt: 1}});
+});
+
 Meteor.methods({ //called by Clients
 	addPaste: function (blob, title, lang, author, isEncrypted, isForked, forkedForm, isBookmarked) {
 		try{
 			var pasteInfo = [];
-			if(isBookmarked != true) {isBookmarked = false;}
+			if(isBookmarked !== true) {isBookmarked = false;}
 			var pasteName = Array(pastesNameLenght).join().split(',').map(function() { return s.charAt(Math.floor(Math.random() * s.length)); }).join('');
 			var filePath = path.join(pastesPath, pasteName + ".txt");
 			var buffer = new Buffer( blob );
@@ -74,7 +78,7 @@ Meteor.methods({ //called by Clients
 	updatePaste: function (blob, title, pasteId, author) {
 		try{
 			var pasteToUpdate = PastesLinks.findOne({title: title, _id: pasteId, owner:author}).link;
-			if(pasteToUpdate){
+			if(pasteToUpdate) {
 				var buffer = new Buffer( blob );
 				fs.writeFileSync( pasteToUpdate, buffer);
 			}
@@ -88,7 +92,7 @@ Meteor.methods({ //called by Clients
 			if(pasteToRename){
 				PastesLinks.remove({_id: pasteId, owner:author});
 				fs.rename(pasteToRename, pasteToRename + ".R", function(err){
-					if ( err ) console.log('ERROR: ' + err);
+					if(err) {console.log('ERROR: ' + err);}
 				});
 			}
 		}catch(e){
@@ -107,10 +111,10 @@ Meteor.methods({ //called by Clients
 			var pasteInfo = {}; //EJSON to return to the client
 			pasteName = pasteName.replace(/\.\./g,"").replace(/\//g,"").replace(/ /g,"").replace(/\n/g,"").replace(/\v/g,"").replace(/\f/g,""); //sanitize
 			pasteName = pasteName.trunc(pastesNameLenght); //truncation
-			pastePath = path.join(pastesPath, pasteName + ".txt");
+			var pastePath = path.join(pastesPath, pasteName + ".txt");
 			pasteInfo.text = fs.readFileSync(pastePath , 'utf8'); //Assets read from /private/
 			PastesLinks.update({name: ""+pasteName}, {$inc: {timesViewed: 1} });
-			pasteInfoFromDb = PastesLinks.findOne({name: ""+pasteName});
+			var pasteInfoFromDb = PastesLinks.findOne({name: ""+pasteName});
 			pasteInfo.title = pasteInfoFromDb.title;
 			pasteInfo.lang = pasteInfoFromDb.language;
 			pasteInfo.isEncry = pasteInfoFromDb.isEncry;
