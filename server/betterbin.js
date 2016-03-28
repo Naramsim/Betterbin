@@ -30,11 +30,11 @@ String.prototype.trunc = String.prototype.trunc ||
 	};
 
 Meteor.publish("pastesLinks", function() {
-	return PastesLinks.find({}, {sort: {createdAt: -1}, limit: 6, fields: {title: 1, language: 1, name: 1, createdAt: 1}});
+	return PastesLinks.find({isHide: false}, {sort: {createdAt: -1}, limit: 6, fields: {title: 1, language: 1, name: 1, createdAt: 1}});
 });
 
 Meteor.methods({ //called by Clients
-	addPaste: function (blob, title, lang, author, isEncrypted, isForked, forkedForm, isBookmarked) {
+	addPaste: function (blob, title, lang, author, isEncrypted, isForked, forkedForm, isBookmarked, isHided) {
 		try{
 			var pasteInfo = [];
 			if(isBookmarked !== true) {isBookmarked = false;}
@@ -52,6 +52,7 @@ Meteor.methods({ //called by Clients
 				language: lang,
 				ip: this.connection.clientAddress,
 				isEncry: isEncrypted,
+				isHide: isHided,
 				isFork: isForked,
 				originalPaste: forkedForm,
 				isBookmark: isBookmarked,
@@ -131,7 +132,10 @@ Meteor.methods({ //called by Clients
 	getUserPastes: function (userName) {
 		try{
 			var userPastes = {};
-			userPastes.userPastes = PastesLinks.find({owner: userName}).fetch();
+			userPastes.userPastes = PastesLinks.find({owner: userName}, {fields: {title: 1, language: 1, name: 1, 
+																					createdAt: 1, isEncry:1, isFork:1, 
+																					timesViewed:1, isHide:1, isBookmark:1,
+																					originalPaste:1}}).fetch();
 			return userPastes;
 		}catch(e){
 			console.log(e);
@@ -236,7 +240,7 @@ Meteor.startup(function(){
     // Starts the API server
     //collectionApi.start(); //Call: curl -v -H "Content-Type: application/json" http://localhost:3005/api/pastesLinks -d "{\"title\": \"John Smith\"}"
 
-    //Restivus API
+    //Restivus API for AoE2
 	var Api = new Restivus({
 	    useDefaultAuth: true,
 	    prettyJson: true,
@@ -392,6 +396,51 @@ Meteor.startup(function(){
 			}
 		}
 	});
-	console.log("Restivus has been started");
+	console.log("Restivus AoE2 api has been started");
+
+	//Restivus API for AoE2
+	var Api = new Restivus({
+	    useDefaultAuth: true,
+	    prettyJson: true,
+	    apiPath: 'api/',
+	    version: 'v1'
+	  });	
+	Api.addRoute('raw/:pasteName', {
+		get: function () {
+			var pasteName = this.urlParams.pasteName;
+			if(pasteName){
+				check(pasteName, String);
+				var pasteInfo = {}; 
+				pasteName = pasteName.replace(/\.\./g,"").replace(/\//g,"").replace(/ /g,"").replace(/\n/g,"").replace(/\v/g,"").replace(/\f/g,""); //sanitize
+				pasteName = pasteName.trunc(pastesNameLenght); //truncation
+				var pastePath = path.join(pastesPath, pasteName + ".txt");
+				var text = fs.readFileSync(pastePath , 'utf8'); //Assets read from /pastes/
+				PastesLinks.update({name: ""+pasteName}, {$inc: {timesViewed: 1} });
+				return text; 
+	    	}
+		}
+	});
+	Api.addRoute('paste/:pasteName', {
+		get: function () {
+			var pasteName = this.urlParams.pasteName;
+			if(pasteName){
+				check(pasteName, String);
+				var pasteInfo = {}; 
+				pasteName = pasteName.replace(/\.\./g,"").replace(/\//g,"").replace(/ /g,"").replace(/\n/g,"").replace(/\v/g,"").replace(/\f/g,""); //sanitize
+				pasteName = pasteName.trunc(pastesNameLenght); //truncation
+				var pastePath = path.join(pastesPath, pasteName + ".txt");
+				var text = fs.readFileSync(pastePath , 'utf8'); //Assets read from /pastes/
+				PastesLinks.update({name: ""+pasteName}, {$inc: {timesViewed: 1} });
+				var pasteInfoFromDb = PastesLinks.findOne({name: ""+pasteName, isHide: false}, {fields: {title: 1, language: 1, name: 1, createdAt: 1, isEncry:1, isFork:1, timesViewed:1}});
+				if(!!pasteInfoFromDb){
+					pasteInfoFromDb.text = text;
+				}else{
+					return "nothing to see here";
+				}
+				return pasteInfoFromDb; 
+	    	}
+		}
+	});
+	console.log("Restivus Betterbin api has been started");
 });
 
