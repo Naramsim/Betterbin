@@ -13,3 +13,7 @@ body{
 body .pad0 {
 	padding: 		0;
 }
+
+.pure-menu-link {
+	transition: 0.2s;
+}

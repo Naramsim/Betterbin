@@ -91,11 +91,6 @@ nav{
 	vertical-align: middle;
 }
 
-.octicon-repo-forked {
-	color: white;
-	transition: 0.2s;
-}
-
 .octicon-repo-forked:hover {
 	color: #00FF7D;
 }
@@ -139,4 +134,8 @@ nav{
 
 .fa.fa-external-link, .fa.fa-clipboard {
 	font-size: 14px;
+}
+
+.pure-menu-item .fa, .pure-menu-item .octicon {
+    width: 16px;
 }
