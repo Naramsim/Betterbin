@@ -31,6 +31,15 @@ Meteor.startup(function() {
 
 	Meteor.subscribe("pastesLinks");
 
+	document.querySelector('.ace_editor').addEventListener('click', function() {
+		if(slideout.isOpen()){
+			slideout.close();
+		}
+		if(megaSlideout.isOpen()){
+			megaSlideout.close();
+		}
+	});
+
 	/*Tracker.autorun(function() {
 		FlowRouter.watchPathChange();
 		var currentContext = FlowRouter.current();

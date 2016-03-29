@@ -2,18 +2,21 @@
 	{{#if homeRaw}}
 		{{> raw}}
 	{{else}}
-		<div id="bodyContainer">
-			{{> header}}
-			<div id="editor"></div>
-			<script>
-				var editor = ace.edit("editor");
-				editor.setShowPrintMargin(false);
-				editor.setTheme("ace/theme/monokai");
-				initEditor();
-			</script>
-			{{> footer}}
+		<div id="megaContainer">
+			<div id="bodyContainer">
+				{{> header}}
+				<div id="editor"></div>
+				<script>
+					var editor = ace.edit("editor");
+					editor.setShowPrintMargin(false);
+					editor.setTheme("ace/theme/monokai");
+					initEditor();
+				</script>
+				{{> footer}}
+			</div>
+			{{> slideout}}
 		</div>
-		{{> slideout}}
+		{{> megaslideout}}
 	{{/if}}
 	{{> tooltips }}
 </body>
@@ -123,6 +126,22 @@
 			'padding': 256,
 			'tolerance': 70,
 			'side': 'right'
+		});
+	</script>
+</template>	
+
+<template name="megaslideout">
+	<nav id="about">
+		{{> about}}
+	</nav>
+	<script>
+		megaSlideout = new Slideout({
+			'panel': document.getElementById('megaContainer'),
+			'menu': document.getElementById('about'),
+			'padding': 256,
+			'tolerance': 70,
+			'side': 'left',
+			'touch': false
 		});
 	</script>
 </template>	
