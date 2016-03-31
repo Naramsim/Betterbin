@@ -335,7 +335,7 @@ Meteor.startup(function(){
 			check(match, String);
 			match = escapeRegExp(match);
 			var re = new RegExp('.*'+match+'.*','i');
-	    	var b = Strategies.find({'soup': re}).fetch();
+	    	var b = Strategies.find({'soup': re}, {limit: 6, fields: {xdab: 0, soup:0}}).fetch();
 	      	return b;
 		}
 	});
@@ -404,7 +404,7 @@ Meteor.startup(function(){
 	    prettyJson: true,
 	    apiPath: 'api/',
 	    version: 'v1'
-	  });	
+	  });
 	Api.addRoute('raw/:pasteName', {
 		get: function () {
 			var pasteName = this.urlParams.pasteName;
