@@ -50,3 +50,11 @@ footer .latest-language {
 	text-transform: 	uppercase;
 	opacity: 			0.9;
 }
+
+@media (max-width: 900px) {
+	footer {
+		display: none;
+		opacity: 0;
+		visibility: hidden;
+	}
+}

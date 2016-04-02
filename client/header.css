@@ -129,7 +129,20 @@ input, select{
 	border-radius: 		4px;
 }
 
-@media screen and (max-width:800px) { 
+@media screen and (max-width:900px) { 
+	.headerFlex {
+		justify-content: center;
+	}
+	#pasteName {
+		order: -1;
+		width: 100%;
+    	text-align: center;
+	}
+	.tooltip {
+		display: none;
+		visibility: hidden;
+		opacity: 0;	
+	}
 }
 
 @media screen and (max-width:600px) { 

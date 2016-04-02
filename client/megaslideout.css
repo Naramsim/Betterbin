@@ -2,7 +2,7 @@ nav{
 	background-color: rgba(0,0,0,.2);
 }
 
-#about.slideout-menu {
+.about-menu.slideout-menu {
 	flex-direction: column;
 	justify-content: space-between;
 	position: fixed;
@@ -15,6 +15,7 @@ nav{
 	max-width: 256px;
 	overflow-y: auto;
 	-webkit-overflow-scrolling: touch;
+	display: none;
 }
 
 #about .slideout-panel {
@@ -75,4 +76,12 @@ nav{
 	text-align: center;
 	padding-left: 0 ;
 	display: block;
+}
+
+@media (max-width: 900px) {
+	#about {
+		display: none;
+		opacity: 0;
+		visibility: hidden;
+	}
 }

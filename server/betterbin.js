@@ -335,7 +335,7 @@ Meteor.startup(function(){
 			check(match, String);
 			match = escapeRegExp(match);
 			var re = new RegExp('.*'+match+'.*','i');
-	    	var b = Strategies.find({'soup': re}, {limit: 6, fields: {xdab: 0, soup:0}}).fetch();
+	    	var b = Strategies.find({'soup': re}, {limit: 50, fields: {xdab: 0, soup:0}}).fetch();
 	      	return b;
 		}
 	});

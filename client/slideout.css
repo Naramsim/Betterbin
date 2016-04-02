@@ -139,3 +139,11 @@ nav{
 .pure-menu-item .fa, .pure-menu-item .octicon {
     width: 16px;
 }
+
+@media (max-width: 900px) {
+	.shortcuts {
+		display: none;
+		opacity: 0;
+		visibility: hidden;
+	}
+}
