@@ -1,0 +1,87 @@
+nav{
+	background-color: rgba(0,0,0,.2);
+}
+
+.about-menu.slideout-menu {
+	flex-direction: column;
+	justify-content: space-between;
+	position: fixed;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	right: auto;
+	z-index: 0;
+	width: 95%;
+	max-width: 256px;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
+	display: none;
+}
+
+#about .slideout-panel {
+	position:relative;
+	z-index: 1;
+}
+
+#about .slideout-open,
+#about .slideout-open body,
+#about .slideout-open .slideout-panel {
+	overflow: hidden;
+}
+
+#about .slideout-open .slideout-menu {
+	display: flex;
+}
+
+#about .custom-restricted {
+	width: auto;
+	font-family: monospace;
+	overflow-y: auto !important;
+}
+
+#about .pure-menu{
+	height: 100%;
+}
+
+#about .pure-menu span {
+	color: white;
+	padding-left: 1em;
+}
+
+#about .pure-ul-first {
+	padding-top: 1em;
+}
+
+#about .pure-menu-item {
+	justify-content: flex-start;
+}
+
+#about .pure-menu-link:focus {
+    background-color: transparent;
+}
+
+#about .at-extremis {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+#about .github a {
+	text-decoration: none;
+}
+
+#about .pure-menu span.octicon-logo-github {
+	vertical-align: baseline;
+	margin: 0 auto;
+	text-align: center;
+	padding-left: 0 ;
+	display: block;
+}
+
+@media (max-width: 900px) {
+	#about {
+		display: none;
+		opacity: 0;
+		visibility: hidden;
+	}
+}

@@ -1,0 +1,108 @@
+<template name="userpastes">
+	<div class="pure-menu pure-menu-scrollable custom-restricted">
+		<a href="#" class="pure-menu-heading">Your pastes</a>
+		<ul class="pure-menu-list">
+			{{#if userPastesLoaded}}
+				{{#each userPastes}}
+					<li class="pure-menu-item">
+						<a href="{{siteName}}/pastes/{{name}}/{{encryptionKey}}" class="pure-menu-link">
+						{{#if isFork}}
+							{{#if forkedFrom}}
+								<span class="octicon octicon-repo-forked" onclick="window.open('{{siteName}}/pastes/{{forkedFrom}}','blank');"></span>
+							{{else}}
+								<span class="octicon octicon-repo-forked"></span>
+							{{/if}}
+						{{/if}}
+						{{#if isEncry}}
+							<span class="octicon octicon-lock"></span>
+						{{/if}}
+						{{#if isHide}}
+							<span class="fa fa-eye-slash"></span>
+						{{/if}}
+						{{title}}
+						<div class="pasteLang">({{language}})</div>
+						</a>
+						<div class="delete-container">
+							<span class="delete delete-paste octicon octicon-trashcan" data-attr="{{_id}}"></span>
+						</div>
+						
+					</li>
+				{{/each}}
+			{{/if}}
+		</ul>
+		<a href="#" class="pure-menu-heading">Your bookmarks</a>
+		<ul class="pure-menu-list">
+		{{#each userBookmarks}}
+			<li class="pure-menu-item pure-menu-bookmarks"><a href="{{siteName}}/pastes/{{bookmarkLink}}" class="pure-menu-link">
+				{{#if isEncry}} <!-- not impemented right now -->
+					<span class="octicon octicon-lock"></span>
+				{{/if}}
+				<span class="octicon octicon-bookmark"></span>
+				{{bookmarkTitle}}
+				</a>
+				<div class="delete-container"><span class="delete delete-bookmark octicon octicon-trashcan" data-attr="{{_id}}"></span></div>
+			</li>
+		{{/each}}
+		</ul>
+	</div>
+</template>
+
+<template name="shortcuts">
+	<div class="shortcuts">
+		<div>
+			Open settings:&nbsp;&nbsp;<kbd>Ctrl</kbd>+<kbd>←</kbd>
+		</div>
+		<div>
+			Close settings: <kbd>Ctrl</kbd>+<kbd>→</kbd>
+		</div>
+		<div>
+			Upload paste:&nbsp;&nbsp;&nbsp;<kbd>Ctrl</kbd>+<kbd>↑</kbd>
+		</div>
+		<div>
+			Download paste: <kbd>Ctrl</kbd>+<kbd>↓</kbd>
+		</div>
+		<div>
+			Search/replace: <kbd>Ctrl</kbd>+<kbd>F</kbd>
+		</div>
+		<div>
+			Next occurrence:<kbd>Ctrl</kbd>+<kbd>D</kbd>
+		</div>
+		<div onclick="openMegaSlideout();" style="cursor: pointer;">
+			Credits
+		</div>
+	</div>
+</template>
+
+<template name="about">
+	<div class="pure-menu pure-menu-scrollable custom-restricted at-extremis">
+		<div class="container-ul">
+			<a href="#" class="pure-menu-heading">BETTERBIN.CO</a>
+			<span>built with:</span>
+			<ul class="pure-menu-list pure-ul-first">
+				<li class="pure-menu-item"><a class="pure-menu-link" href="https://github.com/meteor/meteor">Meteor</a></li>
+				<li class="pure-menu-item"><a class="pure-menu-link" href="https://github.com/ajaxorg/ace">Ace</a></li>
+				<li class="pure-menu-item"><a class="pure-menu-link" href="https://github.com/Mango/slideout">Slideout</a></li>
+				<li class="pure-menu-item"><a class="pure-menu-link" href="https://github.com/github/octicons">Octicons</a></li>
+				<li class="pure-menu-item"><a class="pure-menu-link" href="https://github.com/rstacruz/nprogress">Nprogress</a></li>
+				<li class="pure-menu-item"><a class="pure-menu-link" href="https://github.com/Naramsim/Notify">Notify</a></li>
+			</ul>
+			<a href="#" class="pure-menu-heading">CREDITS</a>
+			<ul class="pure-menu-list">
+				<li class="pure-menu-item pure-menu-bookmarks">
+					<span class="octicon octicon-octoface"></span>
+					<a class="pure-menu-link" href="https://github.com/Naramsim">Naramsim</a>
+				</li>
+				<li class="pure-menu-item pure-menu-bookmarks">
+					<span class="octicon octicon-octoface"></span>
+					<a class="pure-menu-link" href="https://github.com/balde73">Balde73</a>
+				</li>
+			</ul>
+		</div>
+		<div class="github">
+			<a href="https://github.com/Naramsim/Betterbin">
+				<span class="mega-octicon octicon-logo-github"></span>
+			</a>
+		</div>
+		
+	</div>
+</template>

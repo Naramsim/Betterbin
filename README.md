@@ -29,4 +29,5 @@ It supports:
 [GPL V2](https://github.com/Naramsim/Mrb.in/blob/master/LICENSE.txt)
 
 ## Authors
-@Naramsim and @balde73
+[@Naramsim](https://www.github.com/Naramsim) and [@balde73](https://www.github.com/balde73)
+

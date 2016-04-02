@@ -46,7 +46,15 @@ footer a:hover + span {
 footer .latest-language {
 	font-size: 			0.6em;
 	margin-left: 		1.1em;
-	margin-right: 		7em;
+	margin-right: 		4em;
 	text-transform: 	uppercase;
 	opacity: 			0.9;
+}
+
+@media (max-width: 900px) {
+	footer {
+		display: none;
+		opacity: 0;
+		visibility: hidden;
+	}
 }

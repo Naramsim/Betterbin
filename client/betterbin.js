@@ -9,6 +9,7 @@ Meteor.startup(function() {
 	var siteName = "//" + window.location.host;
 	Session.set("userPastesLoaded", false);
 	Session.set("isPasteEncrypted", false);
+	Session.set("isPasteHided", false);
 	Session.set("isFork", false);
 	Session.set("siteName", siteName);
 	new Clipboard('.copyPasteUrl');
@@ -29,6 +30,15 @@ Meteor.startup(function() {
 	loadUserBookmarks();
 
 	Meteor.subscribe("pastesLinks");
+
+	document.querySelector('.ace_editor').addEventListener('click', function() {
+		if(slideout.isOpen()){
+			slideout.close();
+		}
+		if(megaSlideout.isOpen()){
+			megaSlideout.close();
+		}
+	});
 
 	/*Tracker.autorun(function() {
 		FlowRouter.watchPathChange();
@@ -59,6 +69,8 @@ Template.header.events({
 		Session.set("isHome", true);
 		Session.set("isPaste", false);
 		Session.set("isFork", true);
+		Session.set("isPasteEncrypted", false);
+		Session.set("isPasteHided", false);
 		document.getElementsByClassName("tooltip")[0].classList.remove("show");
 		setTimeout(function(){
 			document.getElementById("pasteName").focus();
@@ -86,10 +98,21 @@ Template.header.events({
 	"click #encryptPaste": function (event) {
 		if(Session.get("isPasteEncrypted") === false){
 			Session.set("isPasteEncrypted", true);
+			Session.set("isPasteHided", true);
 			document.getElementById("encryptPaste").classList.add("button-success");
+			document.getElementById("hidePaste").classList.add("button-success");
 		}else {
 			Session.set("isPasteEncrypted", false);
 			document.getElementById("encryptPaste").classList.remove("button-success");
+		}
+	},
+	"click #hidePaste": function (event) {
+		if(Session.get("isPasteHided") === false){
+			Session.set("isPasteHided", true);
+			document.getElementById("hidePaste").classList.add("button-success");
+		}else{
+			Session.set("isPasteHided", false);
+			document.getElementById("hidePaste").classList.remove("button-success");
 		}
 	}
 });
@@ -109,24 +132,21 @@ Template.raw.helpers({
 	rawText : function() {return Session.get("pasteText");}
 });
 
-Template.slideout.helpers({
+Template.userpastes.helpers({
 	userPastesLoaded : function () {return Session.get("userPastesLoaded");},
 	userPastes : function () {return Session.get("userPastes").userPastes;},
-	name : function () {return this.name;},
-	title : function () {return this.title;},
-	lang : function () {return this.lang;},
-	isFork : function () {return this.isFork;},
 	forkedFrom : function () {return this.originalPaste;},
 	pasteUrl : function () {return window.location.host + "/pastes/" + this.name},
-	_id : function () {return this._id},
+	encryptionKey : function () {
+		if (localStorage.getItem(this.name) !== null) {
+			return localStorage.getItem(this.name);
+		} else {return "";}
+	},
 
-	userBookmarks : function () {return Session.get("userBookmarks").userBookmarks;},
-	bookmarkLink : function () {return this.bookmarkLink;},
-	bookmarkTitle : function () {return this.bookmarkTitle;},
-	_id : function () {return this._id}
+	userBookmarks : function () {return Session.get("userBookmarks").userBookmarks;}
 });
 
-Template.slideout.events ({
+Template.userpastes.events ({
 	"click .pure-menu-link": function (event) {
 		slideout.close();
 	},
