@@ -254,7 +254,7 @@ Meteor.startup(function(){
 				check(+end, Match.Integer);
 				check(+start, Match.Integer);
 				console.log("get last");
-				var data = Strategies.find().fetch();
+				var data = Strategies.find({},{fields: {xdab: 0}}).fetch();
 				data.sort(function(a, b) {return -a.created + b.created});
 	    		data = data.slice(+start,+end);
 	    		return data;
@@ -298,7 +298,7 @@ Meteor.startup(function(){
 	    	console.log(id);
 			check(id, String);
 			id = escapeRegExp(id);
-	    	console.log("starred");
+	    	console.log("stars");
 	    	Strategies.update(id, {$inc: {stars: 1}});
 	    	var b = !!Strategies.findOne(id);
 	      	return b;
@@ -309,7 +309,7 @@ Meteor.startup(function(){
 			var id = this.bodyParams.id;
 			check(id, String);
 			id = escapeRegExp(id);
-			console.log("downloaded");
+			console.log("download");
 			Strategies.update(id, {$inc: {downloaded: 1}});
 	    	var b = !!Strategies.findOne(id);
 	      	return b;
@@ -323,10 +323,12 @@ Meteor.startup(function(){
 			check(author, String);
 			id = escapeRegExp(id);
 			author = escapeRegExp(author);
-			console.log("deleted");
-			Strategies.remove({_id: id, xdab: author});
-	    	var b = !Strategies.findOne(id);
-	      	return b;
+			console.log("delete");
+			if(author !== "default"){
+				Strategies.remove({_id: id, xdab: author});
+				return true;
+			}
+	      	return false;
 		}
 	});
 	Api.addRoute('search/', {
@@ -334,8 +336,19 @@ Meteor.startup(function(){
 			var match = this.bodyParams.match;
 			check(match, String);
 			match = escapeRegExp(match);
+			console.log("search");
 			var re = new RegExp('.*'+match+'.*','i');
-	    	var b = Strategies.find({'soup': re}, {limit: 50, fields: {xdab: 0, soup:0}}).fetch();
+	    	var b = Strategies.find({'soup': re}, {limit: 50, fields: {xdab: 0}}).fetch();
+	      	return b;
+		}
+	});
+	Api.addRoute('mine/', {
+		post: function () {
+			var id = this.bodyParams.id;
+			check(id, String);
+			id = escapeRegExp(id);
+			console.log("mine");
+	    	var b = Strategies.find({'xdab': id}, {limit: 50, fields: {xdab: 0}}).fetch();
 	      	return b;
 		}
 	});
