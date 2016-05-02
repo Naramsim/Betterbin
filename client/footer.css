@@ -52,7 +52,7 @@ footer .latest-language {
 }
 
 @media (max-width: 900px) {
-	footer {
+	#bodyContainer>footer {
 		display: none;
 		opacity: 0;
 		visibility: hidden;

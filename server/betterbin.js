@@ -348,8 +348,9 @@ Meteor.startup(function(){
 			check(id, String);
 			id = escapeRegExp(id);
 			console.log("mine");
-	    	var b = Strategies.find({'xdab': id}, {limit: 50, fields: {xdab: 0}}).fetch();
-	      	return b;
+	    	var data = Strategies.find({'xdab': id}, {limit: 50, fields: {xdab: 0}}).fetch();
+	    	data.sort(function(a, b) {return -a.created + b.created});
+	      	return data;
 		}
 	});
 	Api.addCollection(Strategies, {
