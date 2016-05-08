@@ -10,6 +10,11 @@
 					var editor = ace.edit("editor");
 					editor.setShowPrintMargin(false);
 					editor.setTheme("ace/theme/monokai");
+					editor.setOptions({
+					    enableSnippets: true,
+				        enableLiveAutocompletion: true,
+				        enableBasicAutocompletion: true
+					});
 					initEditor();
 				</script>
 				{{> footer}}
