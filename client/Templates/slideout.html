@@ -20,7 +20,11 @@
 							<span class="fa fa-eye-slash"></span>
 						{{/if}}
 						{{title}}
-						<div class="pasteLang">({{language}})</div>
+						{{#if langImg}}
+							<img src="https://cdn.rawgit.com/equinusocio/material-theme/develop/icons/file_type_{{langImg}}.png">
+						{{else}}
+							<div class="pasteLang">({{language}})</div>
+						{{/if}}
 						</a>
 						<div class="delete-container">
 							<span class="delete delete-paste octicon octicon-trashcan" data-attr="{{_id}}"></span>

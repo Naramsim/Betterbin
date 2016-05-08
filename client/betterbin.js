@@ -8,6 +8,7 @@ PastesLinks = new Mongo.Collection("pastesLinks");
 Meteor.startup(function() {
 	var siteName = "//" + window.location.host;
 	Session.set("userPastesLoaded", false);
+	Session.set("langListReady", false);
 	Session.set("isPasteEncrypted", false);
 	Session.set("isPasteHided", false);
 	Session.set("isFork", false);
@@ -28,6 +29,7 @@ Meteor.startup(function() {
 
 	loadUserPastes();
 	loadUserBookmarks();
+	loadLangs();
 
 	Meteor.subscribe("pastesLinks");
 
@@ -118,32 +120,38 @@ Template.header.events({
 });
 
 Template.header.helpers({
-	title : function() {return Session.get("pasteTitle");},
-	pasteName : function() {return Session.get("pasteName");},
-	pasteUrl : function() {return window.location.href;},
-	isFork : function () {return Session.get("isForked");}
+	title: function() {return Session.get("pasteTitle");},
+	pasteName: function() {return Session.get("pasteName");},
+	pasteUrl: function() {return window.location.href;},
+	isFork: function () {return Session.get("isForked");}
 });
 
 Template.body.helpers({
-	homeRaw : function() {return Session.get("isRaw");}
+	homeRaw: function() {return Session.get("isRaw");}
 });
 
 Template.raw.helpers({
-	rawText : function() {return Session.get("pasteText");}
+	rawText: function() {return Session.get("pasteText");}
 });
 
 Template.userpastes.helpers({
-	userPastesLoaded : function () {return Session.get("userPastesLoaded");},
-	userPastes : function () {return Session.get("userPastes").userPastes;},
-	forkedFrom : function () {return this.originalPaste;},
-	pasteUrl : function () {return window.location.host + "/pastes/" + this.name},
-	encryptionKey : function () {
+	userPastesLoaded: function () {return Session.get("userPastesLoaded");},
+	userPastes: function () {return Session.get("userPastes").userPastes;},
+	langImg: function () 	{var tthis = this
+							var icon = Session.get("langList").filter(function(f){
+									return f.name === tthis.language
+								})[0].icon;
+								return icon !== "null" ? icon : false;
+							},
+	forkedFrom: function () {return this.originalPaste;},
+	pasteUrl: function () {return window.location.host + "/pastes/" + this.name},
+	encryptionKey: function () {
 		if (localStorage.getItem(this.name) !== null) {
 			return localStorage.getItem(this.name);
 		} else {return "";}
 	},
 
-	userBookmarks : function () {return Session.get("userBookmarks").userBookmarks;}
+	userBookmarks: function () {return Session.get("userBookmarks").userBookmarks;}
 });
 
 Template.userpastes.events ({
@@ -171,6 +179,11 @@ Template.footer.helpers({
 	latestPastes: function () {
 		return PastesLinks.find({}, {limit: 4, sort: {createdAt: -1}}).fetch();
 	}
+});
+
+Template.languages.helpers({
+	langListReady: function() {return Session.get("langListReady");},
+	langList: function() {return Session.get("langList");}
 });
 
 // UNLOAD
