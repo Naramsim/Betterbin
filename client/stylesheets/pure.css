@@ -11,6 +11,10 @@
 	color: white;
 }
 
+.pure-menu-item:hover .octicon-lock {
+	color: #F6F640;
+}
+
 .pure-menu-link{
 	white-space: normal;
 	line-height: 1.2em;
