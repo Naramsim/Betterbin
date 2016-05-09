@@ -1,15 +1,15 @@
 {
   "name": "betterbin",
-  "version": "1.0.0",
-  "description": "meteor paste application",
-  "main": "main.js",
+  "version": "1.1.0",
+  "description": "meteor pastebin",
+  "main": "index.js",
   "dependencies": {
     "gulp": "^3.9.0",
-    "gulp-shell": "^0.5.2"
+    "gulp-shell": "^0.5.2",
+    "meteor-node-stubs": "^0.2.3",
+    "nprogress": "^0.2.0"
   },
-  "devDependencies": {
-    "gulp": "^3.9.0"
-  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -18,11 +18,12 @@
     "url": "git+https://github.com/Naramsim/Betterbin.git"
   },
   "keywords": [
-    "meteor",
-    "paste",
-    "bin"
+    "pastebin",
+    "betterbin",
+    "save",
+    "share"
   ],
-  "author": "Alessandro Pezzé",
+  "author": "naramsim",
   "license": "GPL-2.0",
   "bugs": {
     "url": "https://github.com/Naramsim/Betterbin/issues"

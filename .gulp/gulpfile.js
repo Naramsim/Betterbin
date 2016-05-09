@@ -1,8 +1,8 @@
 var gulp = require('gulp');
-var shell = require('gulp-shell')
+var shell = require('gulp-shell');
 
 gulp.task('default', function() {
-	// place code for your default task here
+	
 });
 
 gulp.task('build', shell.task([
@@ -15,4 +15,4 @@ gulp.task('build', shell.task([
 	'cd bundle',
 	'(cd programs/server && npm install)',
 	'echo app installed',
-]))
+]));

@@ -140,6 +140,10 @@ nav{
     width: 16px;
 }
 
+.pure-menu-item img{
+	height: 16px;
+}
+
 @media (max-width: 900px) {
 	.shortcuts {
 		display: none;

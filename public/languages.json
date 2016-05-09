@@ -1,0 +1,712 @@
+[
+	{
+		"name": "abap",
+		"prettyName":"Abap",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "abc",
+		"prettyName":"Abc",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "java",
+		"prettyName":"Android",
+		"vect": "android/android-original.svg",
+		"icon": "null"},
+	{
+		"name": "angularjs",
+		"prettyName":"Angular",
+		"vect": "angularjs/angularjs-original.svg",
+		"icon": "null"},
+	{
+		"name": "actionscript",
+		"prettyName":"Actionscript",
+		"vect": "null",
+		"icon": "actionscript"},
+	{
+		"name": "ada",
+		"prettyName":"Ada",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "apache_conf",
+		"prettyName":"Apache conf",
+		"vect": "null",
+		"icon": "apache"},
+	{
+		"name": "applescript",
+		"prettyName":"Applescript",
+		"vect": "null",
+		"icon": "applescript"},
+	{
+		"name": "asciidoc",
+		"prettyName":"Asciidoc",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "assembly_x86",
+		"prettyName":"Assembly_x86",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "atom",
+		"prettyName":"Atom",
+		"vect": "atom/atom-original.svg",
+		"icon": "null"},
+	{
+		"name": "autohotkey",
+		"prettyName":"Autohotkey",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "backbone",
+		"prettyName":"Backbone",
+		"vect": "backbone/backbone-original.svg",
+		"icon": "null"},
+	{
+		"name": "batchfile",
+		"prettyName":"Batchfile",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "behaviour",
+		"prettyName":"Behaviour",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "c9search",
+		"prettyName":"C9search",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "c_cpp",
+		"prettyName":"C C++",
+		"vect": "null",
+		"icon": "c"},
+	{
+		"name": "cirru",
+		"prettyName":"Cirru",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "clojure",
+		"prettyName":"Clojure",
+		"vect": "null",
+		"icon": "clojure"},
+	{
+		"name": "cobol",
+		"prettyName":"Cobol",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "coffee",
+		"prettyName":"Coffee",
+		"vect": "null",
+		"icon": "coffescript"},
+	{
+		"name": "coldfusion",
+		"prettyName":"Coldfusion",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "csharp",
+		"prettyName":"Csharp",
+		"vect": "null",
+		"icon": "c#"},
+	{
+		"name": "css",
+		"prettyName":"Css",
+		"vect": "css3/css3-original.svg",
+		"icon": "css"},
+	{
+		"name": "curly",
+		"prettyName":"Curly",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "d3js",
+		"prettyName":"D3",
+		"vect": "d3js/d3js-original.svg",
+		"icon": "null"},
+	{
+		"name": "d",
+		"prettyName":"D",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "dart",
+		"prettyName":"Dart",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "diff",
+		"prettyName":"Diff",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "django",
+		"prettyName":"Django",
+		"vect": "django/django-original.svg",
+		"icon": "null"},
+	{
+		"name": "dockerfile",
+		"prettyName":"Docker",
+		"vect": "docker/docker-original.svg",
+		"icon": "null"},
+	{
+		"name": "dot",
+		"prettyName":"Dot",
+		"vect": "dot-net/dot-net-original.svg",
+		"icon": "null"},
+	{
+		"name": "eiffel",
+		"prettyName":"Eiffel",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "ejs",
+		"prettyName":"Ejs",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "elixir",
+		"prettyName":"Elixir",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "elm",
+		"prettyName":"Elm",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "erlang",
+		"prettyName":"Erlang",
+		"vect": "null",
+		"icon": "erlang"},
+	{
+		"name": "forth",
+		"prettyName":"Forth",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "ftl",
+		"prettyName":"Ftl",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "gcode",
+		"prettyName":"Gcode",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "gherkin",
+		"prettyName":"Gherkin",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "gitignore",
+		"prettyName":"Git",
+		"vect": "git/git-original.svg",
+		"icon": "null"},
+	{
+		"name": "gitignore",
+		"prettyName":"Gitignore",
+		"vect": "null",
+		"icon": "git"},
+	{
+		"name": "glsl",
+		"prettyName":"Glsl",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "golang",
+		"prettyName":"Golang",
+		"vect": "go/go-original.svg",
+		"icon": "go"},
+	{
+		"name": "groovy",
+		"prettyName":"Groovy",
+		"vect": "null",
+		"icon": "groovy"},
+	{
+		"name": "grunt",
+		"prettyName":"Grunt",
+		"vect": "grunt/grunt-original.svg",
+		"icon": "null"},
+	{
+		"name": "gulp",
+		"prettyName":"Gulp",
+		"vect": "gulp/gulp-plain.svg",
+		"icon": "null"},
+	{
+		"name": "haml",
+		"prettyName":"Haml",
+		"vect": "null",
+		"icon": "haml"},
+	{
+		"name": "handlebars",
+		"prettyName":"Handlebars",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "haskell",
+		"prettyName":"Haskell",
+		"vect": "null",
+		"icon": "haskell"},
+	{
+		"name": "haxe",
+		"prettyName":"Haxe",
+		"vect": "null",
+		"icon": "haxe"},
+	{
+		"name": "html",
+		"prettyName":"Html",
+		"vect": "html5/html5-original.svg",
+		"icon": "html"},
+	{
+		"name": "html_ruby",
+		"prettyName":"Html ruby",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "ini",
+		"prettyName":"Ini",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "io",
+		"prettyName":"Io",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "jack",
+		"prettyName":"Jack",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "jade",
+		"prettyName":"Jade",
+		"vect": "null",
+		"icon": "jade"},
+	{
+		"name": "java",
+		"prettyName":"Java",
+		"vect": "java/java-original.svg",
+		"icon": "java"},
+	{
+		"name": "javascript",
+		"prettyName":"Javascript",
+		"vect": "javascript/javascript-original.svg",
+		"icon": "js"},
+	{
+		"name": "jquery",
+		"prettyName":"JQuery",
+		"vect": "jquery/jquery-original.svg",
+		"icon": "null"},
+	{
+		"name": "json",
+		"prettyName":"Json",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "jsoniq",
+		"prettyName":"Jsoniq",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "jsp",
+		"prettyName":"Jsp",
+		"vect": "null",
+		"icon": "jsp"},
+	{
+		"name": "jsx",
+		"prettyName":"Jsx",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "julia",
+		"prettyName":"Julia",
+		"vect": "null",
+		"icon": "julia"},
+	{
+		"name": "kraken",
+		"prettyName":"Kraken",
+		"vect": "kraken/kraken-original.svg",
+		"icon": "null"},
+	{
+		"name": "php",
+		"prettyName":"Laravel",
+		"vect": "laravel/laravel-original.svg",
+		"icon": "null"},
+	{
+		"name": "latex",
+		"prettyName":"Latex",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "lean",
+		"prettyName":"Lean",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "less",
+		"prettyName":"Less",
+		"vect": "less/less-plain-wordmark.svg",
+		"icon": "less"},
+	{
+		"name": "liquid",
+		"prettyName":"Liquid",
+		"vect": "null",
+		"icon": "liquid"},
+	{
+		"name": "lisp",
+		"prettyName":"Lisp",
+		"vect": "null",
+		"icon": "lisp"},
+	{
+		"name": "livescript",
+		"prettyName":"Livescript",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "logiql",
+		"prettyName":"Logiql",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "lsl",
+		"prettyName":"Lsl",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "lua",
+		"prettyName":"Lua",
+		"vect": "null",
+		"icon": "lua"},
+	{
+		"name": "luapage",
+		"prettyName":"Luapage",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "lucene",
+		"prettyName":"Lucene",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "makefile",
+		"prettyName":"Makefile",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "markdown",
+		"prettyName":"Markdown",
+		"vect": "null",
+		"icon": "markdown"},
+	{
+		"name": "mask",
+		"prettyName":"Mask",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "matlab",
+		"prettyName":"Matlab",
+		"vect": "null",
+		"icon": "matlab"},
+	{
+		"name": "maze",
+		"prettyName":"Maze",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "mel",
+		"prettyName":"Mel",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "meteor",
+		"prettyName":"Meteor",
+		"vect": "meteor/meteor-original.svg",
+		"icon": "js"},
+	{
+		"name": "mushcode",
+		"prettyName":"Mushcode",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "mysql",
+		"prettyName":"Mysql",
+		"vect": "mysql/mysql-original.svg",
+		"icon": "null"},
+	{
+		"name": "nix",
+		"prettyName":"Nix",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "nodejs",
+		"prettyName":"Node",
+		"vect": "nodejs/nodejs-original.svg",
+		"icon": "null"},
+	{
+		"name": "objectivec",
+		"prettyName":"Objective C",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "ocaml",
+		"prettyName":"Ocaml",
+		"vect": "null",
+		"icon": "ocaml"},
+	{
+		"name": "pascal",
+		"prettyName":"Pascal",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "perl",
+		"prettyName":"Perl",
+		"vect": "null",
+		"icon": "perl"},
+	{
+		"name": "pgsql",
+		"prettyName":"Pgsql",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "php",
+		"prettyName":"Php",
+		"vect": "php/php-original.svg",
+		"icon": "php"},
+	{
+		"name": "plain_text",
+		"prettyName":"Plain text",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "powershell",
+		"prettyName":"Powershell",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "praat",
+		"prettyName":"Praat",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "haml",
+		"prettyName":"Pokemon",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "prolog",
+		"prettyName":"Prolog",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "properties",
+		"prettyName":"Properties",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "protobuf",
+		"prettyName":"Protobuf",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "python",
+		"prettyName":"Python 2",
+		"vect": "python/python-original.svg",
+		"icon": "python"},
+	{
+		"name": "python",
+		"prettyName":"Python 3",
+		"vect": "python/python-original.svg",
+		"icon": "python"},
+	{
+		"name": "r",
+		"prettyName":"R",
+		"vect": "null",
+		"icon": "R"},
+	{
+		"name": "rdoc",
+		"prettyName":"Rdoc",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "react",
+		"prettyName":"React",
+		"vect": "react/react-original.svg",
+		"icon": "null"},
+	{
+		"name": "rhtml",
+		"prettyName":"Rhtml",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "ruby",
+		"prettyName":"Ruby",
+		"vect": "ruby/ruby-original.svg",
+		"icon": "ruby"},
+	{
+		"name": "rust",
+		"prettyName":"Rust",
+		"vect": "null",
+		"icon": "rust"},
+	{
+		"name": "sass",
+		"prettyName":"Sass",
+		"vect": "sass/sass-original.svg",
+		"icon": "sass"},
+	{
+		"name": "scad",
+		"prettyName":"Scad",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "scala",
+		"prettyName":"Scala",
+		"vect": "null",
+		"icon": "scala"},
+	{
+		"name": "scheme",
+		"prettyName":"Scheme",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "scss",
+		"prettyName":"Scss",
+		"vect": "null",
+		"icon": "scss"},
+	{
+		"name": "sh",
+		"prettyName":"Sh",
+		"vect": "null",
+		"icon": "shell"},
+	{
+		"name": "sjs",
+		"prettyName":"Sjs",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "smarty",
+		"prettyName":"Smarty",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "snippets",
+		"prettyName":"Snippets",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "soy_template",
+		"prettyName":"Soy template",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "space",
+		"prettyName":"Space",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "sql",
+		"prettyName":"Sql",
+		"vect": "null",
+		"icon": "sql"},
+	{
+		"name": "sqlserver",
+		"prettyName":"Sqlserver",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "stylus",
+		"prettyName":"Stylus",
+		"vect": "null",
+		"icon": "stylus"},
+	{
+		"name": "svg",
+		"prettyName":"Svg",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "swift",
+		"prettyName":"Swift",
+		"vect": "null",
+		"icon": "swift"},
+	{
+		"name": "tcl",
+		"prettyName":"Tcl",
+		"vect": "null",
+		"icon": "tcl"},
+	{
+		"name": "tex",
+		"prettyName":"Tex",
+		"vect": "null",
+		"icon": "tex"},
+	{
+		"name": "text",
+		"prettyName":"Text",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "textile",
+		"prettyName":"Textile",
+		"vect": "null",
+		"icon": "textile"},
+	{
+		"name": "toml",
+		"prettyName":"Toml",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "twig",
+		"prettyName":"Twig",
+		"vect": "null",
+		"icon": "twig"},
+	{
+		"name": "typescript",
+		"prettyName":"Typescript",
+		"vect": "null",
+		"icon": "typescript"},
+	{
+		"name": "vala",
+		"prettyName":"Vala",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "vbscript",
+		"prettyName":"Vbscript",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "velocity",
+		"prettyName":"Velocity",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "verilog",
+		"prettyName":"Verilog",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "vhdl",
+		"prettyName":"Vhdl",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "xml",
+		"prettyName":"Xml",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "xquery",
+		"prettyName":"Xquery",
+		"vect": "null",
+		"icon": "null"},
+	{
+		"name": "yaml",
+		"prettyName":"Yaml",
+		"vect": "null",
+		"icon": "yaml"}
+]
