@@ -38,7 +38,7 @@ Template.header.events({
 		Notify.startToast(2000, "Adress has been copied to the clipboard", "Go and paste");
 	},
 	"change #selectLanguage": function (event) {
-		editor.getSession().setMode("ace/mode/" + event.target.value);
+		editor.getSession().setMode("ace/mode/" + checkFramework(event.target.value));
 	},
 	"click #tools": function (event) {
 		slideout.toggle();
@@ -84,13 +84,27 @@ Template.raw.helpers({
 Template.userpastes.helpers({
 	userPastesLoaded: function () {return Session.get("userPastesLoaded");},
 	userPastes: function () {return Session.get("userPastes").userPastes;},
+	hasImgOrVect: function (){
+							var tthis = this;
+							var lang = Session.get("langList").filter(function(f){
+								return f.name === tthis.language 
+							})[0];
+							return lang.icon !== "null" || lang.vect !== "null";
+	},
 	langImg: function () {
 							var tthis = this;
 							var icon = Session.get("langList").filter(function(f){
 								return f.name === tthis.language
 							})[0].icon;
 							return icon !== "null" ? icon : false;
-						},
+	},
+	langVect: function () {
+							var tthis = this;
+							var vect = Session.get("langList").filter(function(f){
+								return f.name === tthis.language
+							})[0].vect;
+							return vect !== "null" ? vect : false;
+	},
 	forkedFrom: function () {return this.originalPaste;},
 	pasteUrl: function () {return window.location.host + "/pastes/" + this.name;},
 	encryptionKey: function () {

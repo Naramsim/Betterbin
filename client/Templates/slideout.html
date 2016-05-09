@@ -6,13 +6,17 @@
 				{{#each userPastes}}
 					<li class="pure-menu-item">
 						<a href="{{siteName}}/pastes/{{name}}/{{encryptionKey}}" class="pure-menu-link">
-						{{#if langImg}}
-							<img src="https://cdn.rawgit.com/equinusocio/material-theme/develop/icons/file_type_{{langImg}}.png">
+						{{#if hasImgOrVect}}
+							{{#if langVect}}
+								<img src="https://cdn.rawgit.com/konpa/devicon/master/icons/{{langVect}}">
+							{{else}}
+								<img src="https://cdn.rawgit.com/equinusocio/material-theme/develop/icons/file_type_{{langImg}}.png">
+							{{/if}}
 						{{else}}
 							<img src="https://cdn.rawgit.com/equinusocio/material-theme/develop/icons/file_type_default.png">
 						{{/if}}
 						{{title}}
-						{{#unless langImg}}
+						{{#unless hasImgOrVect}}
 							<!--<div class="pasteLang">({{language}})</div>-->
 						{{/unless}}
 						{{#if isFork}}
