@@ -1,0 +1,32 @@
+{
+  "name": "betterbin",
+  "version": "1.1.0",
+  "description": "meteor pastebin",
+  "main": "index.js",
+  "dependencies": {
+    "gulp": "^3.9.0",
+    "gulp-shell": "^0.5.0",
+    "meteor-node-stubs": "^0.2.3",
+    "nprogress": "^0.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Naramsim/Betterbin.git"
+  },
+  "keywords": [
+    "pastebin",
+    "betterbin",
+    "save",
+    "share"
+  ],
+  "author": "naramsim",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/Naramsim/Betterbin/issues"
+  },
+  "homepage": "https://github.com/Naramsim/Betterbin#readme"
+}
