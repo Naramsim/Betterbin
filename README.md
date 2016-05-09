@@ -23,6 +23,8 @@ It supports:
 * Ctrl + D for multiple selection
 * Live search and replace
 * Common languages error/syntax checking
+* Autocompletion
+* Language-specific snippets
 
 ## Live
 [Betterbin.co](http://betterbin.co/)
