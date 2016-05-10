@@ -337,7 +337,7 @@
 	{
 		"name": "php",
 		"prettyName":"Laravel",
-		"vect": "laravel/laravel-original.svg",
+		"vect": "laravel/laravel-plain.svg",
 		"icon": "null"},
 	{
 		"name": "latex",
