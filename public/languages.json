@@ -1,5 +1,10 @@
 [
 	{
+		"name": "plain_text",
+		"prettyName":"Plain text",
+		"vect": "null",
+		"icon": "null"},
+	{
 		"name": "abap",
 		"prettyName":"Abap",
 		"vect": "null",
