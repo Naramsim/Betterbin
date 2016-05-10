@@ -43,4 +43,13 @@ Meteor.startup(function() {
 });
 
 // UNLOAD
-window.onbeforeunload = savePaste;
+window.onbeforeunload = function() {
+	savePaste()
+    if (Session.get("isHome") && !editor.getValue()) {
+        return undefined;
+    }else{
+    	var confirmationMessage = 'It looks like you have started a new paste.'
+                                + 'If you leave before saving, your paste will be lost.';
+        return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
+    }
+};
