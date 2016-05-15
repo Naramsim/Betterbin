@@ -2,7 +2,11 @@
 	<select id="selectLanguage">
 		{{#if langListReady}}
 			{{#each lang in langList}}
-				<option value="{{lang.name}}">{{lang.prettyName}}</option>
+				{{#if lastLang}}
+					<option value="{{lang.name}}" selected>{{lang.prettyName}}</option>
+				{{else}}
+					<option value="{{lang.name}}">{{lang.prettyName}}</option>
+				{{/if}}
 			{{/each}}
 		{{/if}}
 	</select>

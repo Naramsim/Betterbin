@@ -38,7 +38,9 @@ Template.header.events({
 		Notify.startToast(2000, "Adress has been copied to the clipboard", "Go and paste");
 	},
 	"change #selectLanguage": function (event) {
-		editor.getSession().setMode("ace/mode/" + checkFramework(event.target.value));
+		var lang = checkFramework(event.target.value);
+		editor.getSession().setMode("ace/mode/" + lang);
+		setLocalLang(lang);
 	},
 	"click #tools": function (event) {
 		slideout.toggle();
@@ -112,7 +114,6 @@ Template.userpastes.helpers({
 			return localStorage.getItem(this.name);
 		} else {return "";}
 	},
-
 	userBookmarks: function () {return Session.get("userBookmarks").userBookmarks;}
 });
 
@@ -146,4 +147,11 @@ Template.footer.helpers({
 Template.languages.helpers({
 	langListReady: function() {return Session.get("langListReady");},
 	langList: function() {return Session.get("langList");}
+	//lastLang: function() {return Session.get("lastLang") === this.name}
+});
+
+Template.languages.onRendered(function(){
+	setTimeout(function(){
+		document.getElementById("selectLanguage").value = Session.get("lastLang");
+	},300);
 });
