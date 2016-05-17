@@ -35,7 +35,8 @@ Meteor.methods({ //called by Clients
                 isFork: isForked,
                 originalPaste: forkedForm,
                 isBookmark: isBookmarked,
-                timesViewed: 1
+                timesViewed: 1,
+                fromApi: false
             });
             pasteInfo.push(pasteName);
             return pasteInfo;
@@ -332,7 +333,7 @@ Meteor.startup(function(){
                     }else{
                         pasteInfoFromDb = "Nothing to see here";
                     }
-                    return pasteInfoFromDb
+                    return pasteInfoFromDb;
                 }catch(e){
                     console.log(e)
                     return {
@@ -345,10 +346,47 @@ Meteor.startup(function(){
     });
     betterbinApi.addRoute('new/', {
         post: function () {
-            var name = this.bodyParams.name;
-            var language = this.bodyParams.language;
-            var content = this.bodyParams.content;
-            return true;
+            try{
+                var status = {};
+                var title = this.bodyParams.title;
+                var language = this.bodyParams.language;
+                var content = this.bodyParams.content;
+                var author = this.bodyParams.author;
+                var isEncry = this.bodyParams.isEncrypted || false;
+                if(title && language && content && author){
+                    var pasteName = generateRandomString();
+                    var filePath = path.join(vars.pastesPath, pasteName + ".txt");
+                    var buffer = new Buffer( content );
+                    fs.writeFileSync( filePath, buffer);
+                    PastesLinks.insert({
+                        link: filePath,
+                        title: title,
+                        name: pasteName,
+                        createdAt: new Date(),
+                        owner: author,
+                        language: language,
+                        ip: this.connection.clientAddress,
+                        isEncry: isEncry,
+                        timesViewed: 1,
+                        fromApi: true
+                    });
+                    status = {
+                        statusCode: 200,
+                        body: {status: 'Success', url: 'betterbin.co/pastes/'+pasteName}
+                    };
+                }else{
+                    status = {
+                        statusCode: 401,
+                        body: {status: 'Bad Request', message:'title && language && content && author are required'}
+                    };
+                }
+                return status;
+            }catch(e){
+                return{
+                    statusCode: 403,
+                    body: {status: 'Forbidden', message: 'nope'}
+                };
+            }
         }
     });
     console.log("Restivus Betterbin api has been started");
