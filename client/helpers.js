@@ -152,6 +152,8 @@ Template.languages.helpers({
 
 Template.languages.onRendered(function(){
 	setTimeout(function(){
-		document.getElementById("selectLanguage").value = Session.get("lastLang");
+		if(Session.get("lastLang") !== null){
+			document.getElementById("selectLanguage").value = Session.get("lastLang");
+		}
 	},300);
 });
