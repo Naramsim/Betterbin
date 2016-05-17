@@ -14,13 +14,7 @@ Meteor.startup(function() {
 	Session.set("siteName", siteName);
 	new Clipboard('.copyPasteUrl');
 
-	if(getCookie("auth") !== undefined){
-		console.log("Logged - Do not clear cookies");
-	}else{
-		console.log("Logging in ..");
-		setCookie();
-	}
-	Session.set("auth", getCookie("auth"));
+	Session.set("auth", login());
 	document.onkeydown = KeyPress;
 	$("textarea").keydown(function(e){
 		KeyPress(e);

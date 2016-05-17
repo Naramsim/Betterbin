@@ -4,8 +4,6 @@
   "description": "meteor pastebin",
   "main": "index.js",
   "dependencies": {
-    "gulp": "^3.9.0",
-    "gulp-shell": "^0.5.2",
     "meteor-node-stubs": "^0.2.3",
     "nprogress": "^0.2.0"
   },
