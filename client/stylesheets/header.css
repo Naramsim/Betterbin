@@ -15,7 +15,7 @@
 }
 
 .headerFlex .inputContainer{
-	flex: 				1;
+	/*flex: 				1;*/
 	display: 			flex;
 }
 
@@ -127,6 +127,11 @@ input, select{
 {
 	background-color: 	#555;
 	border-radius: 		4px;
+}
+
+.fa {
+	font: normal normal normal 16px/1 FontAwesome;
+    font-size: 16px;
 }
 
 @media screen and (max-width:900px) { 
