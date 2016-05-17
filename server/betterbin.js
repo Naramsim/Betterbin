@@ -1,6 +1,9 @@
+import '/imports/startup/server';
 var fs = Npm.require('fs');
-var path = Npm.require( 'path' );
+var path = Npm.require('path');
+var fiber = Npm.require('fibers');
 var config = JSON.parse(Assets.getText("path.json"));
+var languages = JSON.parse(fs.readFileSync(path.join(__meteor_bootstrap__.serverDir, "../web.browser/app/languages.json")), "utf8");
 var __ROOT_APP_PATH__;
 if (config.which === "server") {
 	__ROOT_APP_PATH__ = fs.realpathSync(config.pathAdjustment);
@@ -340,46 +343,70 @@ Meteor.startup(function(){
 	console.log("Restivus AoE2 api has been started");
 
 	//Restivus API for AoE2
-	var betterbinaoeApi = new Restivus({
+	var betterbinApi = new Restivus({
 	    useDefaultAuth: true,
 	    prettyJson: true,
 	    apiPath: 'api/',
 	    version: 'v1'
 	  });
-	betterbinaoeApi.addRoute('raw/:pasteName', {
+	betterbinApi.addRoute('raw/:pasteName', {
 		get: function () {
 			var pasteName = this.urlParams.pasteName;
 			if(pasteName){
 				check(pasteName, String);
 				var pasteInfo = {}; 
-				pasteName = pasteName.replace(/\.\./g,"").replace(/\//g,"").replace(/ /g,"").replace(/\n/g,"").replace(/\v/g,"").replace(/\f/g,""); //sanitize
-				pasteName = pasteName.trunc(pastesNameLenght); //truncation
+				pasteName = sanitizePath(pasteName); //sanitize
+				pasteName = pasteName.trunc(pastesNameLenght); 
 				var pastePath = path.join(pastesPath, pasteName + ".txt");
-				var text = fs.readFileSync(pastePath , 'utf8'); //Assets read from /pastes/
-				PastesLinks.update({name: ""+pasteName}, {$inc: {timesViewed: 1} });
-				return text; 
+				try{
+					var text = fs.readFileSync(pastePath , 'utf8');
+					PastesLinks.update({name: ""+pasteName}, {$inc: {timesViewed: 1} });
+					return text;
+				}catch(e){
+					return {
+			          statusCode: 404,
+			          body: {status: 'Not found', message: 'No paste here'}
+			        };
+				}
 	    	}
 		}
 	});
-	betterbinaoeApi.addRoute('paste/:pasteName', {
+	betterbinApi.addRoute('paste/:pasteName', {
 		get: function () {
 			var pasteName = this.urlParams.pasteName;
 			if(pasteName){
 				check(pasteName, String);
 				var pasteInfo = {}; 
-				pasteName = pasteName.replace(/\.\./g,"").replace(/\//g,"").replace(/ /g,"").replace(/\n/g,"").replace(/\v/g,"").replace(/\f/g,""); //sanitize
-				pasteName = pasteName.trunc(pastesNameLenght); //truncation
+				pasteName = sanitizePath(pasteName); //sanitize
+				pasteName = pasteName.trunc(pastesNameLenght);
 				var pastePath = path.join(pastesPath, pasteName + ".txt");
-				var text = fs.readFileSync(pastePath , 'utf8'); //Assets read from /pastes/
-				PastesLinks.update({name: ""+pasteName}, {$inc: {timesViewed: 1} });
-				var pasteInfoFromDb = PastesLinks.findOne({name: ""+pasteName, isHide: false}, {fields: {title: 1, language: 1, name: 1, createdAt: 1, isEncry:1, isFork:1, timesViewed:1}});
-				if(!!pasteInfoFromDb){
-					pasteInfoFromDb.text = text;
-				}else{
-					return "nothing to see here";
+				try{
+					var toReturn = false;
+					var text = fs.readFileSync(pastePath , 'utf8');
+					PastesLinks.update({name: ""+pasteName}, {$inc: {timesViewed: 1} });
+					var pasteInfoFromDb = PastesLinks.findOne({name: ""+pasteName, isHide: false}, {fields: {title: 1, language: 1, name: 1, createdAt: 1, isEncry:1, isFork:1, timesViewed:1}});
+					if(!!pasteInfoFromDb){
+						pasteInfoFromDb.text = text;
+					}else{
+						pasteInfoFromDb = "Nothing to see here";
+					}
+					return pasteInfoFromDb
+				}catch(e){
+					console.log(e)
+					return {
+			          statusCode: 404,
+			          body: {status: 'Not found', message: 'No paste here'}
+			        };
 				}
-				return pasteInfoFromDb; 
 	    	}
+		}
+	});
+	betterbinApi.addRoute('new/', {
+		post: function () {
+			var name = this.bodyParams.name;
+			var language = this.bodyParams.language;
+			var content = this.bodyParams.content;
+	    	return true;
 		}
 	});
 	console.log("Restivus Betterbin api has been started");
