@@ -350,39 +350,46 @@ Meteor.startup(function(){
                 var status = {};
                 var title = this.bodyParams.title;
                 var language = this.bodyParams.language;
-                var content = this.bodyParams.content;
-                var author = this.bodyParams.author;
-                var isEncry = this.bodyParams.isEncrypted || false;
-                if(title && language && content && author){
-                    var pasteName = generateRandomString();
-                    var filePath = path.join(vars.pastesPath, pasteName + ".txt");
-                    var buffer = new Buffer( content );
-                    fs.writeFileSync( filePath, buffer);
-                    PastesLinks.insert({
-                        link: filePath,
-                        title: title,
-                        name: pasteName,
-                        createdAt: new Date(),
-                        owner: author,
-                        language: language,
-                        ip: this.connection.clientAddress,
-                        isEncry: isEncry,
-                        timesViewed: 1,
-                        fromApi: true
-                    });
-                    status = {
-                        statusCode: 200,
-                        body: {status: 'Success', url: 'betterbin.co/pastes/'+pasteName}
-                    };
-                }else{
-                    status = {
-                        statusCode: 401,
-                        body: {status: 'Bad Request', message:'title && language && content && author are required'}
-                    };
+                if(!checkLanguage(language)){
+                	status = {
+                		statusCode: 400,
+                		body: {status: 'Bad Request', message: 'invalid language'}
+                	}
+                }else {
+                	var content = this.bodyParams.content;
+	                var author = this.bodyParams.author;
+	                var isEncry = this.bodyParams.isEncrypted || false;
+	                if(title && language && content && author){
+	                    var pasteName = generateRandomString();
+	                    var filePath = path.join(vars.pastesPath, pasteName + ".txt");
+	                    var buffer = new Buffer(content);
+	                    fs.writeFileSync(filePath, buffer);
+	                    PastesLinks.insert({
+	                        link: filePath,
+	                        title: title,
+	                        name: pasteName,
+	                        createdAt: new Date(),
+	                        owner: author,
+	                        language: language,
+	                        isEncry: isEncry,
+	                        timesViewed: 1,
+	                        fromApi: true
+	                    });
+	                    status = {
+	                        statusCode: 200,
+	                        body: {status: 'Success', message: 'betterbin.co/pastes/'+pasteName}
+	                    };
+	                }else {
+	                    status = {
+	                        statusCode: 400,
+	                        body: {status: 'Bad Request', message:'title && language && content && author are required'}
+	                    };
+	                }
                 }
                 return status;
             }catch(e){
-                return{
+            	console.log(e)
+                return {
                     statusCode: 403,
                     body: {status: 'Forbidden', message: 'nope'}
                 };

@@ -26,9 +26,15 @@ if(Meteor.isServer){
 
 	generateRandomString = function () {
 		return Array(vars.pastesNameLenght).join().split(',').map(function() { return vars.allowedChars.charAt(Math.floor(Math.random() * vars.allowedChars.length)); }).join('');
-	}
+	};
 
 	escapeRegExp = function(str) {
 		return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
-	}
+	};
+
+    checkLanguage = function(lang) {
+        return vars.languages.some(function(item) {
+            return lang === item.name;
+    });
+}
 }
