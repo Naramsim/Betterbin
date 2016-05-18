@@ -1,0 +1,35 @@
+<template name="footer">
+	<footer>
+		<div class="left-footer">
+			<div class="elem stats pad0">
+				LATEST PASTES:
+			</div>
+			<div class="elem stats">
+				{{#each item in latestPastes}}
+					<a href="{{siteName}}/pastes/{{item.name}}">{{item.title}}</a><span class="latest-language">{{item.language}}</span> 
+				{{/each}}
+			</div>
+		</div>
+		<div class="right-footer">
+			{{#if selectionIsMoreThanOneLine}}
+				<div class="elem stats">
+					{{selectionRowRange}} lines
+				</div>
+			{{/if}}
+			{{#if rangeLength}}
+				<div class="elem stats">
+					{{rangeLength}} chars selected
+				</div>
+			{{/if}}
+			<div class="elem stats">
+				Line {{cursor.row}}, Column {{cursor.column}}
+			</div>
+			<div class="elem stats">
+				Rows: {{length}}
+			</div>
+			<div class="elem file-type">
+				{{lang}}
+			</div>
+		</div>
+	</footer>
+</template>

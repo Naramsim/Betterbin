@@ -35,6 +35,6 @@ if(Meteor.isServer){
     checkLanguage = function(lang) {
         return vars.languages.some(function(item) {
             return lang === item.name;
-    });
-}
+        });
+    }
 }

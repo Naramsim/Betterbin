@@ -75,14 +75,6 @@ Template.header.helpers({
 	isFork: function () {return Session.get("isForked");}
 });
 
-Template.body.helpers({
-	homeRaw: function() {return Session.get("isRaw");}
-});
-
-Template.raw.helpers({
-	rawText: function() {return Session.get("pasteText");}
-});
-
 Template.userpastes.helpers({
 	userPastesLoaded: function () {return Session.get("userPastesLoaded");},
 	userPastes: function () {return Session.get("userPastes").userPastes;},
