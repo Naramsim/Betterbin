@@ -1,0 +1,19 @@
+.embedContainer {
+	border: 1px solid;
+    border-color: #e5e6e9 #dfe0e4 #d0d1d5;
+    border-radius: 3px;
+    display: flex;
+  	flex-direction: column;
+  	font-size: 16px;
+}
+
+.embedAce {
+	flex: 1;
+	display: flex;
+}
+
+#embedEditor {
+	flex: 1;
+	border-radius: 3px 3px 0 0;
+}
+

@@ -1,0 +1,57 @@
+<template name="embed">
+	<div class="embedContainer">
+		<div class="embedAce">
+			<div id="embedEditor"></div>
+			<script>
+				var editor = ace.edit("embedEditor");
+				editor.setShowPrintMargin(false);
+				editor.setTheme("ace/theme/textmate");
+				editor.resize();
+				editor.setReadOnly(true);
+			</script>
+		</div>
+		<footer class="embedFooter">
+			<div class="footerContainer">
+				<div class="info">
+				{{#if hasImgOrVect}}
+					{{#if langVect}}
+						<img class="embedLang" src="https://cdn.rawgit.com/konpa/devicon/master/icons/{{langVect}}">
+					{{else}}
+						<img class="embedLang" src="https://cdn.rawgit.com/equinusocio/material-theme/develop/icons/file_type_{{langImg}}.png">
+					{{/if}}
+				{{else}}
+					<img class="embedLang" src="https://cdn.rawgit.com/equinusocio/material-theme/develop/icons/file_type_default.png">
+				{{/if}}
+				{{pasteTitle}} hosted with ❤ by Betterbin</div>
+				<div class="raw"><a href={{siteName}}/pastes/{{pasteName}}>View</a></div>
+			</div>
+		</footer>
+	</div>
+	<script>
+	var height = -1; 
+	var delayMs = 200; 
+	function maybeResize() {
+		if (document.documentElement.offsetHeight != height && parent && parent._resizeIframe) {
+			parent._resizeIframe(window.frameElement); 
+			height = document.documentElement.offsetHeight;
+		}
+		delayMs = Math.min(delayMs * 2, 1000000); 
+		setTimeout(maybeResize, delayMs);
+	};
+	maybeResize();
+	</script>
+</template>
+
+<template name="embedDialog">
+	<div class="embedDialogContainer">
+		<div class="embedDialog">
+			<div class="embedControls">
+				<input id="iframeSource" readonly value="<iframe src='{{siteName}}/embed/paste/{{pasteName}}' width='600' height='400' style='border:none;overflow:hidden;max-width: 100%;' frameborder='0' allowtransparency='true'></iframe>">
+				<span class="octicon octicon-clippy iframeCopy" data-clipboard-target="#iframeSource" data-tooltip="Copy" data-tooltip-direction="w"></span>
+			</div>
+			<div class="iframePreview">
+				<iframe src='{{siteName}}/embed/paste/{{pasteName}}' width='600' height='400' style='border:none;overflow:hidden;max-width: 100%;' frameborder='0' allowtransparency='true'></iframe>
+			</div>
+		</div>
+	</div>
+</template>

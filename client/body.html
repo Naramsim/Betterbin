@@ -1,25 +1,30 @@
 <body>
-	<div id="megaContainer">
-		<div id="bodyContainer">
-			{{> header}}
-			<div id="editor"></div>
-			<script>
-				var editor = ace.edit("editor");
-				editor.setShowPrintMargin(false);
-				editor.setTheme("ace/theme/monokai");
-				ace.config.loadModule("ace/ext/language_tools", function(){
-					editor.setOptions({
-					    enableSnippets: true,
-				        enableLiveAutocompletion: true,
-				        enableBasicAutocompletion: true
+	{{#if homeEmbed}}
+		{{> embed}}
+	{{else}}
+		<div id="megaContainer">
+			<div id="bodyContainer">
+				{{> header}}
+				<div id="editor"></div>
+				<script>
+					var editor = ace.edit("editor");
+					editor.setShowPrintMargin(false);
+					editor.setTheme("ace/theme/monokai");
+					ace.config.loadModule("ace/ext/language_tools", function(){
+						editor.setOptions({
+						    enableSnippets: true,
+					        enableLiveAutocompletion: true,
+					        enableBasicAutocompletion: true
+						});
+						initEditor();
 					});
-					initEditor();
-				});
-			</script>
-			{{> footer}}
+				</script>
+				{{> footer}}
+			</div>
+			{{> slideout}}
 		</div>
-		{{> slideout}}
-	</div>
-	{{> megaslideout}}
-	{{> tooltips }}
+		{{> megaslideout}}
+		{{> tooltips }}
+		{{> embedDialog}}
+	{{/if}}
 </body>
