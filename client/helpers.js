@@ -14,7 +14,7 @@ Template.header.events({
 	"click .new-download": function (event) {	
 		downloadBlob(Session.get("pasteTitle"), Session.get("pasteText"));
 	},
-	"click .new-fork": function (event) {	
+	"click .new-fork": function (event) {
 		Session.set("isHome", true);
 		Session.set("isPaste", false);
 		Session.set("isFork", true);
@@ -27,7 +27,7 @@ Template.header.events({
 		},300);
 	},
 	"click .new-bookmark": function (event) {
-		if(Session.get("userBookmarksLinks").indexOf(Session.get("pasteName")) === -1){
+		if(!BookMarks.find({bookmarkLink: Session.get("pasteName")}).fetch().length){
 			bookmarkPaste();
 			Notify.startToast(2000, "Click Manage to view the saved paste", "Saved");
 		}else{
@@ -106,7 +106,7 @@ Template.userpastes.helpers({
 			return localStorage.getItem(this.name);
 		} else {return "";}
 	},
-	userBookmarks: function () {return Session.get("userBookmarks").userBookmarks;}
+	userBookmarks: function () {return BookMarks.find();}
 });
 
 Template.userpastes.events ({

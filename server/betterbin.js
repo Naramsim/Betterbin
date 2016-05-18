@@ -4,13 +4,16 @@ var fs = Npm.require('fs');
 var path = Npm.require('path');
 
 var PastesLinks = new Mongo.Collection("pastesLinks"); //connection to Group Collection //var=> not sharable
-var BookMarks = new Mongo.Collection("bookamrks");
+var BookMarks = new Mongo.Collection("bookMarks");
 
 createPasteDir();
 
 Meteor.publish("pastesLinks", function() {
     return PastesLinks.find();
 });
+Meteor.publish("bookMarks", function(auth) {
+	return BookMarks.find({owner: auth});
+})
 
 Meteor.methods({ //called by Clients
     addPaste: function (blob, title, lang, author, isEncrypted, isForked, forkedForm, isBookmarked, isHided) {
@@ -100,13 +103,6 @@ Meteor.methods({ //called by Clients
                                                                                     timesViewed:1, isHide:1, isBookmark:1,
                                                                                     originalPaste:1}}).fetch();
             return userPastes;
-        }catch(e){console.log(e); return 1;}
-    },
-    getUserBookmarks: function (userName) {
-        try{
-            var userBookmarks = {};
-            userBookmarks.userBookmarks = BookMarks.find({owner: userName}).fetch();
-            return userBookmarks;
         }catch(e){console.log(e); return 1;}
     }
 });

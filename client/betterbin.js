@@ -2,6 +2,7 @@
 
 //Do NOT declare as var, it will override the server one
 PastesLinks = new Mongo.Collection("pastesLinks");
+BookMarks = new Mongo.Collection("bookMarks");
 
 //Startup
 Meteor.startup(function() {
@@ -21,10 +22,10 @@ Meteor.startup(function() {
 	});
 
 	loadUserPastes();
-	loadUserBookmarks();
 	loadLangs();
 
 	Meteor.subscribe("pastesLinks");
+	Meteor.subscribe("bookMarks", Session.get("auth"));
 
 	document.querySelector('.ace_editor').addEventListener('click', function() {
 		if(slideout.isOpen()){
