@@ -28,17 +28,17 @@
 		</footer>
 	</div>
 	<script>
-	var height = -1; 
-	var delayMs = 200; 
-	function maybeResize() {
-		if (document.documentElement.offsetHeight != height && parent && parent._resizeIframe) {
-			parent._resizeIframe(window.frameElement); 
-			height = document.documentElement.offsetHeight;
-		}
-		delayMs = Math.min(delayMs * 2, 1000000); 
-		setTimeout(maybeResize, delayMs);
-	};
-	maybeResize();
+		var height = -1; 
+		var delayMs = 200; 
+		function maybeResize() {
+			if (document.documentElement.offsetHeight != height && parent && parent._resizeIframe) {
+				parent._resizeIframe(window.frameElement); 
+				height = document.documentElement.offsetHeight;
+			}
+			delayMs = Math.min(delayMs * 2, 1000000); 
+			setTimeout(maybeResize, delayMs);
+		};
+		maybeResize();
 	</script>
 </template>
 
@@ -47,11 +47,11 @@
 		<div class="embedDialogOverlay"></div>
 		<div class="embedDialog">
 			<div class="embedControls">
-				<input id="iframeSource" readonly value="<iframe src='{{siteName}}/embed/paste/{{pasteName}}' width='600' height='350' style='border:none;overflow:hidden;max-width: 100%;' frameborder='0' allowtransparency='true'></iframe>">
+				<input id="iframeSource" readonly value="<iframe src='{{siteName}}/embed/paste/{{pasteName}}' width='600' height='{{iframeHeight}}' style='border:none;overflow:hidden;max-width: 100%;max-height: 600px;' frameborder='0' allowtransparency='true'></iframe>">
 				<span class="octicon octicon-clippy iframeCopy" data-clipboard-target="#iframeSource" data-tooltip="Copy" data-tooltip-direction="w"></span>
 			</div>
 			<div class="iframePreview">
-				<iframe src='{{siteName}}/embed/paste/{{pasteName}}' width='600' height='350' style='border:none;overflow:hidden;max-width: 100%;' frameborder='0' allowtransparency='true'></iframe>
+				<iframe src='{{siteName}}/embed/paste/{{pasteName}}' width='600' height='{{iframeHeight}}' style='border:none;overflow:hidden;max-width: 100%;max-height: 600px;' frameborder='0' allowtransparency='true'></iframe>
 			</div>
 		</div>
 	</div>

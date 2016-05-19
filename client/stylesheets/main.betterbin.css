@@ -17,3 +17,7 @@ body .pad0 {
 .pure-menu-link {
 	transition: 0.2s;
 }
+
+body {
+	text-rendering: optimizeLegibility;
+}

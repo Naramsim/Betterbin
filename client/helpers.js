@@ -14,6 +14,7 @@ Template.header.events({
 		return false;
 	},
 	"click .new-embed": function (event) {
+		Session.set("iframeHeight", editor.session.getLength() * 14 + 48 + 22);
 		showEmbedDialog();
 	},
 	"click .new-download": function (event) {	
@@ -181,7 +182,8 @@ Template.embed.helpers({
 });
 
 Template.embedDialog.helpers({
-	pasteName: function() {return Session.get("pasteName");}
+	pasteName: function() {return Session.get("pasteName");},
+	iframeHeight: function() {return Session.get("iframeHeight");}
 });
 
 Template.embedDialog.events({
