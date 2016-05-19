@@ -22,7 +22,7 @@
 				{{else}}
 					<img class="embedLang" src="https://cdn.rawgit.com/equinusocio/material-theme/develop/icons/file_type_default.png">
 				{{/if}}
-				{{pasteTitle}} hosted with ❤ by Betterbin</div>
+				{{pasteTitle}} hosted with 💕 by Betterbin</div>
 				<div class="raw"><a href={{siteName}}/pastes/{{pasteName}}>View</a></div>
 			</div>
 		</footer>
@@ -44,13 +44,14 @@
 
 <template name="embedDialog">
 	<div class="embedDialogContainer">
+		<div class="embedDialogOverlay"></div>
 		<div class="embedDialog">
 			<div class="embedControls">
-				<input id="iframeSource" readonly value="<iframe src='{{siteName}}/embed/paste/{{pasteName}}' width='600' height='400' style='border:none;overflow:hidden;max-width: 100%;' frameborder='0' allowtransparency='true'></iframe>">
+				<input id="iframeSource" readonly value="<iframe src='{{siteName}}/embed/paste/{{pasteName}}' width='600' height='350' style='border:none;overflow:hidden;max-width: 100%;' frameborder='0' allowtransparency='true'></iframe>">
 				<span class="octicon octicon-clippy iframeCopy" data-clipboard-target="#iframeSource" data-tooltip="Copy" data-tooltip-direction="w"></span>
 			</div>
 			<div class="iframePreview">
-				<iframe src='{{siteName}}/embed/paste/{{pasteName}}' width='600' height='400' style='border:none;overflow:hidden;max-width: 100%;' frameborder='0' allowtransparency='true'></iframe>
+				<iframe src='{{siteName}}/embed/paste/{{pasteName}}' width='600' height='350' style='border:none;overflow:hidden;max-width: 100%;' frameborder='0' allowtransparency='true'></iframe>
 			</div>
 		</div>
 	</div>

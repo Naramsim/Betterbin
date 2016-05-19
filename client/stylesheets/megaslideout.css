@@ -2,6 +2,10 @@ nav{
 	background-color: rgba(0,0,0,.2);
 }
 
+#about {
+	background:	#1d1f21;
+}
+
 .about-menu.slideout-menu {
 	flex-direction: column;
 	justify-content: space-between;

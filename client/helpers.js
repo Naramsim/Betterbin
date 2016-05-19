@@ -4,12 +4,17 @@ Template.registerHelper("homePage", function() {return Session.get("isHome");});
 
 Template.registerHelper("homePaste", function() {return Session.get("isPaste");});
 
+Template.registerHelper("homeEmbed", function() {return Session.get("isEmbed");});
+
 Template.registerHelper("siteName", function() {return Session.get("siteName");});
 
 Template.header.events({
 	"click #submitPaste": function (event) {
 		uploadBlob(0);
 		return false;
+	},
+	"click .new-embed": function (event) {
+		showEmbedDialog();
 	},
 	"click .new-download": function (event) {	
 		downloadBlob(Session.get("pasteTitle"), Session.get("pasteText"));
@@ -148,4 +153,42 @@ Template.languages.onRendered(function(){
 			document.getElementById("selectLanguage").value = Session.get("lastLang");
 		}
 	},300);
+});
+
+Template.embed.helpers({
+	pasteTitle: function() {return Session.get("pasteTitle");},
+	pasteText: function() {return Session.get("pasteText");},
+	pasteLang: function() {return Session.get("pasteLang");},
+	pasteName: function() {return Session.get("pasteName");},
+	hasImgOrVect: function (){
+							var lang = Session.get("langList").filter(function(f){
+								return f.name === Session.get("pasteLang"); 
+							})[0];
+							return lang.icon !== "null" || lang.vect !== "null";
+	},
+	langImg: function () {
+							var icon = Session.get("langList").filter(function(f){
+								return f.name === Session.get("pasteLang");
+							})[0].icon;
+							return icon !== "null" ? icon : false;
+	},
+	langVect: function () {
+							var vect = Session.get("langList").filter(function(f){
+								return f.name === Session.get("pasteLang");
+							})[0].vect;
+							return vect !== "null" ? vect : false;
+	},
+});
+
+Template.embedDialog.helpers({
+	pasteName: function() {return Session.get("pasteName");}
+});
+
+Template.embedDialog.events({
+	"click .iframeCopy": function (event) {
+		Notify.startToast(2000, "Iframe has been copied to the clipboard", "Go and paste");
+	},
+	"click .embedDialogOverlay": function (event) {
+		hideEmbedDialog();
+	}
 });

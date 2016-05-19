@@ -14,6 +14,8 @@ Meteor.startup(function() {
 	Session.set("isFork", false);
 	Session.set("siteName", siteName);
 	new Clipboard('.copyPasteUrl');
+	new Clipboard('.new-embed');
+	new Clipboard('.iframeCopy');
 
 	Session.set("auth", login());
 	document.onkeydown = KeyPress;

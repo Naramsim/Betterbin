@@ -17,3 +17,89 @@
 	border-radius: 3px 3px 0 0;
 }
 
+.footerContainer {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	background-color: #EEE;
+	border-radius: 0 0 3px 3px;
+}
+
+.footerContainer > div {
+	margin: 16px;
+}
+
+.embedLang {
+	height: 16px;
+}
+
+.embedDialogContainer {
+	z-index: 10;
+	position: fixed;
+	display: none;
+	opacity: 0;
+	justify-content: center;
+	align-items: center;
+	pointer-events: none;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	animation-duration: 0.3s;
+	animation-fill-mode: forwards;
+}
+
+.embedDialogOverlay {
+	pointer-events: auto;
+	opacity: 0;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	z-index: 10;
+	position: absolute;
+}
+
+.embedDialog {
+	pointer-events: auto;
+	width: 70%;
+	max-width: 560px;
+	min-width: 290px;
+	background: #fff;
+	padding: 4em;
+	text-align: center;
+	position: relative;
+	z-index: 20;
+	opacity: 1;
+	display: flex;
+	flex-direction: column;
+	border-radius: 3px;
+}
+
+.embedControls {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding-bottom: 20px;
+}
+
+#iframeSource {
+	padding: 7px;
+	width: 80%;
+}
+
+.iframeCopy {
+	padding: 6px;
+	cursor: pointer;
+}
+
+.dialogOpen {
+	display: flex;
+	animation-name: anim-open;
+}
+
+.dialogClose {
+	display: flex;
+	animation-name: anim-close;
+}
