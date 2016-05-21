@@ -46,7 +46,7 @@ Template.header.events({
 	"change #selectLanguage": function (event) {
 		var lang = checkFramework(event.target.value);
 		editor.getSession().setMode("ace/mode/" + lang);
-		setLocalLang(lang);
+		setLocalLang(event.target.value);
 	},
 	"click #tools": function (event) {
 		slideout.toggle();
@@ -89,7 +89,9 @@ Template.userpastes.helpers({
 							var lang = Session.get("langList").filter(function(f){
 								return f.name === tthis.language 
 							})[0];
-							return lang.icon !== "null" || lang.vect !== "null";
+							if(!!lang){
+								return lang.icon !== "null" || lang.vect !== "null";
+							}else {return false;}
 	},
 	langImg: function () {
 							var tthis = this;
@@ -165,7 +167,9 @@ Template.embed.helpers({
 							var lang = Session.get("langList").filter(function(f){
 								return f.name === Session.get("pasteLang"); 
 							})[0];
-							return lang.icon !== "null" || lang.vect !== "null";
+							if(!!lang){
+								return lang.icon !== "null" || lang.vect !== "null";
+							}else {return false;}
 	},
 	langImg: function () {
 							var icon = Session.get("langList").filter(function(f){
