@@ -30,7 +30,7 @@ It supports:
 [Betterbin.co](http://betterbin.co/)
 
 ## LICENSE
-[GPL V2](https://github.com/Naramsim/Mrb.in/blob/master/LICENSE.txt)
+[MPL 2.0](https://github.com/Naramsim/Mrb.in/blob/master/LICENSE.txt)
 
 ## Authors
 [@Naramsim](https://www.github.com/Naramsim) and [@balde73](https://www.github.com/balde73)
