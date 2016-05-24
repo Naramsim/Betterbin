@@ -1,6 +1,6 @@
 <body>
-	{{#if homeRaw}}
-		{{> raw}}
+	{{#if homeEmbed}}
+		{{> embed}}
 	{{else}}
 		<div id="megaContainer">
 			<div id="bodyContainer">
@@ -16,7 +16,7 @@
 					        enableLiveAutocompletion: true,
 					        enableBasicAutocompletion: true
 						});
-						initEditor();
+						//initEditor();
 					});
 				</script>
 				{{> footer}}
@@ -24,137 +24,7 @@
 			{{> slideout}}
 		</div>
 		{{> megaslideout}}
+		{{> tooltips }}
+		{{> embedDialog}}
 	{{/if}}
-	{{> tooltips }}
 </body>
-
-<template name = "raw">
-	<pre style="background:white;">{{rawText}}</pre>
-</template>
-
-<template name = "header">
-	<header class="headerFlex">
-		{{#if homePage}}
-		<div class="inputContainer">
-			<input id="pasteName" type="text" name="title" placeholder="Enter title..." />
-			{{> languages}}
-		</div>
-		<div class="controlsContainer">
-			<button id="submitPaste" data-tooltip="Save" data-tooltip-direction="s" class="btn-ghost">
-				<span class="octicon octicon-cloud-upload"></span>
-			</button>
-			<button id="encryptPaste" data-tooltip="Encrypt" data-tooltip-direction="s" class="btn-ghost">
-				<span class="octicon octicon-lock"></span>
-			</button>
-			<button id="hidePaste" data-tooltip="Hide from web" data-tooltip-direction="s" class="btn-ghost">
-				<i class="fa fa-eye-slash"></i>
-			</button>
-			{{> controls}}
-		</div>
-		{{/if}}
-		
-		{{#if homePaste}}
-			<button class="btn-ghost" id="home" onclick="location.href='{{siteName}}';">
-				<span class="octicon octicon-diff-added"></span>
-			</button>
-			<div id="pasteName">
-				{{#if isFork}}
-					<span class="octicon octicon-repo-forked"></span>
-				{{/if}}
-				{{title}}
-			</div>
-			<div id="controls">
-				<button class="btn-ghost new-download" data-tooltip="Save to PC" data-tooltip-direction="s">
-					<span class="octicon octicon-desktop-download"></span>
-				</button>
-				<button class="btn-ghost copyPasteUrl" data-clipboard-text="{{pasteUrl}}" data-tooltip="Copy link to clipboard" data-tooltip-direction="s">
-					<span class="octicon octicon-clippy"></span>
-				</button>
-				<button class="btn-ghost" onclick="window.open('{{siteName}}/api/v1/raw/{{pasteName}}','blank');" data-tooltip="View Raw" data-tooltip-direction="s">
-					<span class="octicon octicon-file-binary"></span>
-				</button>
-				<button class="btn-ghost new-fork" data-tooltip="Fork" data-tooltip-direction="s">
-					<span class="octicon octicon-repo-forked"></span>
-				</button>
-				<button class="btn-ghost new-bookmark" data-tooltip="Save in your files" data-tooltip-direction="s">
-					<span class="octicon octicon-bookmark"></span>
-				</button>
-				{{> controls}}
-			</div>
-		{{/if}}
-	</header>
-</template>	
-
-<template name="footer">
-	<footer>
-		<div class="left-footer">
-			<div class="elem stats pad0">
-				LATEST PASTES:
-			</div>
-			<div class="elem stats">
-				{{#each item in latestPastes}}
-					<a href="{{siteName}}/pastes/{{item.name}}">{{item.title}}</a><span class="latest-language">{{item.language}}</span> 
-				{{/each}}
-			</div>
-		</div>
-		<div class="right-footer">
-			{{#if selectionIsMoreThanOneLine}}
-				<div class="elem stats">
-					{{selectionRowRange}} lines
-				</div>
-			{{/if}}
-			{{#if rangeLength}}
-				<div class="elem stats">
-					{{rangeLength}} chars selected
-				</div>
-			{{/if}}
-			<div class="elem stats">
-				Line {{cursor.row}}, Column {{cursor.column}}
-			</div>
-			<div class="elem stats">
-				Rows: {{length}}
-			</div>
-			<div class="elem file-type">
-				{{lang}}
-			</div>
-		</div>
-	</footer>
-</template>
-
-<template name="slideout">
-	<nav id="menu">
-		{{> userpastes}}
-		{{> shortcuts}}
-	</nav>
-	<script>
-		slideout = new Slideout({
-			'panel': document.getElementById('bodyContainer'),
-			'menu': document.getElementById('menu'),
-			'padding': 256,
-			'tolerance': 70,
-			'side': 'right'
-		});
-	</script>
-</template>	
-
-<template name="megaslideout">
-	<nav id="about" class="about-menu">
-		{{> about}}
-	</nav>
-	<script>
-		megaSlideout = new Slideout({
-			'panel': document.getElementById('megaContainer'),
-			'menu': document.getElementById('about'),
-			'padding': 256,
-			'tolerance': 70,
-			'side': 'left',
-			'touch': false
-		});
-	</script>
-</template>	
-
-<template name="controls">
-	<button class="btn-ghost" id="tools" data-tooltip="Manage" data-tooltip-direction="s">
-		<span class="octicon octicon-three-bars"></span>
-	</button>
-</template>

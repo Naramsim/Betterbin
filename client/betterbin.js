@@ -2,6 +2,7 @@
 
 //Do NOT declare as var, it will override the server one
 PastesLinks = new Mongo.Collection("pastesLinks");
+BookMarks = new Mongo.Collection("bookMarks");
 
 //Startup
 Meteor.startup(function() {
@@ -13,6 +14,8 @@ Meteor.startup(function() {
 	Session.set("isFork", false);
 	Session.set("siteName", siteName);
 	new Clipboard('.copyPasteUrl');
+	new Clipboard('.new-embed');
+	new Clipboard('.iframeCopy');
 
 	Session.set("auth", login());
 	document.onkeydown = KeyPress;
@@ -21,10 +24,10 @@ Meteor.startup(function() {
 	});
 
 	loadUserPastes();
-	loadUserBookmarks();
 	loadLangs();
 
 	Meteor.subscribe("pastesLinks");
+	Meteor.subscribe("bookMarks", Session.get("auth"));
 
 	document.querySelector('.ace_editor').addEventListener('click', function() {
 		if(slideout.isOpen()){

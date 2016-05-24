@@ -1,3 +1,19 @@
+<template name="slideout">
+	<nav id="menu">
+		{{> userpastes}}
+		{{> shortcuts}}
+	</nav>
+	<script>
+		slideout = new Slideout({
+			'panel': document.getElementById('bodyContainer'),
+			'menu': document.getElementById('menu'),
+			'padding': 256,
+			'tolerance': 70,
+			'side': 'right'
+		});
+	</script>
+</template>	
+
 <template name="userpastes">
 	<div class="pure-menu pure-menu-scrollable custom-restricted">
 		<a href="#" class="pure-menu-heading">Your pastes</a>
@@ -115,4 +131,20 @@
 		</div>
 		
 	</div>
+</template>
+
+<template name="megaslideout">
+	<nav id="about" class="about-menu">
+		{{> about}}
+	</nav>
+	<script>
+		megaSlideout = new Slideout({
+			'panel': document.getElementById('megaContainer'),
+			'menu': document.getElementById('about'),
+			'padding': 256,
+			'tolerance': 70,
+			'side': 'left',
+			'touch': false
+		});
+	</script>
 </template>

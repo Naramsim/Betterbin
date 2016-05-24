@@ -1,4 +1,4 @@
-body{
+#megaContainer{
 	background:		#1d1f21;
 }
 
@@ -16,4 +16,8 @@ body .pad0 {
 
 .pure-menu-link {
 	transition: 0.2s;
+}
+
+body {
+	text-rendering: optimizeLegibility;
 }

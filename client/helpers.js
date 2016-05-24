@@ -4,6 +4,8 @@ Template.registerHelper("homePage", function() {return Session.get("isHome");});
 
 Template.registerHelper("homePaste", function() {return Session.get("isPaste");});
 
+Template.registerHelper("homeEmbed", function() {return Session.get("isEmbed");});
+
 Template.registerHelper("siteName", function() {return Session.get("siteName");});
 
 Template.header.events({
@@ -11,10 +13,14 @@ Template.header.events({
 		uploadBlob(0);
 		return false;
 	},
+	"click .new-embed": function (event) {
+		Session.set("iframeHeight", editor.session.getLength() * 14 + 48 + 22);
+		showEmbedDialog();
+	},
 	"click .new-download": function (event) {	
 		downloadBlob(Session.get("pasteTitle"), Session.get("pasteText"));
 	},
-	"click .new-fork": function (event) {	
+	"click .new-fork": function (event) {
 		Session.set("isHome", true);
 		Session.set("isPaste", false);
 		Session.set("isFork", true);
@@ -27,7 +33,7 @@ Template.header.events({
 		},300);
 	},
 	"click .new-bookmark": function (event) {
-		if(Session.get("userBookmarksLinks").indexOf(Session.get("pasteName")) === -1){
+		if(!BookMarks.find({bookmarkLink: Session.get("pasteName")}).fetch().length){
 			bookmarkPaste();
 			Notify.startToast(2000, "Click Manage to view the saved paste", "Saved");
 		}else{
@@ -40,7 +46,7 @@ Template.header.events({
 	"change #selectLanguage": function (event) {
 		var lang = checkFramework(event.target.value);
 		editor.getSession().setMode("ace/mode/" + lang);
-		setLocalLang(lang);
+		setLocalLang(event.target.value);
 	},
 	"click #tools": function (event) {
 		slideout.toggle();
@@ -75,14 +81,6 @@ Template.header.helpers({
 	isFork: function () {return Session.get("isForked");}
 });
 
-Template.body.helpers({
-	homeRaw: function() {return Session.get("isRaw");}
-});
-
-Template.raw.helpers({
-	rawText: function() {return Session.get("pasteText");}
-});
-
 Template.userpastes.helpers({
 	userPastesLoaded: function () {return Session.get("userPastesLoaded");},
 	userPastes: function () {return Session.get("userPastes").userPastes;},
@@ -91,7 +89,9 @@ Template.userpastes.helpers({
 							var lang = Session.get("langList").filter(function(f){
 								return f.name === tthis.language 
 							})[0];
-							return lang.icon !== "null" || lang.vect !== "null";
+							if(!!lang){
+								return lang.icon !== "null" || lang.vect !== "null";
+							}else {return false;}
 	},
 	langImg: function () {
 							var tthis = this;
@@ -114,7 +114,7 @@ Template.userpastes.helpers({
 			return localStorage.getItem(this.name);
 		} else {return "";}
 	},
-	userBookmarks: function () {return Session.get("userBookmarks").userBookmarks;}
+	userBookmarks: function () {return BookMarks.find();}
 });
 
 Template.userpastes.events ({
@@ -152,6 +152,49 @@ Template.languages.helpers({
 
 Template.languages.onRendered(function(){
 	setTimeout(function(){
-		document.getElementById("selectLanguage").value = Session.get("lastLang");
+		if(Session.get("lastLang") !== null){
+			document.getElementById("selectLanguage").value = Session.get("lastLang");
+		}
 	},300);
+});
+
+Template.embed.helpers({
+	pasteTitle: function() {return Session.get("pasteTitle");},
+	pasteText: function() {return Session.get("pasteText");},
+	pasteLang: function() {return Session.get("pasteLang");},
+	pasteName: function() {return Session.get("pasteName");},
+	hasImgOrVect: function (){
+							var lang = Session.get("langList").filter(function(f){
+								return f.name === Session.get("pasteLang"); 
+							})[0];
+							if(!!lang){
+								return lang.icon !== "null" || lang.vect !== "null";
+							}else {return false;}
+	},
+	langImg: function () {
+							var icon = Session.get("langList").filter(function(f){
+								return f.name === Session.get("pasteLang");
+							})[0].icon;
+							return icon !== "null" ? icon : false;
+	},
+	langVect: function () {
+							var vect = Session.get("langList").filter(function(f){
+								return f.name === Session.get("pasteLang");
+							})[0].vect;
+							return vect !== "null" ? vect : false;
+	},
+});
+
+Template.embedDialog.helpers({
+	pasteName: function() {return Session.get("pasteName");},
+	iframeHeight: function() {return Session.get("iframeHeight");}
+});
+
+Template.embedDialog.events({
+	"click .iframeCopy": function (event) {
+		Notify.startToast(2000, "Iframe has been copied to the clipboard", "Go and paste");
+	},
+	"click .embedDialogOverlay": function (event) {
+		hideEmbedDialog();
+	}
 });
