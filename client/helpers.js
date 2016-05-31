@@ -35,13 +35,13 @@ Template.header.events({
 	"click .new-bookmark": function (event) {
 		if(!BookMarks.find({bookmarkLink: Session.get("pasteName")}).fetch().length){
 			bookmarkPaste();
-			Notify.startToast(2000, "Click Manage to view the saved paste", "Saved");
+			notifyToast.start("Click Manage to view the saved paste", "Saved");
 		}else{
-			Notify.startToast(2000, "This paste is already in your files", "OPS..");
+			notifyToast.start("This paste is already in your files", "OPS..");
 		}
 	},
 	"click .copyPasteUrl": function (event) {
-		Notify.startToast(2000, "Adress has been copied to the clipboard", "Go and paste");
+		notifyToast.start("Adress has been copied to the clipboard", "Go and paste");
 	},
 	"change #selectLanguage": function (event) {
 		var lang = checkFramework(event.target.value);
@@ -122,7 +122,7 @@ Template.userpastes.events ({
 		slideout.close();
 	},
 	"click .copyPasteUrl": function (event) {
-		Notify.startToast(2000, "Adress has been copied to the clipboard", "Go and paste it");
+		Notify.start(2000, "Adress has been copied to the clipboard", "Go and paste it");
 	},
 	"click .delete-paste": function (event) {
 		deletePaste(event.toElement.attributes["data-attr"].nodeValue);
@@ -192,7 +192,7 @@ Template.embedDialog.helpers({
 
 Template.embedDialog.events({
 	"click .iframeCopy": function (event) {
-		Notify.startToast(2000, "Iframe has been copied to the clipboard", "Go and paste");
+		notifyToast.start("Iframe has been copied to the clipboard", "Go and paste");
 	},
 	"click .embedDialogOverlay": function (event) {
 		hideEmbedDialog();

@@ -16,7 +16,8 @@ Meteor.startup(function() {
 	new Clipboard('.copyPasteUrl');
 	new Clipboard('.new-embed');
 	new Clipboard('.iframeCopy');
-
+	notifyToast = new Toast();
+	notifyToast.stayOnFor(2100);
 	Session.set("auth", login());
 	document.onkeydown = KeyPress;
 	$("textarea").keydown(function(e){
