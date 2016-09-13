@@ -27,7 +27,7 @@ It supports:
 * Language-specific snippets
 
 ## Live
-[Betterbin.co](http://betterbin.co/)
+[~~Betterbin.co~~](http://betterbin.co/)
 
 ## LICENSE
 [MPL 2.0](https://github.com/Naramsim/Mrb.in/blob/master/LICENSE.txt)
