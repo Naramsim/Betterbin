@@ -9,7 +9,7 @@ var BookMarks = new Mongo.Collection("bookMarks");
 createPasteDir();
 
 Meteor.publish("pastesLinks", function() {
-    return PastesLinks.find();
+    return PastesLinks.find({isHide: false}, {sort: {createdAt: -1}, limit: 6, fields: {title: 1, language: 1, name: 1, createdAt: 1}});
 });
 Meteor.publish("bookMarks", function(auth) {
 	return BookMarks.find({owner: auth});
