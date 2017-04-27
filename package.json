@@ -1,6 +1,6 @@
 {
   "name": "betterbin",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "meteor pastebin",
   "main": "index.js",
   "dependencies": {
@@ -11,7 +11,7 @@
     "meteor-now": "^0.2.2"
   },
   "scripts": {
-    "now-deploy": "meteor-now -e MONGO_URL=@betterbinmongourl -e ROOT_URL=https://betterbin.now.sh",
+    "now-deploy": "meteor-now -d -e 'MONGO_URL=@betterbinmongourl' -e 'ROOT_URL=https://betterbin.now.sh' -e NODE_ENV=production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
