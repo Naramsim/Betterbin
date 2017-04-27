@@ -4,11 +4,14 @@
   "description": "meteor pastebin",
   "main": "index.js",
   "dependencies": {
-    "meteor-node-stubs": "^0.2.3",
+    "meteor-node-stubs": "^0.2.6",
     "nprogress": "^0.2.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "meteor-now": "^0.2.2"
+  },
   "scripts": {
+    "now-deploy": "meteor-now -e MONGO_URL=@betterbinmongourl -e ROOT_URL=https://betterbin.now.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
