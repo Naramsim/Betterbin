@@ -1,7 +1,6 @@
 # Betterbin
 
 [![bitHound Score](https://www.bithound.io/github/Naramsim/Mrb.in/badges/score.svg)](https://www.bithound.io/github/Naramsim/Mrb.in)
-[![Codacy Badge](https://api.codacy.com/project/badge/745cfbd960e24e82b8e2ff7551a3ba76)](https://www.codacy.com/app/igougi-ui/Mrb-in)
 [![Code Climate](https://codeclimate.com/github/Naramsim/Mrb.in/badges/gpa.svg)](https://codeclimate.com/github/Naramsim/Mrb.in)
 [![Codeship](https://img.shields.io/codeship/d30bf080-84be-0133-38c4-260819c0cb46/master.svg)](https://codeship.com/projects/122052)
 [![Gitter](https://img.shields.io/gitter/room/Naramsim/betterbin1.svg?maxAge=2592000)](https://gitter.im/Naramsim/betterbin1)
@@ -25,9 +24,11 @@ It supports:
 * Common languages error/syntax checking
 * Autocompletion
 * Language-specific snippets
+* Code embedding via iframes
+* Line and blocks sharing (www.url.com/paste#L15-L22)
 
 ## Live
-[~~Betterbin.co~~](http://betterbin.co/)
+[betterbin.now.sh](https://betterbin.now.sh/)
 
 ## LICENSE
 [MPL 2.0](https://github.com/Naramsim/Mrb.in/blob/master/LICENSE.txt)
